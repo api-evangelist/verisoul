@@ -1,0 +1,75 @@
+openapi: 3.0.1
+info:
+  title: Verisoul Account Public API
+  description: The Verisoul API is used to integrate Verisoul into your application.
+  license:
+    name: MIT
+  version: 1.0.0
+servers:
+- url: https://api.sandbox.verisoul.ai
+security:
+- apiKeyAuth: []
+tags:
+- name: Public
+paths:
+  /public/liveness-redirect:
+    get:
+      summary: Public redirect to Face Match
+      description: A public endpoint that redirects to the Face Match verification page.
+      operationId: redirectToFaceMatch
+      tags:
+      - Public
+      security: []
+      parameters:
+      - name: project_id
+        in: query
+        description: Project ID for the verification
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: referring_session_id
+        in: query
+        description: ID of a referring session, if applicable
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '302':
+          description: Redirect to verification page
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: URL to redirect to
+          content: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - missing_project_id
+                    - groups_enabled
+                    description: Error code indicating the reason for failure
+              examples:
+                missing_project_id:
+                  summary: Missing project_id
+                  value:
+                    error: missing_project_id
+                groups_enabled:
+                  summary: Groups enabled on project
+                  value:
+                    error: groups_enabled
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

@@ -1,0 +1,104 @@
+openapi: 3.0.1
+info:
+  title: Verisoul Account Enrollment API
+  description: The Verisoul API is used to integrate Verisoul into your application.
+  license:
+    name: MIT
+  version: 1.0.0
+servers:
+- url: https://api.sandbox.verisoul.ai
+security:
+- apiKeyAuth: []
+tags:
+- name: Enrollment
+paths:
+  /liveness/enroll:
+    post:
+      summary: Enroll Account
+      description: Enrolls an account in Face Match system using the provided session ID and account ID. Sessions must be enrolled within 30 days of creation.
+      operationId: enrollFaceMatch
+      tags:
+      - Enrollment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRequest'
+            example:
+              session_id: 0007b793-ae5d-45a2-8d9f-4a5b573c3271
+              account_id: example-account-id
+      responses:
+        '200':
+          description: Enrollment successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrollResponse'
+              example:
+                request_id: 8757569c-61e6-454b-afc9-59232e861496
+                success: true
+        '400':
+          description: Bad request - session is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                    format: uuid
+                    description: Unique identifier for the request
+                  success:
+                    type: boolean
+                    description: Indicates whether the request was successful
+                  error:
+                    type: string
+                    enum:
+                    - session_not_found
+                    - session_not_started
+                    - session_not_valid_for_this_endpoint
+                    - session_not_complete
+                    - liveness_check_failed
+                    - id_scan_not_complete
+                    - id_scan_failed
+                    - session_already_tied_to_an_account
+                    - session_older_than_30_days
+                    description: Error code indicating the reason for failure
+              example:
+                request_id: 8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5
+                success: false
+                error: session_not_found
+components:
+  schemas:
+    EnrollResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the request
+        success:
+          type: boolean
+          description: Indicates whether the enrollment was successful
+      required:
+      - request_id
+      - success
+    EnrollRequest:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session ID of a completed Face Match session
+        account_id:
+          type: string
+          description: Unique identifier for the user account
+      required:
+      - session_id
+      - account_id
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

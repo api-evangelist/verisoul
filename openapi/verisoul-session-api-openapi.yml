@@ -1,0 +1,1496 @@
+openapi: 3.0.1
+info:
+  title: Verisoul Account Session API
+  description: The Verisoul API is used to integrate Verisoul into your application.
+  license:
+    name: MIT
+  version: 1.0.0
+servers:
+- url: https://api.sandbox.verisoul.ai
+security:
+- apiKeyAuth: []
+tags:
+- name: Session
+paths:
+  /liveness/session:
+    get:
+      summary: Get Face Match Session
+      description: Get a new session for Face Match verification. This is the first step in the Face Match workflow.
+      operationId: createFaceMatchSession
+      tags:
+      - Session
+      parameters:
+      - name: referring_session_id
+        in: query
+        description: ID of a referring session, if applicable
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: simulate
+        in: query
+        description: See [Simulate Face Match](/verifications/face-match/resources/simulate-face-match) for more information
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+              example:
+                request_id: db4ad346-e8f1-46cc-922d-f89ca8fb7ac7
+                session_id: 00022912-cbaa-4239-a3ec-51c32fcc0fc1
+        '400':
+          description: Bad request - groups enabled on project
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                    format: uuid
+                    description: Unique identifier for the request
+                  success:
+                    type: boolean
+                    description: Indicates whether the request was successful
+                  error:
+                    type: string
+                    enum:
+                    - groups_enabled
+                    description: Error code indicating the reason for failure
+              example:
+                request_id: e6f078a5-7931-4c41-ad53-1ef35a4ca762
+                success: false
+                error: groups_enabled
+  /session/{session_id}:
+    get:
+      description: Returns detailed information about a specific session
+      parameters:
+      - name: session_id
+        in: path
+        description: ID of the session to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Session information response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse_2'
+              example:
+                account_ids:
+                - john-doe
+                request_id: 7c1fb7c5-8e5f-43f0-b35e-56b9698dac0f
+                project_id: 00000000-0000-0000-0000-000000000001
+                session_id: 56f9a065-1583-48af-a5c4-cd5921b21a12
+                start_time: '2025-06-10T16:45:21.822Z'
+                true_country_code: US
+                device_id: 6yONB4zT6k2i7SXvWkwC9s
+                network:
+                  ip_address: 2600:1700:261:b810:8828:f0b6:3b95:667c
+                  service_provider: AT&T Enterprises, LLC
+                  connection_type: isp
+                location:
+                  continent: NA
+                  country_code: US
+                  state: Texas
+                  city: Austin
+                  zip_code: '78729'
+                  timezone: America/Chicago
+                  latitude: 30.4521
+                  longitude: -97.7688
+                browser:
+                  type: Chrome
+                  version: 137.0.0.0
+                  language: en-US
+                  user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+                  timezone: America/Chicago
+                device:
+                  category: desktop
+                  type: Mac
+                  os: macOS 10.15.7
+                  cpu_cores: 16
+                  memory: 8
+                  gpu: 'ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)'
+                  screen_height: 1329
+                  screen_width: 2056
+                bot:
+                  mouse_num_events: 84
+                  click_num_events: 2
+                  keyboard_num_events: 0
+                  touch_num_events: 0
+                  clipboard_num_events: 1
+                risk_signals:
+                  device_risk: false
+                  proxy: false
+                  vpn: false
+                  tor: false
+                  spoofed_ip: false
+                  datacenter: false
+                  recent_fraud_ip: false
+                  impossible_travel: false
+                  device_network_mismatch: false
+                  location_spoofing: false
+                risk_signal_scores:
+                  device_risk: 0.3971
+                  proxy: 0
+                  vpn: 0
+                  tor: 0
+                  datacenter: 0
+                  recent_fraud_ip: 0
+                  impossible_travel: 0
+                  device_network_mismatch: 0.0001
+                  location_spoofing: 0
+        '400':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionError'
+              example:
+                statusCode: 400
+                message: Session ID not found
+      tags:
+      - Session
+  /session/authenticate:
+    post:
+      description: Authenticates a session with an account
+      parameters:
+      - name: accounts_linked
+        in: query
+        description: Whether to include linked accounts in the response
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        description: Session authentication information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionAuthenticateRequest'
+        required: true
+      responses:
+        '200':
+          description: Session authentication response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionAuthenticateResponse'
+              examples:
+                default:
+                  summary: Session authentication response
+                  value:
+                    project_id: 00000000-0000-0000-0000-000000000001
+                    session_id: 7fd9d3e5-a5d3-4e47-9c2a-69fd8f0e0bd7
+                    account_id: john-doe
+                    request_id: 055ce1fc-0219-4909-9cb4-091be9d374d6
+                    decision: Real
+                    account_score: 0.17
+                    bot: 0
+                    multiple_accounts: 0
+                    risk_signals: 0.17
+                    accounts_linked: 0
+                    lists:
+                    - us_users
+                    session:
+                      start_time: '2025-06-10T16:35:22.184Z'
+                      true_country_code: US
+                      device_id: 6yONB4zT6k2i7SXvWkwC9s
+                      network:
+                        ip_address: 107.209.253.92
+                        service_provider: AT&T Internet
+                        connection_type: isp
+                      location:
+                        continent: NA
+                        country_code: US
+                        state: Texas
+                        city: Austin
+                        zip_code: '78729'
+                        timezone: America/Chicago
+                        latitude: 30.3773
+                        longitude: -97.71
+                      browser:
+                        type: Chrome
+                        version: 137.0.0.0
+                        language: en-US
+                        user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+                        timezone: America/Chicago
+                      device:
+                        category: desktop
+                        type: Mac
+                        os: macOS 10.15.7
+                        cpu_cores: 16
+                        memory: 8
+                        gpu: 'ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)'
+                        screen_height: 1329
+                        screen_width: 2056
+                      bot:
+                        mouse_num_events: 0
+                        click_num_events: 0
+                        keyboard_num_events: 0
+                        touch_num_events: 0
+                        clipboard_num_events: 0
+                      risk_signals:
+                        device_risk: false
+                        proxy: false
+                        vpn: false
+                        tor: false
+                        spoofed_ip: false
+                        datacenter: false
+                        recent_fraud_ip: false
+                        impossible_travel: false
+                        device_network_mismatch: false
+                        location_spoofing: false
+                      risk_signal_scores:
+                        device_risk: 0.1431
+                        proxy: 0
+                        vpn: 0
+                        tor: 0
+                        datacenter: 0
+                        recent_fraud_ip: 0
+                        impossible_travel: 0
+                        device_network_mismatch: 0.0001
+                        location_spoofing: 0
+                    account:
+                      account:
+                        id: john-doe
+                        email: johndoe.example@gmail.com
+                        metadata: {}
+                        group: ''
+                      num_sessions: 3
+                      first_seen: '2025-06-10T16:35:22.184Z'
+                      last_seen: '2025-06-10T16:35:52.018Z'
+                      last_session: 7fd9d3e5-a5d3-4e47-9c2a-69fd8f0e0bd7
+                      country: US
+                      countries:
+                      - US
+                      unique_devices:
+                        1_day: 1
+                        7_day: 1
+                      unique_networks:
+                        1_day: 1
+                        7_day: 1
+                      email:
+                        email: johndoe.example@gmail.com
+                        disposable: false
+                        personal: true
+                        valid: true
+                        domain_type: personal
+                        email_score: 0
+                        trust_signals:
+                        - email_age_greater_than_5_years
+                        - email_known_online_history
+                        risk_signals:
+                        - email_alias
+                        num_account_from_domain: 156
+                      risk_signal_average:
+                        device_risk: 0.2266
+                        proxy: 0
+                        vpn: 0
+                        tor: 0
+                        spoofed_ip: 0
+                        datacenter: 0
+                        recent_fraud_ip: 0
+                        impossible_travel: 0
+                        device_network_mismatch: 0.0001
+                        location_spoofing: 0
+                with accounts_linked:
+                  summary: Session authentication response with linked accounts
+                  value:
+                    project_id: 00000000-0000-0000-0000-000000000001
+                    session_id: 7fd9d3e5-a5d3-4e47-9c2a-69fd8f0e0bd7
+                    account_id: john-doe-2
+                    request_id: 055ce1fc-0219-4909-9cb4-091be9d374d6
+                    decision: Real
+                    account_score: 0.17
+                    bot: 0
+                    multiple_accounts: 0
+                    risk_signals: 0.17
+                    accounts_linked: 0
+                    lists:
+                    - us_users
+                    session:
+                      start_time: '2025-06-10T16:35:22.184Z'
+                      true_country_code: US
+                      device_id: 6yONB4zT6k2i7SXvWkwC9s
+                      network:
+                        ip_address: 107.209.253.92
+                        service_provider: AT&T Internet
+                        connection_type: isp
+                      location:
+                        continent: NA
+                        country_code: US
+                        state: Texas
+                        city: Austin
+                        zip_code: '78729'
+                        timezone: America/Chicago
+                        latitude: 30.3773
+                        longitude: -97.71
+                      browser:
+                        type: Chrome
+                        version: 137.0.0.0
+                        language: en-US
+                        user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+                        timezone: America/Chicago
+                      device:
+                        category: desktop
+                        type: Mac
+                        os: macOS 10.15.7
+                        cpu_cores: 16
+                        memory: 8
+                        gpu: 'ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)'
+                        screen_height: 1329
+                        screen_width: 2056
+                      bot:
+                        mouse_num_events: 0
+                        click_num_events: 0
+                        keyboard_num_events: 0
+                        touch_num_events: 0
+                        clipboard_num_events: 0
+                      risk_signals:
+                        device_risk: false
+                        proxy: false
+                        vpn: false
+                        tor: false
+                        spoofed_ip: false
+                        datacenter: false
+                        recent_fraud_ip: false
+                        impossible_travel: false
+                        device_network_mismatch: false
+                        location_spoofing: false
+                      risk_signal_scores:
+                        device_risk: 0.1431
+                        proxy: 0
+                        vpn: 0
+                        tor: 0
+                        datacenter: 0
+                        recent_fraud_ip: 0
+                        impossible_travel: 0
+                        device_network_mismatch: 0.0001
+                        location_spoofing: 0
+                    account:
+                      account:
+                        id: john-doe
+                        email: johndoe.example@gmail.com
+                        metadata: {}
+                        group: ''
+                      num_sessions: 3
+                      first_seen: '2025-06-10T16:35:22.184Z'
+                      last_seen: '2025-06-10T16:35:52.018Z'
+                      last_session: 7fd9d3e5-a5d3-4e47-9c2a-69fd8f0e0bd7
+                      country: US
+                      countries:
+                      - US
+                      unique_devices:
+                        1_day: 1
+                        7_day: 1
+                      unique_networks:
+                        1_day: 1
+                        7_day: 1
+                      email:
+                        email: johndoe.example@gmail.com
+                        disposable: false
+                        personal: true
+                        valid: true
+                        domain_type: personal
+                        email_score: 0
+                        trust_signals:
+                        - email_age_greater_than_5_years
+                        - email_known_online_history
+                        risk_signals:
+                        - email_alias
+                        num_account_from_domain: 156
+                      risk_signal_average:
+                        device_risk: 0.2266
+                        proxy: 0
+                        vpn: 0
+                        tor: 0
+                        spoofed_ip: 0
+                        datacenter: 0
+                        recent_fraud_ip: 0
+                        impossible_travel: 0
+                        device_network_mismatch: 0.0001
+                        location_spoofing: 0
+                    linked_accounts:
+                    - account_id: john-doe-2
+                      score: 1
+                      email: john.doe2@example.com
+                      phone: '+14155550123'
+                      first_name: Jane
+                      last_name: Doe
+                      username: jane.doe
+                      expected_countries:
+                      - US
+                      - CA
+                      match_type:
+                      - browser
+                      - network
+                      - email
+                      - phone
+                      - username
+                      lists:
+                      - us_users
+                      metadata: {}
+                    - account_id: alice-2
+                      score: 0.17
+                      email: alice.2@example.com
+                      phone: '+14155550123'
+                      first_name: Jane
+                      last_name: Doe
+                      username: jane.doe
+                      expected_countries:
+                      - US
+                      - CA
+                      match_type:
+                      - network
+                      lists:
+                      - us_users
+                      metadata: {}
+        '400':
+          description: Session not found or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionAuthenticateError'
+              example:
+                statusCode: 400
+                message: Session ID not found
+      tags:
+      - Session
+  /session/unauthenticated:
+    post:
+      description: Evaluates a session without authentication
+      parameters:
+      - name: accounts_linked
+        in: query
+        description: Whether to include linked accounts in the response
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        description: Session information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionUnauthenticatedRequest'
+        required: true
+      responses:
+        '200':
+          description: Session evaluation response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionUnauthenticatedResponse'
+              examples:
+                default:
+                  summary: Session evaluation response
+                  value:
+                    project_id: 00000000-0000-0000-0000-000000000001
+                    session_id: 56f9a065-1583-48af-a5c4-cd5921b21a12
+                    request_id: f1ebfd0d-334d-450e-88e8-4705dba7d611
+                    decision: Real
+                    account_score: 0.2233
+                    bot: 0
+                    multiple_accounts: 0.2053
+                    risk_signals: 0.3018
+                    accounts_linked: 2
+                    lists:
+                    - us_users
+                    session:
+                      start_time: '2025-06-10T16:45:21.822Z'
+                      true_country_code: US
+                      device_id: 6yONB4zT6k2i7SXvWkwC9s
+                      network:
+                        ip_address: 2600:1700:261:b810:8828:f0b6:3b95:667c
+                        service_provider: AT&T Enterprises, LLC
+                        connection_type: isp
+                      location:
+                        continent: NA
+                        country_code: US
+                        state: Texas
+                        city: Austin
+                        zip_code: '78729'
+                        timezone: America/Chicago
+                        latitude: 30.4521
+                        longitude: -97.7688
+                      browser:
+                        type: Chrome
+                        version: 137.0.0.0
+                        language: en-US
+                        user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+                        timezone: America/Chicago
+                      device:
+                        category: desktop
+                        type: Mac
+                        os: macOS 10.15.7
+                        cpu_cores: 16
+                        memory: 8
+                        gpu: 'ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)'
+                        screen_height: 1329
+                        screen_width: 2056
+                      bot:
+                        mouse_num_events: 0
+                        click_num_events: 0
+                        keyboard_num_events: 0
+                        touch_num_events: 0
+                        clipboard_num_events: 0
+                      risk_signals:
+                        device_risk: false
+                        proxy: false
+                        vpn: false
+                        tor: false
+                        spoofed_ip: false
+                        datacenter: false
+                        recent_fraud_ip: false
+                        impossible_travel: false
+                        device_network_mismatch: false
+                        location_spoofing: false
+                      risk_signal_scores:
+                        device_risk: 0.4024
+                        proxy: 0
+                        vpn: 0
+                        tor: 0
+                        datacenter: 0
+                        recent_fraud_ip: 0
+                        impossible_travel: 0
+                        device_network_mismatch: 0.0001
+                        location_spoofing: 0
+                with accounts_linked:
+                  summary: Session evaluation response with linked accounts
+                  value:
+                    project_id: 00000000-0000-0000-0000-000000000001
+                    session_id: 56f9a065-1583-48af-a5c4-cd5921b21a12
+                    request_id: f1ebfd0d-334d-450e-88e8-4705dba7d611
+                    decision: Real
+                    account_score: 0.2233
+                    bot: 0
+                    multiple_accounts: 0.2053
+                    risk_signals: 0.3018
+                    accounts_linked: 2
+                    lists:
+                    - us_users
+                    session:
+                      start_time: '2025-06-10T16:45:21.822Z'
+                      true_country_code: US
+                      device_id: 6yONB4zT6k2i7SXvWkwC9s
+                      network:
+                        ip_address: 2600:1700:261:b810:8828:f0b6:3b95:667c
+                        service_provider: AT&T Enterprises, LLC
+                        connection_type: isp
+                      location:
+                        continent: NA
+                        country_code: US
+                        state: Texas
+                        city: Austin
+                        zip_code: '78729'
+                        timezone: America/Chicago
+                        latitude: 30.4521
+                        longitude: -97.7688
+                      browser:
+                        type: Chrome
+                        version: 137.0.0.0
+                        language: en-US
+                        user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+                        timezone: America/Chicago
+                      device:
+                        category: desktop
+                        type: Mac
+                        os: macOS 10.15.7
+                        cpu_cores: 16
+                        memory: 8
+                        gpu: 'ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)'
+                        screen_height: 1329
+                        screen_width: 2056
+                      bot:
+                        mouse_num_events: 0
+                        click_num_events: 0
+                        keyboard_num_events: 0
+                        touch_num_events: 0
+                        clipboard_num_events: 0
+                      risk_signals:
+                        device_risk: false
+                        proxy: false
+                        vpn: false
+                        tor: false
+                        spoofed_ip: false
+                        datacenter: false
+                        recent_fraud_ip: false
+                        impossible_travel: false
+                        device_network_mismatch: false
+                        location_spoofing: false
+                      risk_signal_scores:
+                        device_risk: 0.4024
+                        proxy: 0
+                        vpn: 0
+                        tor: 0
+                        datacenter: 0
+                        recent_fraud_ip: 0
+                        impossible_travel: 0
+                        device_network_mismatch: 0.0001
+                        location_spoofing: 0
+                    linked_accounts:
+                    - account_id: john-doe-2
+                      score: 1
+                      email: john.doe2@example.com
+                      phone: '+14155550123'
+                      first_name: Jane
+                      last_name: Doe
+                      username: jane.doe
+                      expected_countries:
+                      - US
+                      - CA
+                      match_type:
+                      - browser
+                      - network
+                      - email
+                      - phone
+                      - username
+                      lists:
+                      - us_users
+                      metadata: {}
+                    - account_id: alice-2
+                      score: 0.17
+                      email: alice.2@example.com
+                      phone: '+14155550123'
+                      first_name: Jane
+                      last_name: Doe
+                      username: jane.doe
+                      expected_countries:
+                      - US
+                      - CA
+                      match_type:
+                      - network
+                      lists:
+                      - us_users
+                      metadata: {}
+        '400':
+          description: Session not found or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionAuthenticateError'
+              example:
+                statusCode: 400
+                message: Session ID not found
+      tags:
+      - Session
+components:
+  schemas:
+    SessionUnauthenticatedResponse:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: The ID of the project
+        session_id:
+          type: string
+          description: The ID of the session
+        request_id:
+          type: string
+          description: The ID of the request
+        decision:
+          type: string
+          description: Decision about the authenticity (Real/Fake)
+        account_score:
+          type: number
+          format: float
+          description: Overall account risk score
+        bot:
+          type: number
+          format: float
+          description: Bot detection score
+        multiple_accounts:
+          type: number
+          format: float
+          description: Multiple accounts detection score
+        risk_signals:
+          type: number
+          format: float
+          description: Risk signals score
+        accounts_linked:
+          type: integer
+          description: Number of accounts linked to this session
+        lists:
+          type: array
+          items:
+            type: string
+          description: Lists the session belongs to
+        session:
+          $ref: '#/components/schemas/SessionDetails'
+        linked_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedAccount'
+          description: List of accounts linked to this session (only included when accounts_linked=true)
+    SessionResponse_2:
+      type: object
+      properties:
+        account_ids:
+          type: array
+          items:
+            type: string
+          description: List of account IDs associated with this session
+        request_id:
+          type: string
+          description: The ID of the request
+        project_id:
+          type: string
+          description: The ID of the project
+        session_id:
+          type: string
+          description: The ID of the session
+        start_time:
+          type: string
+          format: date-time
+          description: Timestamp when the session started
+        true_country_code:
+          type: string
+          description: The true country code of the session
+        device_id:
+          type: string
+          description: Device identifier from the session
+        network:
+          type: object
+          properties:
+            ip_address:
+              type: string
+              description: IP address of the session
+            service_provider:
+              type: string
+              description: Internet service provider
+            connection_type:
+              type: string
+              description: Type of network connection
+        location:
+          type: object
+          properties:
+            continent:
+              type: string
+              description: Continent code
+            country_code:
+              type: string
+              description: Country code
+            state:
+              type: string
+              description: State or region
+            city:
+              type: string
+              description: City name
+            zip_code:
+              type: string
+              description: Postal/ZIP code
+            timezone:
+              type: string
+              description: Timezone of the location
+            latitude:
+              type: number
+              format: float
+              description: Latitude coordinate
+            longitude:
+              type: number
+              format: float
+              description: Longitude coordinate
+        browser:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Browser type
+            version:
+              type: string
+              description: Browser version
+            language:
+              type: string
+              description: Browser language setting
+            user_agent:
+              type: string
+              description: User agent string
+            timezone:
+              type: string
+              description: Browser timezone setting
+        device:
+          type: object
+          properties:
+            category:
+              type: string
+              enum:
+              - desktop
+              - mobile
+              - tablet
+              - console
+              - smarttv
+              - wearable
+              - embedded
+              - other
+              description: Device category. See [Device Categories](/signals-scores/device#device-categories) for details.
+            type:
+              type: string
+              description: Device type
+            os:
+              type: string
+              description: Operating system
+            cpu_cores:
+              type: integer
+              description: Number of CPU cores
+            memory:
+              type: integer
+              description: Amount of memory in GB
+            gpu:
+              type: string
+              description: GPU information
+            screen_height:
+              type: number
+              description: Screen height in pixels
+            screen_width:
+              type: number
+              description: Screen width in pixels
+        bot:
+          type: object
+          properties:
+            mouse_num_events:
+              type: integer
+              description: Number of mouse events
+            click_num_events:
+              type: integer
+              description: Number of click events
+            keyboard_num_events:
+              type: integer
+              description: Number of keyboard events
+            touch_num_events:
+              type: integer
+              description: Number of touch events
+            clipboard_num_events:
+              type: integer
+              description: Number of clipboard events
+        risk_signals:
+          type: object
+          properties:
+            device_risk:
+              type: boolean
+              description: Device risk flag
+            proxy:
+              type: boolean
+              description: Proxy usage flag
+            vpn:
+              type: boolean
+              description: VPN usage flag
+            tor:
+              type: boolean
+              description: Tor usage flag
+            spoofed_ip:
+              type: boolean
+              description: Spoofed IP flag
+            datacenter:
+              type: boolean
+              description: Datacenter IP flag
+            recent_fraud_ip:
+              type: boolean
+              description: Recent fraud IP flag
+            impossible_travel:
+              type: boolean
+              description: Impossible travel flag
+            device_network_mismatch:
+              type: boolean
+              description: Device network mismatch flag
+            location_spoofing:
+              type: boolean
+              description: Location spoofing flag
+        risk_signal_scores:
+          type: object
+          properties:
+            device_risk:
+              type: number
+              format: float
+              description: Device risk score
+            proxy:
+              type: number
+              format: float
+              description: Proxy detection score
+            vpn:
+              type: number
+              format: float
+              description: VPN detection score
+            tor:
+              type: number
+              format: float
+              description: Tor detection score
+            datacenter:
+              type: number
+              format: float
+              description: Datacenter detection score
+            recent_fraud_ip:
+              type: number
+              format: float
+              description: Recent fraud IP detection score
+            impossible_travel:
+              type: number
+              format: float
+              description: Impossible travel detection score
+            device_network_mismatch:
+              type: number
+              format: float
+              description: Device network mismatch score
+            location_spoofing:
+              type: number
+              format: float
+              description: Location spoofing detection score
+    LinkedAccount:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The ID of the linked account
+        score:
+          type: number
+          format: float
+          description: Confidence score of the link between accounts
+        email:
+          type: string
+          description: Email associated with the linked account
+        phone:
+          type: string
+          description: Phone number associated with the linked account
+        first_name:
+          type: string
+          description: First name associated with the linked account
+        last_name:
+          type: string
+          description: Last name associated with the linked account
+        username:
+          type: string
+          description: Username associated with the linked account
+        expected_countries:
+          type: array
+          items:
+            type: string
+          description: Expected countries declared for the linked account (ISO 3166-1 alpha-2 codes)
+        match_type:
+          type: array
+          items:
+            type: string
+          description: 'Types of matches that linked these accounts. Possible values: browser, device, network, email, phone, username, name, mobile_id, apple_device_check.'
+        lists:
+          type: array
+          items:
+            type: string
+          description: Lists the linked account belongs to
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional metadata about the linked account
+    SessionAuthenticateRequest:
+      type: object
+      required:
+      - account
+      - session_id
+      properties:
+        account:
+          type: object
+          description: The account to authenticate. See [Account Object](/api-reference/types/account) for more information.
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: The account identifier
+            email:
+              type: string
+              description: The email associated with the account
+            phone:
+              type: string
+              maxLength: 32
+              description: The phone number on file for the account in E.164 format (e.g. +14155550123). Used for multi-accounting phone matching.
+            first_name:
+              type: string
+              maxLength: 256
+              description: The account holder's first name. Combined with last_name for multi-accounting name matching.
+            last_name:
+              type: string
+              maxLength: 256
+              description: The account holder's last name. Combined with first_name for multi-accounting name matching.
+            username:
+              type: string
+              maxLength: 256
+              description: The username associated with the account. Used for multi-accounting username matching.
+            expected_countries:
+              type: array
+              items:
+                type: string
+                minLength: 2
+                maxLength: 2
+              description: Countries the account is expected to legitimately operate from, as ISO 3166-1 alpha-2 codes (e.g. ["US", "CA"]). A non-empty list replaces the stored list; an empty or omitted list leaves the stored list unchanged.
+            metadata:
+              type: object
+              additionalProperties: true
+              description: Additional metadata about the account
+            group:
+              type: string
+              description: Groups must be enabled for the project to use this field. See [Multi Accounting Groups](/integration/advanced/multi-accounting-groups) for more information.
+            lists:
+              type: array
+              items:
+                type: string
+              description: Array of list names to add the account to during authentication. Lists will be automatically created if they don't exist. See [Lists](/action/lists) for more information.
+        session_id:
+          type: string
+          description: The ID of the session to authenticate
+    AccountDetails:
+      type: object
+      properties:
+        account:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The account identifier
+            email:
+              type: string
+              description: The email associated with the account
+            phone:
+              type: string
+              description: The phone number stored for the account in E.164 format
+            first_name:
+              type: string
+              description: The account holder's first name
+            last_name:
+              type: string
+              description: The account holder's last name
+            username:
+              type: string
+              description: The username stored for the account
+            expected_countries:
+              type: array
+              items:
+                type: string
+              description: Countries the account is expected to operate from (ISO 3166-1 alpha-2 codes)
+            metadata:
+              type: object
+              additionalProperties: true
+              description: Additional metadata about the account
+            group:
+              type: string
+              description: The group associated with the account
+        num_sessions:
+          type: integer
+          description: Number of sessions associated with this account
+        first_seen:
+          type: string
+          format: date-time
+          description: Timestamp when the account was first seen
+        last_seen:
+          type: string
+          format: date-time
+          description: Timestamp when the account was last seen
+        last_session:
+          type: string
+          description: ID of the last session
+        country:
+          type: string
+          description: Country code of the account
+        countries:
+          type: array
+          items:
+            type: string
+          description: List of countries associated with this account
+        unique_devices:
+          type: object
+          properties:
+            1_day:
+              type: integer
+              description: Number of unique devices in the last day
+            7_day:
+              type: integer
+              description: Number of unique devices in the last 7 days
+        unique_networks:
+          type: object
+          properties:
+            1_day:
+              type: integer
+              description: Number of unique networks in the last day
+            7_day:
+              type: integer
+              description: Number of unique networks in the last 7 days
+        email:
+          type: object
+          properties:
+            email:
+              type: string
+              description: Email address
+            disposable:
+              type: boolean
+              description: Whether the email is disposable
+            personal:
+              type: boolean
+              description: Whether the email is personal
+            valid:
+              type: boolean
+              description: Whether the email is valid
+            domain_type:
+              type: string
+              enum:
+              - relay
+              - personal
+              - disposable
+              - business
+              - government
+              - education
+              - invalid
+              - not_active
+              description: The type of domain. See [Domain Types](/signals-scores/email#domain-types) for details.
+            email_score:
+              type: number
+              format: float
+              description: Email risk score from -1 (most trustworthy) to 1 (most risky)
+            trust_signals:
+              type: array
+              items:
+                type: string
+              description: Array of trust signals detected for this email. See [Trust Flags](/signals-scores/email#trust-flags) for descriptions.
+            risk_signals:
+              type: array
+              items:
+                type: string
+              description: Array of risk signals detected for this email. See [Risk Flags](/signals-scores/email#risk-flags) for descriptions.
+            num_account_from_domain:
+              type: integer
+              description: Number of accounts from the same apex domain seen in your project. Capped at 1000. See [Domain Account Velocity](/signals-scores/email#domain-account-velocity) for details.
+        risk_signal_average:
+          type: object
+          properties:
+            device_risk:
+              type: number
+              format: float
+              description: Device risk score
+            proxy:
+              type: number
+              format: float
+              description: Proxy detection score
+            vpn:
+              type: number
+              format: float
+              description: VPN detection score
+            tor:
+              type: number
+              format: float
+              description: Tor detection score
+            spoofed_ip:
+              type: number
+              format: float
+              description: Spoofed IP detection score
+            datacenter:
+              type: number
+              format: float
+              description: Datacenter detection score
+            recent_fraud_ip:
+              type: number
+              format: float
+              description: Recent fraud IP detection score
+            impossible_travel:
+              type: number
+              format: float
+              description: Impossible travel detection score
+            device_network_mismatch:
+              type: number
+              format: float
+              description: Device network mismatch score
+            location_spoofing:
+              type: number
+              format: float
+              description: Location spoofing detection score
+    SessionResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the request
+        session_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the session
+      required:
+      - request_id
+      - session_id
+    SessionAuthenticateResponse:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: The ID of the project
+        session_id:
+          type: string
+          description: The ID of the session
+        account_id:
+          type: string
+          description: The ID of the account
+        request_id:
+          type: string
+          description: The ID of the request
+        decision:
+          type: string
+          description: Decision about the authenticity (Real/Fake)
+        account_score:
+          type: number
+          format: float
+          description: Overall account risk score
+        bot:
+          type: number
+          format: float
+          description: Bot detection score
+        multiple_accounts:
+          type: number
+          format: float
+          description: Multiple accounts detection score
+        risk_signals:
+          type: number
+          format: float
+          description: Risk signals score
+        accounts_linked:
+          type: integer
+          description: Number of accounts linked to this account
+        lists:
+          type: array
+          items:
+            type: string
+          description: Lists the account belongs to
+        session:
+          $ref: '#/components/schemas/SessionDetails'
+        account:
+          $ref: '#/components/schemas/AccountDetails'
+        linked_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedAccount'
+          description: List of accounts linked to the authenticated account (only included when accounts_linked=true)
+    SessionDetails:
+      type: object
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          description: Timestamp when the session started
+        true_country_code:
+          type: string
+          description: The true country code of the session
+        device_id:
+          type: string
+          description: Device identifier from the session
+        network:
+          type: object
+          properties:
+            ip_address:
+              type: string
+              description: IP address of the session
+            service_provider:
+              type: string
+              description: Internet service provider
+            connection_type:
+              type: string
+              description: Type of network connection
+        location:
+          type: object
+          properties:
+            continent:
+              type: string
+              description: Continent code
+            country_code:
+              type: string
+              description: Country code
+            state:
+              type: string
+              description: State or region
+            city:
+              type: string
+              description: City name
+            zip_code:
+              type: string
+              description: Postal/ZIP code
+            timezone:
+              type: string
+              description: Timezone of the location
+            latitude:
+              type: number
+              format: float
+              description: Latitude coordinate
+            longitude:
+              type: number
+              format: float
+              description: Longitude coordinate
+        browser:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Browser type
+            version:
+              type: string
+              description: Browser version
+            language:
+              type: string
+              description: Browser language setting
+            user_agent:
+              type: string
+              description: User agent string
+            timezone:
+              type: string
+              description: Browser timezone setting
+        device:
+          type: object
+          properties:
+            category:
+              type: string
+              enum:
+              - desktop
+              - mobile
+              - tablet
+              - console
+              - smarttv
+              - wearable
+              - embedded
+              - other
+              description: Device category. See [Device Categories](/signals-scores/device#device-categories) for details.
+            type:
+              type: string
+              description: Device type
+            os:
+              type: string
+              description: Operating system
+            cpu_cores:
+              type: integer
+              description: Number of CPU cores
+            memory:
+              type: integer
+              description: Amount of memory in GB
+            gpu:
+              type: string
+              description: GPU information
+            screen_height:
+              type: number
+              description: Screen height in pixels
+            screen_width:
+              type: number
+              description: Screen width in pixels
+        bot:
+          type: object
+          properties:
+            mouse_num_events:
+              type: integer
+              description: Number of mouse events
+            click_num_events:
+              type: integer
+              description: Number of click events
+            keyboard_num_events:
+              type: integer
+              description: Number of keyboard events
+            touch_num_events:
+              type: integer
+              description: Number of touch events
+            clipboard_num_events:
+              type: integer
+              description: Number of clipboard events
+        risk_signals:
+          type: object
+          properties:
+            device_risk:
+              type: boolean
+              description: Device risk flag
+            proxy:
+              type: boolean
+              description: Proxy usage flag
+            vpn:
+              type: boolean
+              description: VPN usage flag
+            tor:
+              type: boolean
+              description: Tor usage flag
+            spoofed_ip:
+              type: boolean
+              description: Spoofed IP flag
+            datacenter:
+              type: boolean
+              description: Datacenter IP flag
+            recent_fraud_ip:
+              type: boolean
+              description: Recent fraud IP flag
+            impossible_travel:
+              type: boolean
+              description: Impossible travel flag
+            device_network_mismatch:
+              type: boolean
+              description: Device network mismatch flag
+            location_spoofing:
+              type: boolean
+              description: Location spoofing flag
+        risk_signal_scores:
+          type: object
+          properties:
+            device_risk:
+              type: number
+              format: float
+              description: Device risk score
+            proxy:
+              type: number
+              format: float
+              description: Proxy detection score
+            vpn:
+              type: number
+              format: float
+              description: VPN detection score
+            tor:
+              type: number
+              format: float
+              description: Tor detection score
+            datacenter:
+              type: number
+              format: float
+              description: Datacenter detection score
+            recent_fraud_ip:
+              type: number
+              format: float
+              description: Recent fraud IP detection score
+            impossible_travel:
+              type: number
+              format: float
+              description: Impossible travel detection score
+            device_network_mismatch:
+              type: number
+              format: float
+              description: Device network mismatch score
+            location_spoofing:
+              type: number
+              format: float
+              description: Location spoofing detection score
+    SessionError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+    SessionAuthenticateError:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message
+    SessionUnauthenticatedRequest:
+      type: object
+      required:
+      - session_id
+      properties:
+        session_id:
+          type: string
+          description: The ID of the session to evaluate
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

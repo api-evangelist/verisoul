@@ -1,0 +1,339 @@
+openapi: 3.0.1
+info:
+  title: Verisoul Account List API
+  description: The Verisoul API is used to integrate Verisoul into your application.
+  license:
+    name: MIT
+  version: 1.0.0
+servers:
+- url: https://api.sandbox.verisoul.ai
+security:
+- apiKeyAuth: []
+tags:
+- name: List
+paths:
+  /list:
+    get:
+      description: Returns all available lists
+      responses:
+        '200':
+          description: Lists response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListsResponse'
+              example:
+                request_id: abb42d71-f4d4-440f-b1c7-a250ec0eddd7
+                lists:
+                - name: allow
+                  description: Marks every account in the list as Real.
+                - name: block
+                  description: Marks every account in the list as Fake.
+                - name: main_account
+                  description: Sets the multiple_accounts score to 0 for every account in the list.
+                - name: us_users
+                  description: List of US based users
+        '400':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - List
+  /list/{list_name}:
+    get:
+      description: Returns all accounts in a specific list
+      parameters:
+      - name: list_name
+        in: path
+        description: Name of the list to retrieve accounts from
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List accounts response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccountsResponse'
+              example:
+                request_id: bb152ba5-8311-4192-846f-1670a581becb
+                description: List of US based users
+                accounts:
+                - john-doe
+                - john-doe-2
+                - amy-williams
+                - frank-smith
+                - mark-johnson
+        '400':
+          description: List not found or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListError'
+              example:
+                message: List not found
+                statusCode: 400
+      tags:
+      - List
+    post:
+      description: Creates a new list with the specified name
+      parameters:
+      - name: list_name
+        in: path
+        description: Name of the list to create
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: List information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListRequest'
+        required: true
+      responses:
+        '200':
+          description: List creation response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListResponse'
+              example:
+                request_id: 83310a37-aec5-4aa5-8e1b-edf4916128ae
+                message: List us_users created
+                success: true
+        '400':
+          description: List already exists or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListError'
+              example:
+                message: List already exists.
+                statusCode: 400
+      tags:
+      - List
+    delete:
+      description: Deletes a list with the specified name
+      parameters:
+      - name: list_name
+        in: path
+        description: Name of the list to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List deletion response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteListResponse'
+              example:
+                request_id: 2346a2b9-7954-480a-9966-612246e05a20
+                message: List us_users deleted
+                success: true
+        '400':
+          description: List not found or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListError'
+              example:
+                message: List not found.
+                statusCode: 400
+      tags:
+      - List
+  /list/{list_name}/account/{account_id}:
+    post:
+      description: Adds an account to a specific list
+      parameters:
+      - name: list_name
+        in: path
+        description: Name of the list to add the account to
+        required: true
+        schema:
+          type: string
+      - name: account_id
+        in: path
+        description: ID of the account to add to the list
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account added to list response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddAccountToListResponse'
+              example:
+                request_id: d4b6b99f-f2ad-458e-bfc4-7b4c81e3ac36
+                message: Account added to us_users
+                success: true
+        '400':
+          description: Account or list not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListError'
+              example:
+                message: Account not found.
+                statusCode: 400
+      tags:
+      - List
+    delete:
+      description: Removes an account from a specific list
+      parameters:
+      - name: list_name
+        in: path
+        description: Name of the list to remove the account from
+        required: true
+        schema:
+          type: string
+      - name: account_id
+        in: path
+        description: ID of the account to remove from the list
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account removed from list response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveAccountFromListResponse'
+              example:
+                request_id: 2346a2b9-7954-480a-9966-612246e05a20
+                message: Account removed from us_users
+                success: true
+        '400':
+          description: Account or list not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListError'
+              example:
+                message: Account not found.
+                statusCode: 400
+      tags:
+      - List
+components:
+  schemas:
+    DeleteListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    ListsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+          description: Array of available lists
+    AddAccountToListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    ListAccountsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        description:
+          type: string
+          description: Description of the list's purpose
+        accounts:
+          type: array
+          items:
+            type: string
+          description: Array of account IDs in the list
+    CreateListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    RemoveAccountFromListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    CreateListError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: HTTP status code
+    CreateListRequest:
+      type: object
+      properties:
+        list_description:
+          type: string
+          description: Description of the list's purpose
+    Error:
+      required:
+      - error
+      - message
+      type: object
+      properties:
+        error:
+          type: integer
+          format: int32
+        message:
+          type: string
+    List:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the list
+        description:
+          type: string
+          description: Description of the list's purpose
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
