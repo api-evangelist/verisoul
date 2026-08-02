@@ -1,0 +1,18 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Verisoul Email Intelligence API
+  version: 1.0.0
+extends: openapi/verisoul-email-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-note: Enrichment overlay — adds production server and operationId; results delivered via signed webhook (see asyncapi/verisoul-email-asyncapi.yml).
+  - target: $.servers
+    update:
+      - url: https://api.prod.verisoul.ai
+        description: Production
+      - url: https://api.sandbox.verisoul.ai
+        description: Sandbox
+  - target: $.paths['/email'].post
+    update: {operationId: submitEmail}

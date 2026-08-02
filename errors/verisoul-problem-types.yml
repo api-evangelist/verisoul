@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  derived from openapi/*-openapi.json 4xx responses; enriched from
+  https://docs.verisoul.ai/api-reference/rate-limits and
+  https://docs.verisoul.ai/verifications/id-check/resources/simulate-id-check
+format: custom-json
+envelope:
+  shape: {message: string, error: string, statusCode: integer}
+  notes: >-
+    Not RFC 9457. Flat JSON error body. `error` (short type string, e.g.
+    "Bad Request") is present on some endpoints; `message` and `statusCode`
+    are always present.
+problems:
+  - status: 400
+    title: Bad Request
+    description: >-
+      Invalid or malformed request — missing required field, invalid phone
+      number/email, invalid account/session/list identifier, or a failed
+      verification simulation case.
+    example: {message: "email is required", error: "Bad Request", statusCode: 400}
+    source_operations:
+      - openapi/verisoul-account-openapi.json#GET /account/{account_id}
+      - openapi/verisoul-session-openapi.json#POST /session/authenticate
+      - openapi/verisoul-phone-openapi.json#POST /phone
+      - openapi/verisoul-email-openapi.json#POST /email
+      - openapi/verisoul-list-openapi.json#POST /list/{list_name}
+      - openapi/verisoul-idcheck-openapi.json#verifyID
+      - openapi/verisoul-facematch-openapi.json#verifyFace
+  - status: 401
+    title: Unauthorized
+    description: >-
+      Missing or invalid x-api-key header, or a webhook signature that failed
+      HMAC-SHA256 verification (consumer-side convention).
+    note: >-
+      Documented for auth and webhook verification; not enumerated as a distinct
+      response schema in the published OpenAPI (which models 200/400).
+  - status: 429
+    title: Too Many Requests
+    description: >-
+      API key exceeded its rate limit (default 300 requests/minute across all
+      endpoints). Back off and retry; request an increase for enterprise use.
+    docs: https://docs.verisoul.ai/api-reference/rate-limits
+verification_simulation_cases:
+  note: >-
+    Sandbox-only failure cases returned by the hosted Face Match / ID Check
+    flow via the `simulate` query parameter (400 response for non-success).
+  cases:
+    - invalid_session_id
+    - session_id_not_found
+    - failed_to_get_camera_permission
+    - failed_to_complete_face_scan
+    - failed_to_process_id_scan
+    - failed_to_collect_device_data
+    - liveness_check_failed
+    - success

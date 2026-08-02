@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.verisoul.ai/integration/overview
+notes: >-
+  Verisoul ships frontend/device SDKs (web + mobile) that collect device
+  signals and drive the hosted Face Match / ID Check verification flows. There
+  is no first-party server-side SDK published; backend calls are made directly
+  to the REST API with the x-api-key header.
+packages:
+  - language: javascript
+    registry: npm
+    name: verisoul
+    url: https://www.npmjs.com/package/verisoul
+    install: npm install verisoul
+    official: true
+    description: Verisoul React/Web package for initiating sessions and creating QR codes.
+  - language: javascript
+    registry: npm
+    name: "@verisoul_ai/react-native-verisoul"
+    url: https://www.npmjs.com/package/@verisoul_ai/react-native-verisoul
+    install: npm install @verisoul_ai/react-native-verisoul
+    official: true
+    description: Official Verisoul React Native SDK (wraps native iOS + Android SDKs).
+  - language: dart
+    registry: pub.dev
+    name: verisoul_sdk
+    url: https://pub.dev/packages/verisoul_sdk
+    install: flutter pub add verisoul_sdk
+    official: true
+    repository: https://github.com/verisoul/flutter-sdk
+    description: Official Verisoul Flutter SDK.
+  - language: swift
+    registry: cocoapods
+    name: VerisoulSDK
+    url: https://github.com/verisoul/ios-sdk
+    install: "pod 'VerisoulSDK'  # or Swift Package Manager"
+    official: true
+    description: Official Verisoul iOS SDK (CocoaPods and Swift Package Manager).
+  - language: kotlin
+    registry: android
+    name: verisoul-android
+    url: https://github.com/verisoul/android-sdk
+    install: "implementation 'ai.verisoul:android'"
+    official: true
+    description: Official Verisoul Android SDK.
+  - language: javascript
+    registry: npm
+    name: "@capgo/capacitor-verisoul"
+    url: https://www.npmjs.com/package/@capgo/capacitor-verisoul
+    install: npm install @capgo/capacitor-verisoul
+    official: false
+    description: Third-party Capacitor plugin (Capgo) wrapping Verisoul fraud-prevention sessions.

@@ -1,8 +1,31 @@
 aid: verisoul
 name: Verisoul
-description: Verisoul is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Verisoul is a fake-account and fraud detection platform that helps businesses
+  stop bots, fake signups, and multi-accounting. It combines device
+  fingerprinting, network and location signals, bot detection, email
+  intelligence (risk, deliverability, breach, and identity signals), phone
+  validation, and account linking with an automated rules engine and ML models.
+  Verisoul also offers hosted identity verification products — Face Match
+  (liveness/selfie dedup) and ID Check (government-ID document verification) —
+  and manages biometric capture, consent, and retention on the customer's
+  behalf. It exposes a REST API (Account, Session, Lists, Phone, Email
+  Intelligence, Face Match, ID Check) authenticated with an x-api-key header,
+  plus web and mobile SDKs and signed webhooks. Verisoul is backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/verisoul/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/6627605478f226ce86d5c27f/6a5790e9790a84c9ea0498ca_verisoul-logo_og-meta-preview.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,15 +34,193 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Fraud Detection
+- Identity Verification
+- Fake Account Detection
+- Device Fingerprinting
+- Email Intelligence
+- Bot Detection
+- KYC
+- Trust and Safety
+- Risk Scoring
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: verisoul:verisoul-account-api
+  name: Verisoul Account API
+  description: The Account API from Verisoul — 3 operation(s) for account.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-account-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-email-api
+  name: Verisoul Email API
+  description: The Email API from Verisoul — 1 operation(s) for email.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Email
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-email-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-enrollment-api
+  name: Verisoul Enrollment API
+  description: The Enrollment API from Verisoul — 1 operation(s) for enrollment.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Enrollment
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-enrollment-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-list-api
+  name: Verisoul List API
+  description: The List API from Verisoul — 3 operation(s) for list.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - List
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-list-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-phone-api
+  name: Verisoul Phone API
+  description: The Phone API from Verisoul — 1 operation(s) for phone.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Phone
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-phone-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-public-api
+  name: Verisoul Public API
+  description: The Public API from Verisoul — 1 operation(s) for public.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Public
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-public-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-session-api
+  name: Verisoul Session API
+  description: The Session API from Verisoul — 4 operation(s) for session.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Session
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-session-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
+- aid: verisoul:verisoul-verification-api
+  name: Verisoul Verification API
+  description: The Verification API from Verisoul — 3 operation(s) for verification.
+  humanURL: https://docs.verisoul.ai/api-reference/session/get
+  baseURL: https://api.prod.verisoul.ai
+  tags:
+  - Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/verisoul-verification-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/verisoul-email-asyncapi.yml
 common:
+- type: DomainSecurity
+  url: security/verisoul-domain-security.yml
 - type: Website
-  url: https://verisoul.xyz
+  url: https://www.verisoul.ai
+- type: DeveloperPortal
+  url: https://docs.verisoul.ai
+- type: Documentation
+  url: https://docs.verisoul.ai
+- type: APIReference
+  url: https://docs.verisoul.ai/api-reference/introduction
+- type: GettingStarted
+  url: https://docs.verisoul.ai/integration/overview
+- type: Support
+  url: mailto:support@verisoul.ai
+- type: Blog
+  url: https://www.verisoul.ai/blog
+- type: GitHubOrganization
+  url: https://github.com/verisoul
+- type: Pricing
+  url: https://www.verisoul.ai/pricing
+- type: SignUp
+  url: https://dashboard.verisoul.ai
+- type: Login
+  url: https://dashboard.verisoul.ai
+- type: TermsOfService
+  url: https://policies.verisoul.ai/terms.html
+- type: PrivacyPolicy
+  url: https://policies.verisoul.ai/privacy.html
+- type: StatusPage
+  url: https://status.verisoul.ai/
+- type: Authentication
+  url: authentication/verisoul-authentication.yml
+- type: Conventions
+  url: conventions/verisoul-conventions.yml
+- type: ErrorCatalog
+  url: errors/verisoul-problem-types.yml
+- type: RateLimits
+  url: rate-limits/verisoul-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/verisoul-lifecycle.yml
+- type: Sandbox
+  url: sandbox/verisoul-sandbox.yml
+- type: Conformance
+  url: conformance/verisoul-conformance.yml
+- type: Compliance
+  url: https://trust.verisoul.ai/
+- type: TrustCenter
+  url: security/verisoul-trust-center.yml
+- type: DataModel
+  url: data-model/verisoul-data-model.yml
+- type: Components
+  url: components/verisoul-components.yml
+- type: MCPServer
+  url: mcp/verisoul-mcp.yml
+- type: LLMsTxt
+  url: llms/verisoul-llms.txt
+- type: WellKnown
+  url: well-known/verisoul-well-known.yml
+- type: Packages
+  url: packages/verisoul-packages.yml
+- type: SDKs
+  url: packages/verisoul-packages.yml
+- type: AsyncAPI
+  url: asyncapi/verisoul-email-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/verisoul-email-asyncapi.yml
+- type: AgenticAccess
+  url: agentic-access/verisoul-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 39
+  pass: local-v1

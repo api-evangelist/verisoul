@@ -1,0 +1,74 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.verisoul.ai/api-reference/introduction,
+  https://docs.verisoul.ai/api-reference/rate-limits,
+  https://docs.verisoul.ai/email-intelligence/webhook-signature-verification,
+  openapi/*-openapi.json
+summary: >-
+  Cross-cutting request/response conventions for the Verisoul REST API. JSON
+  over HTTPS, API-key auth, environment-scoped hosts, a flat error envelope, and
+  a per-request correlation id (request_id) on every response. Asynchronous
+  results (Email Intelligence) are delivered by signed webhooks.
+authentication:
+  style: api-key
+  header: x-api-key
+  docs: https://docs.verisoul.ai/api-reference/introduction
+base_urls:
+  production: https://api.prod.verisoul.ai
+  sandbox: https://api.sandbox.verisoul.ai
+media_type: application/json
+request_tracing:
+  field: request_id
+  location: response body
+  notes: >-
+    Every API response includes a `request_id` (UUID). Email Intelligence
+    correlates the async webhook result to the original submission via the same
+    request_id. Webhook deliveries also carry an `x-event-id` header.
+idempotency:
+  supported: false
+  notes: >-
+    Verisoul does not document an idempotency-key header or parameter. Most
+    write operations are naturally idempotent by resource key: account and list
+    mutations are keyed on `account_id` / `list_name` (PUT/POST upsert
+    semantics), so retries converge on the same resource state.
+pagination:
+  supported: false
+  notes: >-
+    List-returning endpoints (GET /list, GET /account/{id}/sessions,
+    GET /account/{id}/accounts-linked, GET /list/{name}) return full collections
+    without documented cursor/offset paging parameters.
+versioning:
+  scheme: none-in-path
+  spec_version: 1.0.0
+  notes: >-
+    The API is unversioned in the URL path; environment is selected by host
+    (prod vs sandbox). Published OpenAPI documents are at version 1.0.0.
+error_envelope:
+  format: custom-json
+  shape: {message: string, error: string, statusCode: integer}
+  notes: >-
+    Errors return a flat JSON body. Simpler endpoints omit the `error` field and
+    return only {message, statusCode}. Not RFC 9457 problem+json.
+  see: errors/verisoul-problem-types.yml
+rate_limiting:
+  default: 300 requests/minute per API key
+  exceeded_status: 429
+  scope: per api key (all endpoints)
+  increase: contact support@verisoul.ai / Slack (enterprise)
+  docs: https://docs.verisoul.ai/api-reference/rate-limits
+  see: rate-limits/verisoul-rate-limits.yml
+webhooks:
+  signature_header: x-signature
+  algorithm: HMAC-SHA256
+  format: "t=<unix>,h=content-type x-event-id x-event-type,v1=<hex-hmac>"
+  replay_tolerance_seconds: 300
+  event_id_header: x-event-id
+  event_type_header: x-event-type
+  docs: https://docs.verisoul.ai/email-intelligence/webhook-signature-verification
+  see: asyncapi/verisoul-email-asyncapi.yml
+related:
+  authentication: authentication/verisoul-authentication.yml
+  errors: errors/verisoul-problem-types.yml
+  lifecycle: lifecycle/verisoul-lifecycle.yml
+  rate_limits: rate-limits/verisoul-rate-limits.yml

@@ -1,0 +1,46 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.verisoul.ai/api-reference/introduction,
+  https://docs.verisoul.ai/verifications/id-check/resources/simulate-id-check,
+  https://docs.verisoul.ai/verifications/face-match/resources/simulate-face-match
+environments:
+  - name: sandbox
+    base_url: https://api.sandbox.verisoul.ai
+    verification_ui: https://app.sandbox.verisoul.ai
+    purpose: development, testing, and integration
+  - name: production
+    base_url: https://api.prod.verisoul.ai
+    verification_ui: https://app.verisoul.ai
+    purpose: live traffic with real users
+key_separation:
+  model: separate secret API key per environment
+  issuer: https://dashboard.verisoul.ai/developers
+  notes: Each environment requires its own x-api-key; keys are project-scoped.
+simulation:
+  availability: sandbox only
+  mechanism: >-
+    Add the `simulate` query parameter when creating a Face Match / ID Check
+    session (GET /liveness/session?simulate=<case>). The hosted flow waits ~3s
+    then redirects with the specified success/error outcome, bypassing real
+    liveness/document checks.
+  success_behavior: returns a response with stubbed data
+  failure_behavior: returns a 400 response (error shape may differ from prod)
+  id_check_cases:
+    - invalid_session_id
+    - session_id_not_found
+    - failed_to_get_camera_permission
+    - failed_to_complete_face_scan
+    - failed_to_process_id_scan
+    - failed_to_collect_device_data
+    - liveness_check_failed
+    - success
+  face_match_cases_note: >-
+    Face Match exposes an equivalent `simulate` parameter with the analogous
+    liveness/camera/scan failure and success cases (see Simulate Face Match).
+test_values:
+  phone_example: "+1234567890  (docs example; not a guaranteed magic test number)"
+  notes: >-
+    Verisoul does not publish a fixed set of magic test identifiers for the
+    core account/session/phone/email endpoints; sandbox behavior is driven by
+    the environment key plus the verification `simulate` parameter.

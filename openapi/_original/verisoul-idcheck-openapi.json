@@ -1,0 +1,1084 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Verisoul ID Check API",
+    "description": "ID Check is a Verisoul platform add-on that combines facial biometrics with ID verification. The workflow prompts users to provide a valid ID document and perform a face scan to verify their identity.\n\nFor users: the process is quick, works on any device/language, and requires a valid ID document.\nFor developers: ID Check can be integrated within a couple hours of one developer's time.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Verisoul Support",
+      "url": "https://verisoul.ai",
+      "email": "support@verisoul.ai"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.sandbox.verisoul.ai",
+      "description": "Production server"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "API key authentication"
+      }
+    },
+    "schemas": {
+      "SessionResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the request"
+          },
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the session"
+          }
+        },
+        "required": [
+          "request_id",
+          "session_id"
+        ]
+      },
+      "EnrollRequest": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The session ID obtained from the /liveness/session endpoint"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "Unique identifier for the user account"
+          }
+        },
+        "required": [
+          "session_id",
+          "account_id"
+        ]
+      },
+      "EnrollResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the request"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the enrollment was successful"
+          }
+        },
+        "required": [
+          "request_id",
+          "success"
+        ]
+      },
+      "VerifyIDRequest": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The session ID obtained from the /liveness/session endpoint"
+          }
+        },
+        "required": [
+          "session_id"
+        ]
+      },
+      "VerifyIDResponse": {
+        "type": "object",
+        "properties": {
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "project_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "account_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "referring_session_id": {
+                "type": "string",
+                "format": "uuid",
+                "nullable": true
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "Fake",
+              "Suspicious",
+              "Real"
+            ],
+            "description": "Overall decision"
+          },
+          "risk_score": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Risk score where higher values indicate higher risk"
+          },
+          "risk_flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "See [Risk Flags](/verifications/id-check/resources/risk-flags) for more information."
+          },
+          "document_signals": {
+            "type": "object",
+            "properties": {
+              "id_age": {
+                "type": "integer",
+                "description": "Age of the person on the identity document, calculated from the date of birth on the ID"
+              },
+              "face_age_estimate": {
+                "type": "string",
+                "nullable": true,
+                "enum": [
+                  "under8",
+                  "over8",
+                  "over13",
+                  "over16",
+                  "over18",
+                  "over21",
+                  "over25",
+                  "over30",
+                  "over40",
+                  "over50",
+                  "over65"
+                ],
+                "description": "Estimated age bracket of the person in the captured selfie, independent of the document's date of birth. The value is the highest bracket the person clearly appears to exceed (e.g. someone who looks ~23 returns `over21`). `null` when no estimate is available."
+              },
+              "id_face_match_score": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Score indicating how well the face matches the ID"
+              },
+              "id_barcode_status": {
+                "type": "string",
+                "enum": [
+                  "no_barcode_specificed_by_template",
+                  "barcode_requested_but_not_found",
+                  "barcode_requested_but_error_reading",
+                  "success",
+                  "barcode_requested_and_read_but_could_not_parse"
+                ],
+                "description": "Status of the ID barcode verification"
+              },
+              "id_face_status": {
+                "type": "string",
+                "enum": [
+                  "not_available",
+                  "likely_original_face",
+                  "cannot_confirm_id_is_authentic",
+                  "ocr_template_does_not_support_detection"
+                ],
+                "description": "Status of the face on the ID verification"
+              },
+              "id_text_status": {
+                "type": "string",
+                "enum": [
+                  "not_available",
+                  "likely_original_text",
+                  "cannot_confirm_id_is_authentic"
+                ],
+                "description": "Status of the text on the ID verification"
+              },
+              "is_id_digital_spoof": {
+                "type": "string",
+                "enum": [
+                  "likely_physical_id",
+                  "could_not_confidently_determine_physical_id_user_needs_to_retry"
+                ],
+                "description": "Indicates if the ID is likely a digital spoof"
+              },
+              "is_full_id_captured": {
+                "type": "string",
+                "enum": [
+                  "full_id_detected",
+                  "could_not_confidently_determine_full_id_user_needs_to_retry"
+                ],
+                "description": "Indicates if the full ID was captured"
+              },
+              "id_validity": {
+                "type": "string",
+                "enum": [
+                  "likely_authentic_id",
+                  "likely_fake_id",
+                  "cannot_confirm_id_is_authentic"
+                ],
+                "description": "Indicates the validity of the ID"
+              }
+            }
+          },
+          "document_data": {
+            "type": "object",
+            "properties": {
+              "template_info": {
+                "type": "object",
+                "properties": {
+                  "document_country_code": {
+                    "type": "string",
+                    "description": "Country code of the ID document"
+                  },
+                  "document_state": {
+                    "type": "string",
+                    "description": "State of the ID document"
+                  },
+                  "template_type": {
+                    "type": "string",
+                    "enum": [
+                      "passport",
+                      "driver_license",
+                      "state_id",
+                      "national_id",
+                      "residence_permit",
+                      "other",
+                      "unknown"
+                    ],
+                    "description": "Type of the ID document"
+                  }
+                }
+              },
+              "user_data": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "description": "First name from the ID"
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "Last name from the ID"
+                  },
+                  "date_of_birth": {
+                    "type": "string",
+                    "description": "Date of birth from the ID, formatted as MM/DD/YYYY"
+                  },
+                  "date_of_expiration": {
+                    "type": "string",
+                    "description": "Expiration date of the ID, formatted as MM/DD/YYYY"
+                  },
+                  "date_of_issue": {
+                    "type": "string",
+                    "description": "Issue date of the ID, formatted as MM/DD/YYYY"
+                  },
+                  "id_number": {
+                    "type": "string",
+                    "description": "ID number from the document"
+                  },
+                  "id_number2": {
+                    "type": "string",
+                    "description": "Secondary ID number if applicable"
+                  },
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "city": {
+                        "type": "string",
+                        "description": "City from the address"
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Country from the address"
+                      },
+                      "postal_code": {
+                        "type": "string",
+                        "description": "Postal code from the address"
+                      },
+                      "state": {
+                        "type": "string",
+                        "description": "State from the address"
+                      },
+                      "street": {
+                        "type": "string",
+                        "description": "Street address"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "device_network_signals": {
+            "type": "object",
+            "properties": {
+              "device_risk": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Risk score for the device"
+              },
+              "proxy": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of proxy usage"
+              },
+              "vpn": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of VPN usage"
+              },
+              "datacenter": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of datacenter IP"
+              },
+              "tor": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of Tor usage"
+              },
+              "spoofed_ip": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of IP spoofing"
+              },
+              "recent_fraud_ip": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of recent fraud association"
+              },
+              "device_network_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of device-network mismatch"
+              },
+              "location_spoofing": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of location spoofing"
+              }
+            }
+          },
+          "referring_session_signals": {
+            "type": "object",
+            "properties": {
+              "impossible_travel": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of impossible travel"
+              },
+              "ip_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of IP mismatch"
+              },
+              "user_agent_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of user agent mismatch"
+              },
+              "device_timezone_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of device timezone mismatch"
+              },
+              "ip_timezone_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of IP timezone mismatch"
+              }
+            }
+          },
+          "photo_urls": {
+            "type": "object",
+            "properties": {
+              "face": {
+                "type": "string",
+                "format": "uri",
+                "description": "Signed URL to the face image"
+              }
+            }
+          },
+          "video_urls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "description": "Signed URL to the session video"
+            }
+          },
+          "session_data": {
+            "type": "object",
+            "properties": {
+              "true_country_code": {
+                "type": "string",
+                "description": "Country code of the true location"
+              },
+              "network": {
+                "type": "object",
+                "properties": {
+                  "ip_address": {
+                    "type": "string"
+                  },
+                  "service_provider": {
+                    "type": "string"
+                  },
+                  "connection_type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "continent": {
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "zip_code": {
+                    "type": "string"
+                  },
+                  "timezone": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  }
+                }
+              },
+              "browser": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "string"
+                  },
+                  "user_agent": {
+                    "type": "string"
+                  },
+                  "timezone": {
+                    "type": "string"
+                  }
+                }
+              },
+              "device": {
+                "type": "object",
+                "properties": {
+                  "category": {
+                    "type": "string",
+                    "enum": [
+                      "desktop",
+                      "mobile",
+                      "tablet",
+                      "console",
+                      "smarttv",
+                      "wearable",
+                      "embedded",
+                      "other"
+                    ],
+                    "description": "Device category. See [Device Categories](/signals-scores/device#device-categories) for details."
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "os": {
+                    "type": "string"
+                  },
+                  "cpu_cores": {
+                    "type": "integer"
+                  },
+                  "memory": {
+                    "type": "integer"
+                  },
+                  "gpu": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "matches": {
+            "type": "object",
+            "properties": {
+              "num_accounts_linked": {
+                "type": "integer",
+                "description": "Number of accounts linked"
+              },
+              "accounts_linked": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "account_id": {
+                      "type": "string",
+                      "description": "Account ID"
+                    },
+                    "match_types": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face",
+                          "ip_address",
+                          "browser",
+                          "document_number",
+                          "document_name"
+                        ]
+                      },
+                      "description": "Types of matches found"
+                    }
+                  }
+                },
+                "description": "List of linked accounts"
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/public/liveness-redirect": {
+      "get": {
+        "summary": "Public redirect to ID Check",
+        "description": "A public endpoint that redirects to the ID Check verification page.",
+        "operationId": "redirectToIDCheck",
+        "tags": [
+          "Public"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "description": "Project ID for the verification",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Flag to indicate that this session will include ID verification",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "referring_session_id",
+            "in": "query",
+            "description": "ID of a referring session, if applicable",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirect to verification page",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "description": "URL to redirect to"
+              }
+            },
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "missing_project_id",
+                        "groups_enabled"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "examples": {
+                  "missing_project_id": {
+                    "summary": "Missing project_id",
+                    "value": {
+                      "error": "missing_project_id"
+                    }
+                  },
+                  "groups_enabled": {
+                    "summary": "Groups enabled on project",
+                    "value": {
+                      "error": "groups_enabled"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/session": {
+      "get": {
+        "summary": "Get ID Check session",
+        "description": "Get a new session for ID Check verification. This is the first step in the ID Check workflow.",
+        "operationId": "createIDCheckSession",
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Flag to indicate that this session will include ID verification",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "referring_session_id",
+            "in": "query",
+            "description": "ID of a referring session, if applicable",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "simulate",
+            "in": "query",
+            "description": "See [Simulate ID Check](/verifications/id-check/resources/simulate-id-check) for more information",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                },
+                "example": {
+                  "request_id": "aad5cc61-1766-4546-a8a7-1790554b24ec",
+                  "session_id": "000ff417-cfe3-4d32-8323-59cb05b854cb"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - groups enabled on project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "groups_enabled"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "e6f078a5-7931-4c41-ad53-1ef35a4ca762",
+                  "success": false,
+                  "error": "groups_enabled"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/enroll": {
+      "post": {
+        "summary": "Enroll a user in ID Check",
+        "description": "Enrolls a user in the ID Check system using the provided session ID and account ID. Sessions must be enrolled within 30 days of creation.",
+        "operationId": "enrollIDCheck",
+        "tags": [
+          "Enrollment"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollRequest"
+              },
+              "example": {
+                "session_id": "0007b793-ae5d-45a2-8d9f-4a5b573c3271",
+                "account_id": "example-account-id"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Enrollment successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrollResponse"
+                },
+                "example": {
+                  "request_id": "8757569c-61e6-454b-afc9-59232e861496",
+                  "success": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - session is not valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "session_not_found",
+                        "session_not_started",
+                        "session_not_valid_for_this_endpoint",
+                        "session_not_complete",
+                        "liveness_check_failed",
+                        "id_scan_not_complete",
+                        "id_scan_failed",
+                        "session_already_tied_to_an_account",
+                        "session_older_than_30_days"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5",
+                  "success": false,
+                  "error": "session_not_found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/verify-id": {
+      "post": {
+        "summary": "Verify ID document",
+        "description": "Validates the identity document provided and returns detailed information, risk signals, and an overall decision.",
+        "operationId": "verifyID",
+        "tags": [
+          "Verification"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyIDRequest"
+              },
+              "example": {
+                "session_id": "00022d22-0592-4c83-8f55-0ec8f277c668"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Document verification completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyIDResponse"
+                },
+                "example": {
+                  "metadata": {
+                    "project_id": "00000000-0000-0000-0000-000000000001",
+                    "session_id": "00022d22-0592-4c83-8f55-0ec8f277c668",
+                    "account_id": "john-doe-1",
+                    "referring_session_id": "623d80c5-5266-4787-a5b8-7cd578379de4",
+                    "request_id": "d4b414e2-5c18-4e8e-9426-a3b83564d6f1",
+                    "timestamp": "2025-05-04T22:11:51.645Z"
+                  },
+                  "decision": "Fake",
+                  "risk_score": 1,
+                  "risk_flags": [
+                    "repeat_face",
+                    "repeat_id"
+                  ],
+                  "document_signals": {
+                    "id_age": 25,
+                    "face_age_estimate": "over21",
+                    "id_face_match_score": 0.9,
+                    "id_barcode_status": "barcode_requested_but_not_found",
+                    "id_face_status": "likely_original_face",
+                    "id_text_status": "likely_original_text",
+                    "is_id_digital_spoof": "likely_physical_id",
+                    "is_full_id_captured": "full_id_detected",
+                    "id_validity": "likely_authentic_id"
+                  },
+                  "document_data": {
+                    "template_info": {
+                      "document_country_code": "US",
+                      "document_state": "Texas",
+                      "template_type": "driver_license"
+                    },
+                    "user_data": {
+                      "first_name": "John",
+                      "last_name": "Doe",
+                      "date_of_birth": "02/26/1997",
+                      "date_of_expiration": "02/26/2034",
+                      "date_of_issue": "03/19/2025",
+                      "id_number": "1234567890",
+                      "id_number2": "0987654321",
+                      "address": {
+                        "city": "Austin",
+                        "country": "US",
+                        "postal_code": "78701",
+                        "state": "TX",
+                        "street": "123 Main St"
+                      }
+                    }
+                  },
+                  "device_network_signals": {
+                    "device_risk": 0.2429,
+                    "proxy": 0,
+                    "vpn": 0,
+                    "datacenter": 0,
+                    "tor": 0,
+                    "spoofed_ip": 0,
+                    "recent_fraud_ip": 0,
+                    "device_network_mismatch": 0.0001,
+                    "location_spoofing": 0.0001
+                  },
+                  "referring_session_signals": {
+                    "impossible_travel": 0,
+                    "ip_mismatch": 0,
+                    "user_agent_mismatch": 0,
+                    "device_timezone_mismatch": 0.2501,
+                    "ip_timezone_mismatch": 0.0001
+                  },
+                  "photo_urls": {
+                    "face": "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/face.jpg",
+                    "id_scan_back": "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/id_scan_back.jpg",
+                    "id_scan_front": "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/id_scan_front.jpg"
+                  },
+                  "video_urls": [
+                    "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500000000.webm?X-Goog-Signature=...",
+                    "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500042000.webm?X-Goog-Signature=..."
+                  ],
+                  "session_data": {
+                    "true_country_code": "US",
+                    "network": {
+                      "ip_address": "107.209.253.92",
+                      "service_provider": "AT&T Internet",
+                      "connection_type": "isp"
+                    },
+                    "location": {
+                      "continent": "NA",
+                      "country_code": "US",
+                      "state": "Texas",
+                      "city": "Austin",
+                      "zip_code": "78758",
+                      "timezone": "America/Chicago",
+                      "latitude": 30.3773,
+                      "longitude": -97.71
+                    },
+                    "browser": {
+                      "type": "Chrome",
+                      "version": "135.0.0.0",
+                      "language": "en-US",
+                      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+                      "timezone": "America/Chicago"
+                    },
+                    "device": {
+                      "category": "desktop",
+                      "type": "Mac",
+                      "os": "macOS 10.15.7",
+                      "cpu_cores": 16,
+                      "memory": 8,
+                      "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)"
+                    }
+                  },
+                  "matches": {
+                    "num_accounts_linked": 1,
+                    "accounts_linked": [
+                      {
+                        "account_id": "john-doe-2",
+                        "match_types": [
+                          "face",
+                          "ip_address",
+                          "document_number",
+                          "document_name"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - session is not valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "session_not_found",
+                        "session_not_started",
+                        "session_not_valid_for_this_endpoint",
+                        "session_not_complete",
+                        "liveness_check_failed",
+                        "id_scan_not_complete",
+                        "id_scan_failed"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5",
+                  "success": false,
+                  "error": "session_not_found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

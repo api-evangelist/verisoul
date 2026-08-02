@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: derived
+source: derived from openapi/*-openapi.json ($ref graph + id-reference fields)
+entities:
+  - name: Account
+    id_field: account_id
+    source: openapi/verisoul-account-openapi.json
+    description: A user account tracked by Verisoul; carries risk decision and scores.
+  - name: Session
+    id_field: session_id
+    source: openapi/verisoul-session-openapi.json
+    description: A single device/browser session that can be authenticated to an account.
+  - name: LinkedAccount
+    source: openapi/verisoul-account-openapi.json
+    description: Another account linked to a given account by shared device/network signals (multi-accounting).
+  - name: List
+    id_field: list_name
+    source: openapi/verisoul-list-openapi.json
+    description: A named group of accounts (e.g. allow/deny lists) used by the rules engine.
+  - name: Email
+    source: openapi/verisoul-email-openapi.json
+    description: An email address submitted for async risk, deliverability, and identity intelligence.
+  - name: Phone
+    source: openapi/verisoul-phone-openapi.json
+    description: A phone number validated for carrier, line type, and validity.
+  - name: FaceMatchSession
+    id_field: session_id
+    source: openapi/verisoul-facematch-openapi.json
+    description: A liveness/selfie verification and dedup session.
+  - name: IDCheckSession
+    id_field: session_id
+    source: openapi/verisoul-idcheck-openapi.json
+    description: A government-ID document verification session with face match.
+relationships:
+  - {from: Session, type: belongs_to, to: Account, via: account_id}
+  - {from: Account, type: has_many, to: Session, via: account_id}
+  - {from: Account, type: has_many, to: LinkedAccount, via: account_id}
+  - {from: List, type: has_many, to: Account, via: account_id}
+  - {from: Account, type: has_many, to: List, via: list membership}
+  - {from: FaceMatchSession, type: belongs_to, to: Account, via: account_id (enroll)}
+  - {from: IDCheckSession, type: belongs_to, to: Account, via: account_id (enroll)}
+identifiers:
+  request_id: UUID present on every API response
+  project_id: UUID identifying the calling project/environment

@@ -1,0 +1,151 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Verisoul API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.sandbox.verisoul.ai"
+    }
+  ],
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/phone": {
+      "post": {
+        "description": "Verifies a phone number and returns carrier and line type information",
+        "requestBody": {
+          "description": "Phone number to verify",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneVerificationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Phone verification response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneVerificationResponse"
+                },
+                "example": {
+                  "project_id": "00000000-0000-0000-0000-000000000001",
+                  "request_id": "d6c61d42-9f02-49a5-9773-7413788ea50e",
+                  "phone": {
+                    "valid": true,
+                    "phone_number": "+1234567890",
+                    "calling_country_code": "1",
+                    "country_code": "US",
+                    "carrier_name": "Verizon Wireless",
+                    "line_type": "mobile"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid phone number",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneVerificationError"
+                },
+                "example": {
+                  "message": "Invalid phone number",
+                  "statusCode": 400
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PhoneVerificationRequest": {
+        "type": "object",
+        "required": [
+          "phone_number"
+        ],
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number to verify"
+          }
+        }
+      },
+      "PhoneVerificationResponse": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "The ID of the project"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "The ID of the request"
+          },
+          "phone": {
+            "type": "object",
+            "properties": {
+              "phone_number": {
+                "type": "string",
+                "description": "The formatted phone number"
+              },
+              "calling_country_code": {
+                "type": "string",
+                "description": "The country calling code"
+              },
+              "country_code": {
+                "type": "string",
+                "description": "The country code of the phone number"
+              },
+              "carrier_name": {
+                "type": "string",
+                "description": "The carrier or service provider name"
+              },
+              "line_type": {
+                "type": "string",
+                "description": "The type of phone line (mobile, landline, etc.)"
+              }
+            }
+          }
+        }
+      },
+      "PhoneVerificationError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+# Verisoul
+
+## Docs
+
+- [Lists](https://docs.verisoul.ai/action/lists.md): A comprehensive guide to managing user groups with Verisoul Lists
+- [ML Models & Configuration](https://docs.verisoul.ai/action/ml-models-configuration.md): Configuring Verisoul's machine learning models for your business
+- [Action Overview](https://docs.verisoul.ai/action/overview.md): Learn how to take action on Verisoul decisions
+- [Rules](https://docs.verisoul.ai/action/rules.md): A comprehensive guide to Verisoul's automated rules engine for fraud prevention
+- [Delete Account](https://docs.verisoul.ai/api-reference/account/delete.md)
+- [Get Account](https://docs.verisoul.ai/api-reference/account/get.md)
+- [Get Account Sessions](https://docs.verisoul.ai/api-reference/account/get-account-sessions.md)
+- [Get Linked Accounts](https://docs.verisoul.ai/api-reference/account/get-accounts-linked.md)
+- [Update Account](https://docs.verisoul.ai/api-reference/account/update.md)
+- [Submit Email](https://docs.verisoul.ai/api-reference/email-intelligence/post.md)
+- [Submit Email Batch](https://docs.verisoul.ai/api-reference/email-intelligence/post-batch.md)
+- [Enroll Account](https://docs.verisoul.ai/api-reference/face-match/enroll.md)
+- [Public Redirect](https://docs.verisoul.ai/api-reference/face-match/public-redirect.md)
+- [Get Face Match Session](https://docs.verisoul.ai/api-reference/face-match/session.md)
+- [Verify Face](https://docs.verisoul.ai/api-reference/face-match/verify-face.md)
+- [Verify Identity](https://docs.verisoul.ai/api-reference/face-match/verify-identity.md)
+- [Enroll Account](https://docs.verisoul.ai/api-reference/id-check/enroll.md)
+- [Public Redirect](https://docs.verisoul.ai/api-reference/id-check/public-redirect.md)
+- [Get ID Check Session](https://docs.verisoul.ai/api-reference/id-check/session.md)
+- [Verify ID](https://docs.verisoul.ai/api-reference/id-check/verify-id.md)
+- [Overview](https://docs.verisoul.ai/api-reference/introduction.md)
+- [Add Account to List](https://docs.verisoul.ai/api-reference/lists/add-account.md)
+- [Create List](https://docs.verisoul.ai/api-reference/lists/create.md)
+- [Delete List](https://docs.verisoul.ai/api-reference/lists/delete.md)
+- [Get List](https://docs.verisoul.ai/api-reference/lists/get.md)
+- [Get All Accounts in List](https://docs.verisoul.ai/api-reference/lists/get-all-accounts-in-list.md)
+- [Remove Account from List](https://docs.verisoul.ai/api-reference/lists/remove-account.md)
+- [Phone Verification](https://docs.verisoul.ai/api-reference/phone/post.md)
+- [Rate Limits](https://docs.verisoul.ai/api-reference/rate-limits.md)
+- [Authenticate Session](https://docs.verisoul.ai/api-reference/session/authenticate.md)
+- [Get Session](https://docs.verisoul.ai/api-reference/session/get.md)
+- [Account](https://docs.verisoul.ai/api-reference/types/account.md): Account object structure and behavior
+- [Email](https://docs.verisoul.ai/api-reference/types/email.md): Email object structure used in the Email Intelligence endpoints
+- [Delete Account](https://docs.verisoul.ai/dashboard/delete-account.md): Learn how to delete your Verisoul account and associated data
+- [Invite a Dashboard User](https://docs.verisoul.ai/dashboard/invite-user.md): Learn how to invite new users to your Verisoul dashboard
+- [Manage Lists](https://docs.verisoul.ai/dashboard/manage-lists.md): Learn how to add and remove accounts from lists in your Verisoul dashboard
+- [Dashboard Overview](https://docs.verisoul.ai/dashboard/overview.md): Understanding and using the Verisoul dashboard
+- [Deliverability Risk](https://docs.verisoul.ai/email-intelligence/deliverability-risk.md): Understand deliverability signals and decide whether to send to an email address
+- [Identity Intelligence](https://docs.verisoul.ai/email-intelligence/identity-intelligence.md)
+- [Integration](https://docs.verisoul.ai/email-intelligence/integration.md): How to integrate the Email Intelligence API: configure webhooks, submit emails, and process results
+- [Overview](https://docs.verisoul.ai/email-intelligence/overview.md)
+- [Webhook Payload Reference](https://docs.verisoul.ai/email-intelligence/webhook-reference.md): Complete reference for the email.intelligence.completed webhook payload
+- [Webhook Signature Verification](https://docs.verisoul.ai/email-intelligence/webhook-signature-verification.md): How to verify the HMAC-SHA256 signature on Verisoul webhook deliveries
+- [Android Sample App](https://docs.verisoul.ai/examples/android-sample-app.md)
+- [Flutter Sample App](https://docs.verisoul.ai/examples/flutter-sample-app.md)
+- [iOS Sample App](https://docs.verisoul.ai/examples/ios-sample-app.md)
+- [Face Match & ID Check Sample App](https://docs.verisoul.ai/examples/react-native-facematch-sample-app.md)
+- [React Native Sample App](https://docs.verisoul.ai/examples/react-native-sample-app.md)
+- [Web Sample App](https://docs.verisoul.ai/examples/web-sample-app.md)
+- [Multi Accounting Groups](https://docs.verisoul.ai/integration/advanced/multi-accounting-groups.md): Learn how to segment multi accounting detection within projects using groups
+- [Authenticate Endpoint](https://docs.verisoul.ai/integration/backend/authenticated.md): Get risk decisions for authenticated users with account context
+- [Decision & Scores](https://docs.verisoul.ai/integration/backend/decision.md): Get decision and scores via API
+- [Best Practices](https://docs.verisoul.ai/integration/best-practices.md): Best practices for integrating Verisoul
+- [Custom Hostname](https://docs.verisoul.ai/integration/custom-hostname.md): Serve the Verisoul Web SDK from a custom hostname for first-party delivery
+- [Android](https://docs.verisoul.ai/integration/frontend/android.md): Integrating Verisoul in Android Apps
+- [Browser](https://docs.verisoul.ai/integration/frontend/browser.md): Integrating Verisoul in Web Applications
+- [Flutter](https://docs.verisoul.ai/integration/frontend/flutter.md): Integrating Verisoul in Flutter Apps
+- [iOS](https://docs.verisoul.ai/integration/frontend/ios.md): Integrating Verisoul in iOS Apps
+- [React Native](https://docs.verisoul.ai/integration/frontend/react-native.md): Integrating Verisoul in React Native Apps
+- [Integration Overview](https://docs.verisoul.ai/integration/overview.md): How to integrate Verisoul into your application
+- [Troubleshooting](https://docs.verisoul.ai/integration/troubleshooting.md): Common issues and how to troubleshoot them
+- [How Verisoul Works](https://docs.verisoul.ai/overview/how-verisoul-works.md): The main components of Verisoul's solution
+- [Where to Integrate Verisoul](https://docs.verisoul.ai/overview/where-to-integrate.md): Learn about the key integration points for Verisoul in your platform
+- [Account vs Session](https://docs.verisoul.ai/signals-scores/account-vs-session.md): Understanding the difference between account and session signals in Verisoul
+- [Bot](https://docs.verisoul.ai/signals-scores/bot.md): Understanding bot detection in Verisoul
+- [Device](https://docs.verisoul.ai/signals-scores/device.md): Understanding device data and risk scores in Verisoul fraud prevention
+- [Email](https://docs.verisoul.ai/signals-scores/email.md): Understanding email intelligence in Verisoul
+- [Impossible Travel](https://docs.verisoul.ai/signals-scores/impossible-travel.md): Understanding impossible travel detection in Verisoul fraud prevention
+- [Location](https://docs.verisoul.ai/signals-scores/location.md): Understanding location signals in Verisoul fraud prevention
+- [Multi-Accounting](https://docs.verisoul.ai/signals-scores/multi-accounting.md): Understanding and preventing multi-accounting fraud with Verisoul
+- [Network](https://docs.verisoul.ai/signals-scores/network.md): Understanding network data and risk signals in Verisoul fraud prevention
+- [Scoring Overview](https://docs.verisoul.ai/signals-scores/scoring-overview.md): Understanding how Verisoul's risk scoring system works
+- [Authentication](https://docs.verisoul.ai/verifications/face-match/integration/authentication.md)
+- [Initialize Session](https://docs.verisoul.ai/verifications/face-match/integration/initialize-session.md): How to fetch a session token for Face Match verification
+- [Overview](https://docs.verisoul.ai/verifications/face-match/integration/integration.md): How to integrate Face Match into your application
+- [Localization](https://docs.verisoul.ai/verifications/face-match/integration/localization.md): Configure Face Match to support different languages
+- [Navigate to Face Match](https://docs.verisoul.ai/verifications/face-match/integration/navigate-to-facematch.md): How to direct users to the Face Match verification interface
+- [Response Signals](https://docs.verisoul.ai/verifications/face-match/integration/response-signals.md): Interpret the signals returned by Face Match verification
+- [Verify & Enroll User](https://docs.verisoul.ai/verifications/face-match/integration/verify-and-enroll.md): Validate and authenticate users with Face Match
+- [Overview](https://docs.verisoul.ai/verifications/face-match/overview.md): Understanding and implementing Verisoul Face Match
+- [Quickstart](https://docs.verisoul.ai/verifications/face-match/quickstart.md): Get started with Verisoul Face Match verification
+- [Best Practices and Tips](https://docs.verisoul.ai/verifications/face-match/resources/best-practices.md): How to maximize conversion rates and minimize support for Face Match
+- [Biometric Compliance](https://docs.verisoul.ai/verifications/face-match/resources/biometric-compliance.md): Understanding Verisoul's biometric data handling and compliance
+- [Glossary](https://docs.verisoul.ai/verifications/face-match/resources/glossary.md): Key terms and definitions for Face Match verification
+- [Risk Flags](https://docs.verisoul.ai/verifications/face-match/resources/risk-flags.md): A comprehensive list of risk flags returned by Face Match
+- [Security and Accuracy](https://docs.verisoul.ai/verifications/face-match/resources/security-accuracy.md): Understanding the security features and accuracy metrics of Face Match
+- [Simulate Face Match](https://docs.verisoul.ai/verifications/face-match/resources/simulate-face-match.md): Bypass verification when testing
+- [Initialize Session](https://docs.verisoul.ai/verifications/id-check/integration/initialize-session.md): How to fetch a session token for ID Check verification
+- [Overview](https://docs.verisoul.ai/verifications/id-check/integration/integration.md): How to integrate ID Check into your application
+- [Localization](https://docs.verisoul.ai/verifications/id-check/integration/localization.md): Configure ID Check to support different languages
+- [Navigate to ID Check](https://docs.verisoul.ai/verifications/id-check/integration/navigate-to-idcheck.md): How to direct users to the ID Check verification interface
+- [Response Signals](https://docs.verisoul.ai/verifications/id-check/integration/response-signals.md): Interpret the signals returned by ID Check verification
+- [Verify & Enroll User](https://docs.verisoul.ai/verifications/id-check/integration/verify-and-enroll.md): Validate uniqueness and authenticate users with ID Check
+- [Overview](https://docs.verisoul.ai/verifications/id-check/overview.md): Understanding and implementing Verisoul ID Check
+- [Quickstart](https://docs.verisoul.ai/verifications/id-check/quickstart.md): Get started with Verisoul ID Check verification
+- [Best Practices and Tips](https://docs.verisoul.ai/verifications/id-check/resources/best-practices.md): How to maximize conversion rates and minimize support for ID Check
+- [Biometric Compliance](https://docs.verisoul.ai/verifications/id-check/resources/biometric-compliance.md): Understanding Verisoul's biometric data handling and compliance
+- [Risk Flags](https://docs.verisoul.ai/verifications/id-check/resources/risk-flags.md): A comprehensive list of risk flags returned by ID Check
+- [Security and Accuracy](https://docs.verisoul.ai/verifications/id-check/resources/security-accuracy.md): Understanding the security features and accuracy metrics of ID Check
+- [Simulate ID Check](https://docs.verisoul.ai/verifications/id-check/resources/simulate-id-check.md): Bypass verification when testing
+- [Supported Documents](https://docs.verisoul.ai/verifications/id-check/resources/supported-documents.md): A comprehensive list of documents supported by ID Check
+- [Verifications Overview](https://docs.verisoul.ai/verifications/overview.md): Understanding and implementing Verisoul Verifications
+
+## OpenAPI Specs
+
+- [session-openapi](https://docs.verisoul.ai/api-reference/session-openapi.json)
+- [account-openapi](https://docs.verisoul.ai/api-reference/account-openapi.json)
+- [idcheck-openapi](https://docs.verisoul.ai/api-reference/idcheck-openapi.json)
+- [facematch-openapi](https://docs.verisoul.ai/api-reference/facematch-openapi.json)
+- [email-openapi](https://docs.verisoul.ai/api-reference/email-openapi.json)
+- [email-batch-openapi](https://docs.verisoul.ai/api-reference/email-batch-openapi.json)
+- [list-openapi](https://docs.verisoul.ai/api-reference/list-openapi.json)
+- [phone-openapi](https://docs.verisoul.ai/api-reference/phone-openapi.json)

@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.verisoul.ai/integration/overview,
+  https://docs.verisoul.ai/integration/custom-hostname,
+  https://docs.verisoul.ai/verifications/overview
+notes: >-
+  Verisoul ships client-side, embeddable surfaces distinct from server-side
+  API usage: a device-signal Web/mobile SDK and hosted (prebuilt) verification
+  UIs for Face Match and ID Check that the app redirects users into.
+families:
+  - name: Device Signal SDK
+    kind: client-sdk / loader
+    surfaces:
+      - {platform: web-browser, loader: verisoul (npm), docs: https://docs.verisoul.ai/integration/frontend/browser}
+      - {platform: react-native, loader: "@verisoul_ai/react-native-verisoul", docs: https://docs.verisoul.ai/integration/frontend/react-native}
+      - {platform: ios, loader: VerisoulSDK, docs: https://docs.verisoul.ai/integration/frontend/ios}
+      - {platform: android, loader: verisoul-android, docs: https://docs.verisoul.ai/integration/frontend/android}
+      - {platform: flutter, loader: verisoul_sdk, docs: https://docs.verisoul.ai/integration/frontend/flutter}
+    description: >-
+      Collects device fingerprint / network / bot signals on the client and
+      associates them with a session_id used by the backend risk APIs.
+    custom_hostname:
+      supported: true
+      docs: https://docs.verisoul.ai/integration/custom-hostname
+      description: Serve the Web SDK from a first-party custom hostname.
+  - name: Hosted Verification UI
+    kind: hosted / prebuilt UI
+    surfaces:
+      - {product: face-match, url: https://app.verisoul.ai, sandbox_url: https://app.sandbox.verisoul.ai, docs: https://docs.verisoul.ai/verifications/face-match/overview}
+      - {product: id-check, url: https://app.verisoul.ai, sandbox_url: https://app.sandbox.verisoul.ai, docs: https://docs.verisoul.ai/verifications/id-check/overview}
+    description: >-
+      Fully hosted liveness/selfie (Face Match) and government-ID (ID Check)
+      capture flows. The app navigates the user to a Verisoul-hosted page keyed
+      by session_id; localization is configurable; results return via redirect.

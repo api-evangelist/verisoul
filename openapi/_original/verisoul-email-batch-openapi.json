@@ -1,0 +1,240 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Verisoul API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.sandbox.verisoul.ai"
+    }
+  ],
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/email": {
+      "post": {
+        "summary": "Submit Email Batch",
+        "description": "Submit a batch of email addresses for asynchronous risk, deliverability, and identity analysis. [Results](/email-intelligence/webhook-reference) are delivered via webhook.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchEmailRequest"
+              },
+              "example": {
+                "emails": [
+                  {
+                    "email": "john.doe@example.com",
+                    "claims": {
+                      "name": {
+                        "first": "John",
+                        "last": "Doe"
+                      },
+                      "country": "US"
+                    }
+                  },
+                  {
+                    "email": "jane.doe@example.com",
+                    "claims": {
+                      "name": {
+                        "first": "Jane",
+                        "last": "Doe"
+                      },
+                      "phone": "+14155551234"
+                    }
+                  },
+                  {
+                    "email": "unknown@example.com"
+                  }
+                ],
+                "batch_name": "onboarding-review-2026-03",
+                "identity_intelligence": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch accepted for processing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchEmailResponse"
+                },
+                "example": {
+                  "batch_id": "bbc73b22-bd47-48e4-b173-c9ca085efb2a",
+                  "batch_name": "onboarding-review-2026-03",
+                  "status": "pending",
+                  "total_count": 3,
+                  "webhook_configured": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "missing_email": {
+                    "summary": "Missing email in entry",
+                    "value": {
+                      "message": "each entry in emails must have an email field",
+                      "error": "Bad Request",
+                      "statusCode": 400
+                    }
+                  },
+                  "empty_array": {
+                    "summary": "Empty emails array",
+                    "value": {
+                      "message": "email is required",
+                      "error": "Bad Request",
+                      "statusCode": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatchEmailRequest": {
+        "type": "object",
+        "required": [
+          "emails"
+        ],
+        "properties": {
+          "emails": {
+            "type": "array",
+            "description": "Array of [Email Objects](/api-reference/types/email) to analyze",
+            "items": {
+              "$ref": "#/components/schemas/EmailEntry"
+            }
+          },
+          "batch_name": {
+            "type": "string",
+            "description": "Optional name for the batch. If not provided, one is auto-generated."
+          },
+          "identity_intelligence": {
+            "type": "boolean",
+            "description": "Enable deeper identity analysis for all emails in the batch. See [Identity Intelligence](/email-intelligence/identity-intelligence)."
+          }
+        }
+      },
+      "EmailEntry": {
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "description": "",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email address to analyze"
+          },
+          "claims": {
+            "$ref": "#/components/schemas/Claims"
+          },
+          "identity_intelligence": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable deeper identity analysis for this email. Will override the `identity_intelligence` setting at the root level if set."
+          }
+        }
+      },
+      "Claims": {
+        "type": "object",
+        "description": "Identity claims to verify against data linked to the email. Useful when `identity_intelligence` is enabled.",
+        "properties": {
+          "name": {
+            "type": "object",
+            "description": "Expected name of the email owner. Provide first, last, or both.",
+            "properties": {
+              "first": {
+                "type": "string",
+                "description": "First name (e.g., \"John\")"
+              },
+              "last": {
+                "type": "string",
+                "description": "Last name (e.g., \"Doe\")"
+              }
+            }
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number. E.164 format recommended (e.g., \"+14155551234\", \"+442071234567\")."
+          },
+          "country": {
+            "type": "string",
+            "description": "Two-letter ISO 3166-1 alpha-2 country code (e.g., \"US\", \"GB\", \"CA\")."
+          }
+        }
+      },
+      "BatchEmailResponse": {
+        "type": "object",
+        "properties": {
+          "batch_id": {
+            "type": "string",
+            "description": "Unique identifier for this batch"
+          },
+          "batch_name": {
+            "type": "string",
+            "description": "Name of the batch (provided or auto-generated)"
+          },
+          "status": {
+            "type": "string",
+            "description": "Always `pending` on creation"
+          },
+          "total_count": {
+            "type": "integer",
+            "description": "Number of emails in the batch"
+          },
+          "webhook_configured": {
+            "type": "boolean",
+            "description": "Whether the project has an active webhook subscription for email intelligence results. If `false`, results are still processed but no webhook will be delivered."
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error type"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  }
+}

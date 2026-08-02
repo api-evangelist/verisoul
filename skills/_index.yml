@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/*-openapi.json + docs.verisoul.ai
+skills:
+  - file: verisoul-verify-session-risk.md
+    name: Verify a session and get an account risk decision
+    api: openapi/verisoul-session-openapi.json
+    operations: [authenticateSession, getSession, getAccount, getLinkedAccounts]
+  - file: verisoul-email-intelligence.md
+    name: Submit an email for intelligence and process the webhook
+    api: openapi/verisoul-email-openapi.json
+    operations: [submitEmail, submitEmailBatch]
+  - file: verisoul-id-check.md
+    name: Run an ID Check document verification
+    api: openapi/verisoul-idcheck-openapi.json
+    operations: [createIDCheckSession, enrollIDCheck, verifyID, redirectToIDCheck]
+  - file: verisoul-face-match.md
+    name: Run a Face Match liveness verification
+    api: openapi/verisoul-facematch-openapi.json
+    operations: [createFaceMatchSession, enrollFaceMatch, verifyFace, verifyIdentityFaceMatch, redirectToFaceMatch]
+  - file: verisoul-manage-lists.md
+    name: Manage account lists for the rules engine
+    api: openapi/verisoul-list-openapi.json
+    operations: [listLists, getList, createList, deleteList, addAccountToList, removeAccountFromList]

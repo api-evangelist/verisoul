@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/*-openapi.json + https://docs.verisoul.ai/api-reference/introduction
+docs: https://docs.verisoul.ai/api-reference/introduction
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  notes: >-
+    Every Verisoul API endpoint is authenticated with a secret API key sent in
+    the `x-api-key` request header. Keys are environment-scoped: separate keys
+    for Production (api.prod.verisoul.ai) and Sandbox (api.sandbox.verisoul.ai),
+    issued per project from the dashboard. There is no OAuth 2.0 or OIDC surface.
+    Frontend/mobile SDKs authenticate with a public Project ID (not the secret
+    API key); the secret key must never be exposed in client-side code.
+schemes:
+  - name: apiKeyAuth
+    type: apiKey
+    in: header
+    parameter: x-api-key
+    sources:
+      - openapi/verisoul-session-openapi.json
+      - openapi/verisoul-account-openapi.json
+      - openapi/verisoul-list-openapi.json
+      - openapi/verisoul-phone-openapi.json
+      - openapi/verisoul-email-openapi.json
+      - openapi/verisoul-email-batch-openapi.json
+  - name: ApiKeyAuth
+    type: apiKey
+    in: header
+    parameter: x-api-key
+    sources:
+      - openapi/verisoul-facematch-openapi.json
+      - openapi/verisoul-idcheck-openapi.json
+key_management:
+  issuer: https://dashboard.verisoul.ai/developers
+  environments:
+    - {name: production, base_url: https://api.prod.verisoul.ai}
+    - {name: sandbox, base_url: https://api.sandbox.verisoul.ai}
+  project_id_note: >-
+    Frontend SDKs (Web/iOS/Android/React Native/Flutter) are initialized with a
+    public Project ID; the x-api-key secret is backend-only.

@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.verisoul.ai/verifications/face-match/resources/biometric-compliance,
+  https://trust.verisoul.ai/
+url: https://trust.verisoul.ai/
+certifications: []
+certifications_note: >-
+  Verisoul publishes a Trust Center (trust.verisoul.ai) covering its security
+  posture, certifications, and compliance practices. The certification list is
+  rendered client-side / access-gated and specific named certifications were not
+  independently confirmed in this pass. Named here only when directly verified.
+biometric_compliance:
+  standard: BIPA and applicable biometric-data laws
+  handling: >-
+    Verisoul directly captures, permissions, processes, stores, and retains all
+    biometric and document data, obtaining affirmative informed end-user
+    consent, so customers do not directly handle biometric data.
+  terms: https://policies.verisoul.ai/biometric.html
+evidence:
+  - {source: https://trust.verisoul.ai/, kind: trust-center}
+  - {source: https://docs.verisoul.ai/verifications/face-match/resources/biometric-compliance, kind: docs}

@@ -1,0 +1,172 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Verisoul API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.sandbox.verisoul.ai"
+    }
+  ],
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/email": {
+      "post": {
+        "summary": "Submit Email",
+        "description": "Submit an email address for asynchronous risk, deliverability, and identity analysis. [Results](/email-intelligence/webhook-reference) are delivered via webhook.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SingleEmailRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "identity_intelligence": true,
+                "claims": {
+                  "name": {
+                    "first": "John",
+                    "last": "Doe"
+                  },
+                  "phone": "+14155551234",
+                  "country": "US"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email accepted for processing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleEmailResponse"
+                },
+                "example": {
+                  "request_id": "13011020-857d-49ee-b155-bf35b572c25a",
+                  "webhook_configured": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "message": "email is required",
+                  "error": "Bad Request",
+                  "statusCode": 400
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SingleEmailRequest": {
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "description": "See the [Email type](/api-reference/types/email) for full field documentation.",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email address to analyze"
+          },
+          "claims": {
+            "$ref": "#/components/schemas/Claims"
+          },
+          "identity_intelligence": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable deeper identity analysis including online presence, name/phone matching, and connected identities. See [Identity Intelligence](/email-intelligence/identity-intelligence)."
+          }
+        }
+      },
+      "Claims": {
+        "type": "object",
+        "description": "Identity claims to verify against data linked to the email. Useful when `identity_intelligence` is enabled.",
+        "properties": {
+          "name": {
+            "type": "object",
+            "description": "Expected name of the email owner. Provide first, last, or both.",
+            "properties": {
+              "first": {
+                "type": "string",
+                "description": "First name (e.g., \"John\")"
+              },
+              "last": {
+                "type": "string",
+                "description": "Last name (e.g., \"Doe\")"
+              }
+            }
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number. E.164 format recommended (e.g., \"+14155551234\", \"+442071234567\")."
+          },
+          "country": {
+            "type": "string",
+            "description": "Two-letter ISO 3166-1 alpha-2 country code (e.g., \"US\", \"GB\", \"CA\")."
+          }
+        }
+      },
+      "SingleEmailResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "Unique identifier for this request. Use to correlate with the request_id in the [webhook callback](/email-intelligence/webhook-reference)."
+          },
+          "webhook_configured": {
+            "type": "boolean",
+            "description": "Whether the project has an active webhook subscription for email intelligence results. If `false`, results are still processed but no webhook will be delivered."
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error type"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  }
+}

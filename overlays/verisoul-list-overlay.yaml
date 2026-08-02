@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Verisoul Lists API
+  version: 1.0.0
+extends: openapi/verisoul-list-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-note: Enrichment overlay — adds production server and operationIds absent from the source spec.
+  - target: $.servers
+    update:
+      - url: https://api.prod.verisoul.ai
+        description: Production
+      - url: https://api.sandbox.verisoul.ai
+        description: Sandbox
+  - target: $.paths['/list'].get
+    update: {operationId: listLists}
+  - target: $.paths['/list/{list_name}'].get
+    update: {operationId: getList}
+  - target: $.paths['/list/{list_name}'].post
+    update: {operationId: createList}
+  - target: $.paths['/list/{list_name}'].delete
+    update: {operationId: deleteList}
+  - target: $.paths['/list/{list_name}/account/{account_id}'].post
+    update: {operationId: addAccountToList}
+  - target: $.paths['/list/{list_name}/account/{account_id}'].delete
+    update: {operationId: removeAccountFromList}

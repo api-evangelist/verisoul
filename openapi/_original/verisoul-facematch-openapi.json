@@ -1,0 +1,966 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Verisoul Face Match API",
+    "description": "Face Match is a Verisoul platform add-on that uses facial biometrics to match and deduplicate users, while ensuring they're humans. It can be used for step-up authentication or verification processes.\n\nFaceMatch offers two primary workflows:\n- **Authentication (1-1)**: Match a user with an enrolled account to ensure it's the same person\n- **Uniqueness (1-N)**: Deduplicate users to verify a user is unique\n\nFor users, the process takes about thirty seconds, works on any device/language, and does not require an ID.\nFor developers, FaceMatch can be integrated within a couple hours of one developer's time.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Verisoul Support",
+      "url": "https://verisoul.ai",
+      "email": "support@verisoul.ai"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.sandbox.verisoul.ai",
+      "description": "Sandbox server"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "API key authentication"
+      }
+    },
+    "schemas": {
+      "SessionResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the request"
+          },
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the session"
+          }
+        },
+        "required": [
+          "request_id",
+          "session_id"
+        ]
+      },
+      "EnrollRequest": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The session ID of a completed Face Match session"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "Unique identifier for the user account"
+          }
+        },
+        "required": [
+          "session_id",
+          "account_id"
+        ]
+      },
+      "EnrollResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the request"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the enrollment was successful"
+          }
+        },
+        "required": [
+          "request_id",
+          "success"
+        ]
+      },
+      "VerifyIdentityRequest": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The session ID of a completed Face Match session"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "Unique identifier for the user account to verify against"
+          }
+        },
+        "required": [
+          "session_id",
+          "account_id"
+        ]
+      },
+      "VerifyIdentityResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the request"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the verification process was successful"
+          },
+          "match": {
+            "type": "boolean",
+            "description": "Indicates whether the face in the current session matches the previously enrolled face for the account"
+          }
+        }
+      },
+      "VerifyFaceRequest": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The session ID of a completed Face Match session"
+          }
+        },
+        "required": [
+          "session_id"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "VerifyFaceResponse": {
+        "type": "object",
+        "properties": {
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "project_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "account_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "referring_session_id": {
+                "type": "string",
+                "format": "uuid",
+                "nullable": true
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "Fake",
+              "Suspicious",
+              "Real"
+            ],
+            "description": "Overall decision"
+          },
+          "risk_score": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Risk score where higher values indicate higher risk"
+          },
+          "risk_flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "See [Risk Flags](/verifications/face-match/resources/risk-flags) for more information."
+          },
+          "device_network_signals": {
+            "type": "object",
+            "properties": {
+              "device_risk": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Risk score for the device"
+              },
+              "proxy": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of proxy usage"
+              },
+              "vpn": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of VPN usage"
+              },
+              "datacenter": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of datacenter IP"
+              },
+              "tor": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of Tor usage"
+              },
+              "spoofed_ip": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of IP spoofing"
+              },
+              "recent_fraud_ip": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of recent fraud association"
+              },
+              "device_network_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of device-network mismatch"
+              },
+              "location_spoofing": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of location spoofing"
+              }
+            }
+          },
+          "referring_session_signals": {
+            "type": "object",
+            "properties": {
+              "impossible_travel": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of impossible travel"
+              },
+              "ip_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of IP mismatch"
+              },
+              "user_agent_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of user agent mismatch"
+              },
+              "device_timezone_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of device timezone mismatch"
+              },
+              "ip_timezone_mismatch": {
+                "type": "number",
+                "format": "float",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability of IP timezone mismatch"
+              }
+            }
+          },
+          "photo_urls": {
+            "type": "object",
+            "properties": {
+              "face": {
+                "type": "string",
+                "format": "uri",
+                "description": "Signed URL to the face image"
+              }
+            }
+          },
+          "video_urls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "description": "Signed URL to the session video"
+            }
+          },
+          "session_data": {
+            "type": "object",
+            "properties": {
+              "true_country_code": {
+                "type": "string",
+                "description": "Country code of the true location"
+              },
+              "network": {
+                "type": "object",
+                "properties": {
+                  "ip_address": {
+                    "type": "string"
+                  },
+                  "service_provider": {
+                    "type": "string"
+                  },
+                  "connection_type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "continent": {
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "zip_code": {
+                    "type": "string"
+                  },
+                  "timezone": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  }
+                }
+              },
+              "browser": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "string"
+                  },
+                  "user_agent": {
+                    "type": "string"
+                  },
+                  "timezone": {
+                    "type": "string"
+                  }
+                }
+              },
+              "device": {
+                "type": "object",
+                "properties": {
+                  "category": {
+                    "type": "string",
+                    "enum": [
+                      "desktop",
+                      "mobile",
+                      "tablet",
+                      "console",
+                      "smarttv",
+                      "wearable",
+                      "embedded",
+                      "other"
+                    ],
+                    "description": "Device category. See [Device Categories](/signals-scores/device#device-categories) for details."
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "os": {
+                    "type": "string"
+                  },
+                  "cpu_cores": {
+                    "type": "integer"
+                  },
+                  "memory": {
+                    "type": "integer"
+                  },
+                  "gpu": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "matches": {
+            "type": "object",
+            "properties": {
+              "num_accounts_linked": {
+                "type": "integer",
+                "description": "Number of accounts linked"
+              },
+              "accounts_linked": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "account_id": {
+                      "type": "string",
+                      "description": "Account ID"
+                    },
+                    "match_types": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "face",
+                          "ip_address",
+                          "browser",
+                          "document_number",
+                          "document_name"
+                        ]
+                      },
+                      "description": "Types of matches found"
+                    }
+                  }
+                },
+                "description": "List of linked accounts"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/public/liveness-redirect": {
+      "get": {
+        "summary": "Public redirect to Face Match",
+        "description": "A public endpoint that redirects to the Face Match verification page.",
+        "operationId": "redirectToFaceMatch",
+        "tags": [
+          "Public"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "description": "Project ID for the verification",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "referring_session_id",
+            "in": "query",
+            "description": "ID of a referring session, if applicable",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirect to verification page",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "description": "URL to redirect to"
+              }
+            },
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "missing_project_id",
+                        "groups_enabled"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "examples": {
+                  "missing_project_id": {
+                    "summary": "Missing project_id",
+                    "value": {
+                      "error": "missing_project_id"
+                    }
+                  },
+                  "groups_enabled": {
+                    "summary": "Groups enabled on project",
+                    "value": {
+                      "error": "groups_enabled"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/session": {
+      "get": {
+        "summary": "Get Face Match Session",
+        "description": "Get a new session for Face Match verification. This is the first step in the Face Match workflow.",
+        "operationId": "createFaceMatchSession",
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "referring_session_id",
+            "in": "query",
+            "description": "ID of a referring session, if applicable",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "simulate",
+            "in": "query",
+            "description": "See [Simulate Face Match](/verifications/face-match/resources/simulate-face-match) for more information",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                },
+                "example": {
+                  "request_id": "db4ad346-e8f1-46cc-922d-f89ca8fb7ac7",
+                  "session_id": "00022912-cbaa-4239-a3ec-51c32fcc0fc1"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - groups enabled on project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "groups_enabled"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "e6f078a5-7931-4c41-ad53-1ef35a4ca762",
+                  "success": false,
+                  "error": "groups_enabled"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/enroll": {
+      "post": {
+        "summary": "Enroll Account",
+        "description": "Enrolls an account in Face Match system using the provided session ID and account ID. Sessions must be enrolled within 30 days of creation.",
+        "operationId": "enrollFaceMatch",
+        "tags": [
+          "Enrollment"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollRequest"
+              },
+              "example": {
+                "session_id": "0007b793-ae5d-45a2-8d9f-4a5b573c3271",
+                "account_id": "example-account-id"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Enrollment successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrollResponse"
+                },
+                "example": {
+                  "request_id": "8757569c-61e6-454b-afc9-59232e861496",
+                  "success": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - session is not valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "session_not_found",
+                        "session_not_started",
+                        "session_not_valid_for_this_endpoint",
+                        "session_not_complete",
+                        "liveness_check_failed",
+                        "id_scan_not_complete",
+                        "id_scan_failed",
+                        "session_already_tied_to_an_account",
+                        "session_older_than_30_days"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5",
+                  "success": false,
+                  "error": "session_not_found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/verify-identity": {
+      "post": {
+        "summary": "Verify Identity",
+        "description": "Performs a 1:1 match to verify if the face in the current session matches the previously enrolled face for the specified account ID.",
+        "operationId": "verifyIdentityFaceMatch",
+        "tags": [
+          "Verification"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyIdentityRequest"
+              },
+              "example": {
+                "session_id": "000fb9fc-3a12-4492-b825-6ec9916ffea7",
+                "account_id": "example-account-id"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyIdentityResponse"
+                },
+                "example": {
+                  "request_id": "43eb9f8e-769c-4380-a3df-94925671746b",
+                  "success": true,
+                  "match": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - session is not valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "session_not_found",
+                        "session_not_started",
+                        "session_not_valid_for_this_endpoint",
+                        "session_not_complete",
+                        "liveness_check_failed",
+                        "id_scan_not_complete",
+                        "id_scan_failed",
+                        "account_not_found"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5",
+                  "success": false,
+                  "error": "session_not_found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveness/verify-face": {
+      "post": {
+        "summary": "Verify Face",
+        "description": "Validates the Face Match session provided and returns detailed information, risk signals, and an overall decision.",
+        "operationId": "verifyFace",
+        "tags": [
+          "Verification"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyFaceRequest"
+              },
+              "example": {
+                "session_id": "000fb9fc-3a12-4492-b825-6ec9916ffea7"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Face Match completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyFaceResponse"
+                },
+                "example": {
+                  "metadata": {
+                    "project_id": "00000000-0000-0000-0000-000000000001",
+                    "session_id": "00022d22-0592-4c83-8f55-0ec8f277c668",
+                    "account_id": "john-doe-1",
+                    "referring_session_id": "623d80c5-5266-4787-a5b8-7cd578379de4",
+                    "request_id": "d4b414e2-5c18-4e8e-9426-a3b83564d6f1",
+                    "timestamp": "2025-05-04T22:11:51.645Z"
+                  },
+                  "decision": "Fake",
+                  "risk_score": 0.8,
+                  "risk_flags": [
+                    "repeat_face"
+                  ],
+                  "device_network_signals": {
+                    "device_risk": 0.2429,
+                    "proxy": 0,
+                    "vpn": 0,
+                    "datacenter": 0,
+                    "tor": 0,
+                    "spoofed_ip": 0,
+                    "recent_fraud_ip": 0,
+                    "device_network_mismatch": 0.0001,
+                    "location_spoofing": 0.0001
+                  },
+                  "referring_session_signals": {
+                    "impossible_travel": 0,
+                    "ip_mismatch": 0,
+                    "user_agent_mismatch": 0,
+                    "device_timezone_mismatch": 0.2501,
+                    "ip_timezone_mismatch": 0.0001
+                  },
+                  "photo_urls": {
+                    "face": "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/face.jpg"
+                  },
+                  "video_urls": [
+                    "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500000000.webm?X-Goog-Signature=...",
+                    "https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500042000.webm?X-Goog-Signature=..."
+                  ],
+                  "session_data": {
+                    "true_country_code": "US",
+                    "network": {
+                      "ip_address": "107.209.253.92",
+                      "service_provider": "AT&T Internet",
+                      "connection_type": "isp"
+                    },
+                    "location": {
+                      "continent": "NA",
+                      "country_code": "US",
+                      "state": "Texas",
+                      "city": "Austin",
+                      "zip_code": "78758",
+                      "timezone": "America/Chicago",
+                      "latitude": 30.3773,
+                      "longitude": -97.71
+                    },
+                    "browser": {
+                      "type": "Chrome",
+                      "version": "135.0.0.0",
+                      "language": "en-US",
+                      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+                      "timezone": "America/Chicago"
+                    },
+                    "device": {
+                      "category": "desktop",
+                      "type": "Mac",
+                      "os": "macOS 10.15.7",
+                      "cpu_cores": 16,
+                      "memory": 8,
+                      "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)"
+                    }
+                  },
+                  "matches": {
+                    "num_accounts_linked": 1,
+                    "accounts_linked": [
+                      {
+                        "account_id": "john-doe-2",
+                        "match_types": [
+                          "face",
+                          "ip_address"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - session is not valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the request"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates whether the request was successful"
+                    },
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "session_not_found",
+                        "session_not_started",
+                        "session_not_valid_for_this_endpoint",
+                        "session_not_complete",
+                        "liveness_check_failed",
+                        "id_scan_not_complete",
+                        "id_scan_failed"
+                      ],
+                      "description": "Error code indicating the reason for failure"
+                    }
+                  }
+                },
+                "example": {
+                  "request_id": "8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5",
+                  "success": false,
+                  "error": "session_not_found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

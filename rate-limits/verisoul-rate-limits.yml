@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.verisoul.ai/api-reference/rate-limits
+scope: per-api-key
+default:
+  limit_count: 300
+  interval: minute
+  applies_to: all endpoints
+exceeded:
+  status: 429
+  message: Too Many Requests
+increase:
+  eligibility: typically enterprise customers only
+  contact:
+    - {channel: slack, note: preferred for fastest response}
+    - {channel: email, value: support@verisoul.ai}
+  request_fields: [project_id, requested_limit, justification]
+docs: https://docs.verisoul.ai/api-reference/rate-limits

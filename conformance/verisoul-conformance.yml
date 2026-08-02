@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  derived from openapi/*-openapi.json + searched
+  https://docs.verisoul.ai/verifications/face-match/resources/biometric-compliance,
+  https://trust.verisoul.ai/
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: no oauth2 security schemes; API-key auth only (x-api-key header)
+  - id: openid-connect
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a flat custom JSON envelope {message,error,statusCode}, not application/problem+json
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: no /.well-known/security.txt published
+  - id: openapi-3
+    conforms: true
+    evidence: eight published OpenAPI 3.0.x documents at docs.verisoul.ai
+  - id: webhook-hmac-signing
+    conforms: true
+    evidence: webhook deliveries signed with HMAC-SHA256 in x-signature header
+  - id: bipa-biometric
+    conforms: true
+    evidence: >-
+      Verisoul obtains affirmative informed end-user consent and handles all
+      biometric capture/storage/retention, stated compliant with BIPA and
+      applicable biometric-data laws (Biometric Terms & Conditions Consent Form)
+compliance_program:
+  published: true
+  trust_center: https://trust.verisoul.ai/
+  biometric_terms: https://policies.verisoul.ai/biometric.html
+  notes: >-
+    Verisoul operates a Trust Center describing its security posture,
+    certifications, and compliance practices, and publishes biometric data
+    handling terms (BIPA). Specific certification names (e.g. SOC 2) are gated
+    behind the Trust Center and were not independently enumerated in this pass.

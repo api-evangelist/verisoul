@@ -1,0 +1,28 @@
+{
+  "provider": "verisoul",
+  "sources": [
+    "verisoul-account-api-openapi.yml",
+    "verisoul-email-api-openapi.yml",
+    "verisoul-enrollment-api-openapi.yml",
+    "verisoul-list-api-openapi.yml",
+    "verisoul-phone-api-openapi.yml",
+    "verisoul-public-api-openapi.yml",
+    "verisoul-session-api-openapi.yml",
+    "verisoul-verification-api-openapi.yml"
+  ],
+  "outputs": [
+    "verisoul-account-api-openapi.yml",
+    "verisoul-email-api-openapi.yml",
+    "verisoul-enrollment-api-openapi.yml",
+    "verisoul-list-api-openapi.yml",
+    "verisoul-phone-api-openapi.yml",
+    "verisoul-public-api-openapi.yml",
+    "verisoul-session-api-openapi.yml",
+    "verisoul-verification-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

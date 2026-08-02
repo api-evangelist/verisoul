@@ -1,0 +1,136 @@
+asyncapi: 3.0.0
+info:
+  title: Verisoul Email Intelligence Webhooks
+  version: 1.0.0
+  description: >-
+    Asynchronous results for the Verisoul Email Intelligence API are delivered
+    to your configured endpoint as signed webhooks. When an email submitted via
+    POST /email (or the batch endpoint) finishes analysis, Verisoul POSTs an
+    `email.intelligence.completed` event. Deliveries are signed with HMAC-SHA256
+    in the `x-signature` header (see webhook signature verification).
+
+    Provenance: generated 2026-07-21, method searched, source
+    https://docs.verisoul.ai/email-intelligence/webhook-reference and
+    https://docs.verisoul.ai/email-intelligence/webhook-signature-verification
+  license:
+    name: Documentation © Verisoul
+    url: https://docs.verisoul.ai/email-intelligence/webhook-reference
+defaultContentType: application/json
+servers:
+  consumer:
+    host: your-app.example.com
+    protocol: https
+    description: Your webhook receiver endpoint (configured in the Verisoul dashboard).
+channels:
+  emailIntelligenceCompleted:
+    address: /webhook
+    messages:
+      emailIntelligenceCompleted:
+        $ref: '#/components/messages/EmailIntelligenceCompleted'
+operations:
+  receiveEmailIntelligenceCompleted:
+    action: receive
+    channel:
+      $ref: '#/channels/emailIntelligenceCompleted'
+    summary: Receive the result of an asynchronous email intelligence analysis.
+    bindings:
+      http:
+        method: POST
+components:
+  messages:
+    EmailIntelligenceCompleted:
+      name: email.intelligence.completed
+      title: Email Intelligence Completed
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          x-event-type:
+            type: string
+            const: email.intelligence.completed
+          x-event-id:
+            type: string
+            description: Unique delivery/event id.
+          x-signature:
+            type: string
+            description: "HMAC-SHA256 signature: t=<unix>,h=content-type x-event-id x-event-type,v1=<hex>"
+      payload:
+        $ref: '#/components/schemas/EmailIntelligencePayload'
+  schemas:
+    EmailIntelligencePayload:
+      type: object
+      required: [request_id, project_id, event_type, status]
+      properties:
+        request_id: {type: string}
+        batch_id: {type: [string, 'null']}
+        project_id: {type: string}
+        event_type: {type: string, const: email.intelligence.completed}
+        created_at: {type: string, format: date-time}
+        completed_at: {type: string, format: date-time}
+        status: {type: string, enum: [success, error]}
+        data:
+          type: [object, 'null']
+          properties:
+            input:
+              type: object
+              properties:
+                email: {type: string}
+                claims: {type: object}
+            result:
+              type: object
+              properties:
+                decision:
+                  type: string
+                  enum: [high_trust, trusted, moderate, risky, high_risk]
+                risk_score: {type: number, description: -1 (high trust) to 1 (high risk)}
+                trust_signals: {type: array, items: {type: string}}
+                risk_signals: {type: array, items: {type: string}}
+                domain:
+                  type: object
+                  properties:
+                    risk_score: {type: number}
+                    fqdn: {type: string}
+                    apex: {type: string}
+                    type: {type: string}
+                    age_years: {type: number}
+                    country: {type: string}
+                email:
+                  type: object
+                  properties:
+                    username: {type: string}
+                    normalized: {type: string}
+                    first_seen_at: {type: string}
+                    age_years: {type: number}
+                    seen_countries: {type: array, items: {type: string}}
+                deliverability:
+                  type: object
+                  properties:
+                    risk_score: {type: number}
+                    send_recommendation: {type: string, enum: [send, send_with_caution, do_not_send]}
+                breach_intelligence:
+                  type: object
+                  properties:
+                    breach_count: {type: integer}
+                    trusted_breach_count: {type: integer}
+                    breach_list: {type: array, items: {type: object}}
+                identity_intelligence:
+                  type: object
+                  description: Present only when identity_intelligence:true was submitted.
+                  properties:
+                    match_risk_score: {type: number}
+                    online_accounts_count: {type: integer}
+                    online_accounts: {type: array, items: {type: string}}
+                    connected_names: {type: array, items: {type: string}}
+                    connected_phones: {type: array, items: {type: string}}
+                    claim_matches:
+                      type: object
+                      properties:
+                        name: {type: string, enum: [match, partial_match, no_match, skipped]}
+                        phone: {type: string, enum: [match, partial_match, no_match, skipped]}
+                        country: {type: string, enum: [match, partial_match, no_match, skipped]}
+        error:
+          type: [object, 'null']
+          properties:
+            email: {type: string}
+            code: {type: string}
+            message: {type: string}

@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.verisoul.ai/api-reference/introduction, https://status.verisoul.ai/,
+  openapi/*-openapi.json
+versioning:
+  scheme: environment-host
+  spec_version: 1.0.0
+  current: unversioned URL path; environment selected by host
+  environments:
+    - {name: production, base_url: https://api.prod.verisoul.ai}
+    - {name: sandbox, base_url: https://api.sandbox.verisoul.ai}
+  notes: >-
+    The REST API is not versioned in the URL path. Published OpenAPI documents
+    carry info.version 1.0.0.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    No formal published deprecation policy or RFC 8594 Sunset/Deprecation header
+    support was found in the docs.
+sla:
+  url: null
+  uptime_target: null
+  notes: >-
+    No public SLA / uptime-target document found. Enterprise SLAs are handled
+    contractually.
+status_page: https://status.verisoul.ai/
+status_page_provider: instatus
+deprecated_operations: []

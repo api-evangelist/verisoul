@@ -1,0 +1,1378 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Verisoul API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.sandbox.verisoul.ai"
+    }
+  ],
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/account/{account_id}": {
+      "get": {
+        "description": "Returns detailed information about a specific account",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "ID of the account to retrieve",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account information response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                },
+                "example": {
+                  "project_id": "00000000-0000-0000-0000-000000000001",
+                  "request_id": "81fca4e3-0111-45b8-a8eb-0c2b638e1d29",
+                  "account": {
+                    "id": "john-doe",
+                    "email": "johndoe.example@gmail.com",
+                    "phone": "+14155550123",
+                    "first_name": "John",
+                    "last_name": "Doe",
+                    "username": "john.doe",
+                    "expected_countries": [
+                      "US",
+                      "CA"
+                    ],
+                    "metadata": {},
+                    "group": ""
+                  },
+                  "num_sessions": 1,
+                  "first_seen": "2025-06-10T16:47:29.661Z",
+                  "last_seen": "2025-06-10T16:47:29.661Z",
+                  "last_session": "56f9a065-1583-48af-a5c4-cd5921b21a12",
+                  "country": "US",
+                  "countries": [
+                    "US"
+                  ],
+                  "decision": "Real",
+                  "account_score": 0.2191,
+                  "bot": 0,
+                  "multiple_accounts": 0.2053,
+                  "risk_signals": 0.2979,
+                  "accounts_linked": 2,
+                  "lists": [
+                    "us_users"
+                  ],
+                  "unique_devices": {
+                    "1_day": 1,
+                    "7_day": 1
+                  },
+                  "unique_networks": {
+                    "1_day": 1,
+                    "7_day": 1
+                  },
+                  "email": {
+                    "email": "johndoe.example@gmail.com",
+                    "disposable": false,
+                    "personal": true,
+                    "valid": true,
+                    "domain_type": "personal",
+                    "email_score": 0,
+                    "trust_signals": [
+                      "email_age_greater_than_5_years",
+                      "email_known_online_history"
+                    ],
+                    "risk_signals": [
+                      "email_alias"
+                    ],
+                    "num_account_from_domain": 156
+                  },
+                  "risk_signal_average": {
+                    "device_risk": 0.3971,
+                    "proxy": 0,
+                    "vpn": 0,
+                    "tor": 0,
+                    "spoofed_ip": 0,
+                    "datacenter": 0,
+                    "recent_fraud_ip": 0,
+                    "impossible_travel": 0,
+                    "device_network_mismatch": 0.0001,
+                    "location_spoofing": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Account not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Updates an existing account with new information",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "ID of the account to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Account information to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Updated account information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                },
+                "example": {
+                  "project_id": "00000000-0000-0000-0000-000000000001",
+                  "request_id": "e23cf3bd-7d33-440e-af9f-6d1d3182e2f9",
+                  "account": {
+                    "id": "john-doe",
+                    "email": "johndoe.example@gmail.com",
+                    "phone": "+14155550123",
+                    "first_name": "John",
+                    "last_name": "Doe",
+                    "username": "john.doe",
+                    "expected_countries": [
+                      "US",
+                      "CA"
+                    ],
+                    "metadata": {},
+                    "group": ""
+                  },
+                  "num_sessions": 1,
+                  "first_seen": "2025-06-10T16:47:29.661079410Z",
+                  "last_seen": "2025-06-10T16:47:29.661079410Z",
+                  "last_session": "56f9a065-1583-48af-a5c4-cd5921b21a12",
+                  "country": "US",
+                  "countries": [
+                    "US"
+                  ],
+                  "decision": "Real",
+                  "account_score": 0.9392,
+                  "bot": 0,
+                  "multiple_accounts": 0.2053,
+                  "risk_signals": 1,
+                  "accounts_linked": 2,
+                  "lists": [
+                    "us_users"
+                  ],
+                  "unique_devices": {
+                    "1_day": 1,
+                    "7_day": 1
+                  },
+                  "unique_networks": {
+                    "1_day": 1,
+                    "7_day": 1
+                  },
+                  "email": {
+                    "email": "johndoe.example@gmail.com",
+                    "disposable": false,
+                    "personal": true,
+                    "valid": true,
+                    "domain_type": "personal",
+                    "email_score": 0,
+                    "trust_signals": [
+                      "email_age_greater_than_5_years",
+                      "email_known_online_history"
+                    ],
+                    "risk_signals": [
+                      "email_alias"
+                    ],
+                    "num_account_from_domain": 156
+                  },
+                  "risk_signal_average": {
+                    "device_risk": 0.3971,
+                    "proxy": 0,
+                    "vpn": 0,
+                    "tor": 0,
+                    "spoofed_ip": 0,
+                    "datacenter": 0,
+                    "recent_fraud_ip": 0,
+                    "impossible_travel": 0,
+                    "device_network_mismatch": 0.0001,
+                    "location_spoofing": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account not found or invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Account not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a specific account",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "ID of the account to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account deletion confirmation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAccountResponse"
+                },
+                "example": {
+                  "request_id": "b733c6eb-d22e-406d-a0aa-2b2cfda2cd44",
+                  "account_id": "john-doe",
+                  "success": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Account not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/{account_id}/sessions": {
+      "get": {
+        "description": "Returns all sessions associated with a specific account",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "ID of the account to retrieve sessions for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account sessions response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionsResponse"
+                },
+                "example": {
+                  "request_id": "e57b7c0f-34bc-4770-8ec7-71aacc72e5a4",
+                  "sessions": [
+                    "56f9a065-1583-48af-a5c4-cd5921b21a12",
+                    "2ddd11ed-2a46-4e21-9dc2-c2dbe7f7ef69"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Account not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/{account_id}/accounts-linked": {
+      "get": {
+        "description": "Returns all accounts linked to a specific account",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "ID of the account to retrieve linked accounts for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Linked accounts response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkedAccountsResponse"
+                },
+                "example": {
+                  "request_id": "9b3f35c7-a4e6-4762-91db-b026bfe46e9c",
+                  "accounts_linked": [
+                    {
+                      "account_id": "john-doe-1",
+                      "score": 0.1085,
+                      "match_type": [
+                        "network",
+                        "email",
+                        "browser",
+                        "device",
+                        "phone",
+                        "username"
+                      ],
+                      "email": "john.doe@example.com",
+                      "phone": "+14155550123",
+                      "first_name": "Jane",
+                      "last_name": "Doe",
+                      "username": "jane.doe",
+                      "expected_countries": [
+                        "US",
+                        "CA"
+                      ],
+                      "lists": [
+                        "us_users"
+                      ],
+                      "metadata": {}
+                    },
+                    {
+                      "account_id": "john-doe-2",
+                      "score": 0.1085,
+                      "match_type": [
+                        "network",
+                        "email",
+                        "browser",
+                        "phone",
+                        "username"
+                      ],
+                      "email": "john.doe2@example.com",
+                      "phone": "+14155550123",
+                      "first_name": "Jane",
+                      "last_name": "Doe",
+                      "username": "jane.doe",
+                      "expected_countries": [
+                        "US",
+                        "CA"
+                      ],
+                      "lists": [
+                        "us_users"
+                      ],
+                      "metadata": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Account not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountResponse": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "The ID of the project"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "The ID of the request"
+          },
+          "account": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The account identifier"
+              },
+              "email": {
+                "type": "string",
+                "description": "The email associated with the account"
+              },
+              "phone": {
+                "type": "string",
+                "description": "The phone number stored for the account in E.164 format"
+              },
+              "first_name": {
+                "type": "string",
+                "description": "The account holder's first name"
+              },
+              "last_name": {
+                "type": "string",
+                "description": "The account holder's last name"
+              },
+              "username": {
+                "type": "string",
+                "description": "The username stored for the account"
+              },
+              "expected_countries": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Countries the account is expected to operate from (ISO 3166-1 alpha-2 codes)"
+              },
+              "metadata": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Additional metadata about the account"
+              },
+              "group": {
+                "type": "string",
+                "description": "Groups must be enabled for the project to use this field. See [Multi Accounting Groups](/integration/advanced/multi-accounting-groups) for more information."
+              }
+            }
+          },
+          "num_sessions": {
+            "type": "integer",
+            "description": "Number of sessions associated with this account"
+          },
+          "first_seen": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the account was first seen"
+          },
+          "last_seen": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the account was last seen"
+          },
+          "last_session": {
+            "type": "string",
+            "description": "ID of the last session"
+          },
+          "decision": {
+            "type": "string",
+            "description": "Decision about the account authenticity"
+          },
+          "account_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Overall account risk score"
+          },
+          "bot": {
+            "type": "number",
+            "format": "float",
+            "description": "Bot detection score"
+          },
+          "multiple_accounts": {
+            "type": "number",
+            "format": "float",
+            "description": "Multiple accounts detection score"
+          },
+          "risk_signals": {
+            "type": "number",
+            "format": "float",
+            "description": "Risk signals score"
+          },
+          "accounts_linked": {
+            "type": "integer",
+            "description": "Number of accounts linked to this account"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the account"
+          },
+          "lists": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lists the account belongs to"
+          },
+          "unique_devices": {
+            "type": "object",
+            "properties": {
+              "1_day": {
+                "type": "integer",
+                "description": "Number of unique devices in the last day"
+              },
+              "7_day": {
+                "type": "integer",
+                "description": "Number of unique devices in the last 7 days"
+              }
+            }
+          },
+          "unique_networks": {
+            "type": "object",
+            "properties": {
+              "1_day": {
+                "type": "integer",
+                "description": "Number of unique networks in the last day"
+              },
+              "7_day": {
+                "type": "integer",
+                "description": "Number of unique networks in the last 7 days"
+              }
+            }
+          },
+          "email": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "Email address"
+              },
+              "disposable": {
+                "type": "boolean",
+                "description": "Whether the email is disposable"
+              },
+              "personal": {
+                "type": "boolean",
+                "description": "Whether the email is personal"
+              },
+              "valid": {
+                "type": "boolean",
+                "description": "Whether the email is valid"
+              },
+              "domain_type": {
+                "type": "string",
+                "enum": [
+                  "relay",
+                  "personal",
+                  "disposable",
+                  "business",
+                  "government",
+                  "education",
+                  "invalid",
+                  "not_active"
+                ],
+                "description": "The type of domain. See [Domain Types](/signals-scores/email#domain-types) for details."
+              },
+              "email_score": {
+                "type": "number",
+                "format": "float",
+                "description": "Email risk score from -1 (most trustworthy) to 1 (most risky)"
+              },
+              "trust_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of trust signals detected for this email. See [Trust Flags](/signals-scores/email#trust-flags) for descriptions."
+              },
+              "risk_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of risk signals detected for this email. See [Risk Flags](/signals-scores/email#risk-flags) for descriptions."
+              },
+              "num_account_from_domain": {
+                "type": "integer",
+                "description": "Number of accounts from the same apex domain seen in your project. Capped at 1000. See [Domain Account Velocity](/signals-scores/email#domain-account-velocity) for details."
+              }
+            }
+          },
+          "risk_signal_average": {
+            "type": "object",
+            "properties": {
+              "device_risk": {
+                "type": "number",
+                "format": "float",
+                "description": "Device risk score"
+              },
+              "proxy": {
+                "type": "number",
+                "format": "float",
+                "description": "Proxy detection score"
+              },
+              "vpn": {
+                "type": "number",
+                "format": "float",
+                "description": "VPN detection score"
+              },
+              "datacenter": {
+                "type": "number",
+                "format": "float",
+                "description": "Datacenter detection score"
+              },
+              "tor": {
+                "type": "number",
+                "format": "float",
+                "description": "Tor detection score"
+              },
+              "spoofed_ip": {
+                "type": "number",
+                "format": "float",
+                "description": "Spoofed IP detection score"
+              },
+              "recent_fraud_ip": {
+                "type": "number",
+                "format": "float",
+                "description": "Recent fraud IP detection score"
+              },
+              "impossible_travel": {
+                "type": "number",
+                "format": "float",
+                "description": "Impossible travel detection score"
+              },
+              "device_network_mismatch": {
+                "type": "number",
+                "format": "float",
+                "description": "Device network mismatch score"
+              },
+              "location_spoofing": {
+                "type": "number",
+                "format": "float",
+                "description": "Location spoofing detection score"
+              }
+            }
+          }
+        }
+      },
+      "AccountError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "Status code"
+          }
+        }
+      },
+      "SessionsResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "The ID of the request"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of session IDs associated with the account"
+          }
+        }
+      },
+      "LinkedAccountsResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "The ID of the request"
+          },
+          "accounts_linked": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LinkedAccount"
+            },
+            "description": "List of accounts linked to the specified account"
+          }
+        }
+      },
+      "LinkedAccount": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "The ID of the linked account"
+          },
+          "score": {
+            "type": "number",
+            "format": "float",
+            "description": "Confidence score of the link between accounts"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email associated with the linked account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number associated with the linked account"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name associated with the linked account"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name associated with the linked account"
+          },
+          "username": {
+            "type": "string",
+            "description": "Username associated with the linked account"
+          },
+          "expected_countries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Expected countries declared for the linked account (ISO 3166-1 alpha-2 codes)"
+          },
+          "match_type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Types of matches that linked these accounts. Possible values: browser, device, network, email, phone, username, name, mobile_id, apple_device_check."
+          },
+          "lists": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lists the linked account belongs to"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Additional metadata about the linked account"
+          }
+        }
+      },
+      "AccountUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The account identifier"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email associated with the account"
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "The phone number on file for the account in E.164 format (e.g. +14155550123)"
+          },
+          "first_name": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "The account holder's first name"
+          },
+          "last_name": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "The account holder's last name"
+          },
+          "username": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "The username associated with the account"
+          },
+          "expected_countries": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "description": "Countries the account is expected to legitimately operate from, as ISO 3166-1 alpha-2 codes. A non-empty list replaces the stored list; an empty or omitted list leaves the stored list unchanged."
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Additional metadata about the account"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "DeleteAccountResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "The ID of the request"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Whether the deletion was successful"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "The ID of the deleted account"
+          }
+        }
+      },
+      "SessionDetails": {
+        "type": "object",
+        "properties": {
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the session started"
+          },
+          "true_country_code": {
+            "type": "string",
+            "description": "The true country code of the session"
+          },
+          "network": {
+            "type": "object",
+            "properties": {
+              "ip_address": {
+                "type": "string",
+                "description": "IP address of the session"
+              },
+              "service_provider": {
+                "type": "string",
+                "description": "Internet service provider"
+              },
+              "connection_type": {
+                "type": "string",
+                "description": "Type of network connection"
+              }
+            }
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "continent": {
+                "type": "string",
+                "description": "Continent code"
+              },
+              "country_code": {
+                "type": "string",
+                "description": "Country code"
+              },
+              "state": {
+                "type": "string",
+                "description": "State or region"
+              },
+              "city": {
+                "type": "string",
+                "description": "City name"
+              },
+              "zip_code": {
+                "type": "string",
+                "description": "Postal/ZIP code"
+              },
+              "timezone": {
+                "type": "string",
+                "description": "Timezone of the location"
+              },
+              "latitude": {
+                "type": "number",
+                "format": "float",
+                "description": "Latitude coordinate"
+              },
+              "longitude": {
+                "type": "number",
+                "format": "float",
+                "description": "Longitude coordinate"
+              }
+            }
+          },
+          "browser": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Browser type"
+              },
+              "version": {
+                "type": "string",
+                "description": "Browser version"
+              },
+              "language": {
+                "type": "string",
+                "description": "Browser language setting"
+              },
+              "user_agent": {
+                "type": "string",
+                "description": "User agent string"
+              },
+              "timezone": {
+                "type": "string",
+                "description": "Browser timezone setting"
+              }
+            }
+          },
+          "device": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "enum": [
+                  "desktop",
+                  "mobile",
+                  "tablet",
+                  "console",
+                  "smarttv",
+                  "wearable",
+                  "embedded",
+                  "other"
+                ],
+                "description": "Device category. See [Device Categories](/signals-scores/device#device-categories) for details."
+              },
+              "type": {
+                "type": "string",
+                "description": "Device type"
+              },
+              "os": {
+                "type": "string",
+                "description": "Operating system"
+              },
+              "cpu_cores": {
+                "type": "integer",
+                "description": "Number of CPU cores"
+              },
+              "memory": {
+                "type": "integer",
+                "description": "Amount of memory in GB"
+              },
+              "gpu": {
+                "type": "string",
+                "description": "GPU information"
+              },
+              "screen_height": {
+                "type": "number",
+                "description": "Screen height in pixels"
+              },
+              "screen_width": {
+                "type": "number",
+                "description": "Screen width in pixels"
+              }
+            }
+          },
+          "bot": {
+            "type": "object",
+            "properties": {
+              "mouse_num_events": {
+                "type": "integer",
+                "description": "Number of mouse events"
+              },
+              "click_num_events": {
+                "type": "integer",
+                "description": "Number of click events"
+              },
+              "keyboard_num_events": {
+                "type": "integer",
+                "description": "Number of keyboard events"
+              },
+              "touch_num_events": {
+                "type": "integer",
+                "description": "Number of touch events"
+              },
+              "clipboard_num_events": {
+                "type": "integer",
+                "description": "Number of clipboard events"
+              }
+            }
+          },
+          "risk_signals": {
+            "type": "object",
+            "properties": {
+              "device_risk": {
+                "type": "boolean",
+                "description": "Device risk flag"
+              },
+              "proxy": {
+                "type": "boolean",
+                "description": "Proxy usage flag"
+              },
+              "vpn": {
+                "type": "boolean",
+                "description": "VPN usage flag"
+              },
+              "datacenter": {
+                "type": "boolean",
+                "description": "Datacenter IP flag"
+              },
+              "tor": {
+                "type": "boolean",
+                "description": "Tor usage flag"
+              },
+              "spoofed_ip": {
+                "type": "boolean",
+                "description": "Spoofed IP flag"
+              },
+              "recent_fraud_ip": {
+                "type": "boolean",
+                "description": "Recent fraud IP flag"
+              },
+              "impossible_travel": {
+                "type": "boolean",
+                "description": "Impossible travel flag"
+              },
+              "device_network_mismatch": {
+                "type": "boolean",
+                "description": "Device network mismatch flag"
+              },
+              "location_spoofing": {
+                "type": "boolean",
+                "description": "Location spoofing flag"
+              }
+            }
+          },
+          "risk_signal_scores": {
+            "type": "object",
+            "properties": {
+              "device_risk": {
+                "type": "number",
+                "format": "float",
+                "description": "Device risk score"
+              },
+              "proxy": {
+                "type": "number",
+                "format": "float",
+                "description": "Proxy detection score"
+              },
+              "vpn": {
+                "type": "number",
+                "format": "float",
+                "description": "VPN detection score"
+              },
+              "tor": {
+                "type": "number",
+                "format": "float",
+                "description": "Tor detection score"
+              },
+              "datacenter": {
+                "type": "number",
+                "format": "float",
+                "description": "Datacenter detection score"
+              },
+              "recent_fraud_ip": {
+                "type": "number",
+                "format": "float",
+                "description": "Recent fraud IP detection score"
+              },
+              "impossible_travel": {
+                "type": "number",
+                "format": "float",
+                "description": "Impossible travel detection score"
+              },
+              "device_network_mismatch": {
+                "type": "number",
+                "format": "float",
+                "description": "Device network mismatch score"
+              },
+              "location_spoofing": {
+                "type": "number",
+                "format": "float",
+                "description": "Location spoofing detection score"
+              }
+            }
+          }
+        }
+      },
+      "AccountDetails": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The account identifier"
+              },
+              "email": {
+                "type": "string",
+                "description": "The email associated with the account"
+              },
+              "phone": {
+                "type": "string",
+                "description": "The phone number stored for the account in E.164 format"
+              },
+              "first_name": {
+                "type": "string",
+                "description": "The account holder's first name"
+              },
+              "last_name": {
+                "type": "string",
+                "description": "The account holder's last name"
+              },
+              "username": {
+                "type": "string",
+                "description": "The username stored for the account"
+              },
+              "expected_countries": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Countries the account is expected to operate from (ISO 3166-1 alpha-2 codes)"
+              },
+              "metadata": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Additional metadata about the account"
+              },
+              "group": {
+                "type": "string",
+                "description": "The group associated with the account"
+              }
+            }
+          },
+          "num_sessions": {
+            "type": "integer",
+            "description": "Number of sessions associated with this account"
+          },
+          "first_seen": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the account was first seen"
+          },
+          "last_seen": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the account was last seen"
+          },
+          "last_session": {
+            "type": "string",
+            "description": "ID of the last session"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the account"
+          },
+          "countries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of countries associated with this account"
+          },
+          "unique_devices": {
+            "type": "object",
+            "properties": {
+              "1_day": {
+                "type": "integer",
+                "description": "Number of unique devices in the last day"
+              },
+              "7_day": {
+                "type": "integer",
+                "description": "Number of unique devices in the last 7 days"
+              }
+            }
+          },
+          "unique_networks": {
+            "type": "object",
+            "properties": {
+              "1_day": {
+                "type": "integer",
+                "description": "Number of unique networks in the last day"
+              },
+              "7_day": {
+                "type": "integer",
+                "description": "Number of unique networks in the last 7 days"
+              }
+            }
+          },
+          "email": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "Email address"
+              },
+              "disposable": {
+                "type": "boolean",
+                "description": "Whether the email is disposable"
+              },
+              "personal": {
+                "type": "boolean",
+                "description": "Whether the email is personal"
+              },
+              "valid": {
+                "type": "boolean",
+                "description": "Whether the email is valid"
+              },
+              "domain_type": {
+                "type": "string",
+                "enum": [
+                  "relay",
+                  "personal",
+                  "disposable",
+                  "business",
+                  "government",
+                  "education",
+                  "invalid",
+                  "not_active"
+                ],
+                "description": "The type of domain. See [Domain Types](/signals-scores/email#domain-types) for details."
+              },
+              "email_score": {
+                "type": "number",
+                "format": "float",
+                "description": "Email risk score from -1 (most trustworthy) to 1 (most risky)"
+              },
+              "trust_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of trust signals detected for this email. See [Trust Flags](/signals-scores/email#trust-flags) for descriptions."
+              },
+              "risk_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of risk signals detected for this email. See [Risk Flags](/signals-scores/email#risk-flags) for descriptions."
+              },
+              "num_account_from_domain": {
+                "type": "integer",
+                "description": "Number of accounts from the same apex domain seen in your project. Capped at 1000. See [Domain Account Velocity](/signals-scores/email#domain-account-velocity) for details."
+              }
+            }
+          },
+          "risk_signal_average": {
+            "type": "object",
+            "properties": {
+              "device_risk": {
+                "type": "number",
+                "format": "float",
+                "description": "Device risk score"
+              },
+              "proxy": {
+                "type": "number",
+                "format": "float",
+                "description": "Proxy detection score"
+              },
+              "vpn": {
+                "type": "number",
+                "format": "float",
+                "description": "VPN detection score"
+              },
+              "tor": {
+                "type": "number",
+                "format": "float",
+                "description": "Tor detection score"
+              },
+              "spoofed_ip": {
+                "type": "number",
+                "format": "float",
+                "description": "Spoofed IP detection score"
+              },
+              "datacenter": {
+                "type": "number",
+                "format": "float",
+                "description": "Datacenter detection score"
+              },
+              "recent_fraud_ip": {
+                "type": "number",
+                "format": "float",
+                "description": "Recent fraud IP detection score"
+              },
+              "impossible_travel": {
+                "type": "number",
+                "format": "float",
+                "description": "Impossible travel detection score"
+              },
+              "device_network_mismatch": {
+                "type": "number",
+                "format": "float",
+                "description": "Device network mismatch score"
+              },
+              "location_spoofing": {
+                "type": "number",
+                "format": "float",
+                "description": "Location spoofing detection score"
+              }
+            }
+          }
+        }
+      },
+      "List": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the list"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the list's purpose"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  }
+}
