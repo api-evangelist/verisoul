@@ -149,6 +149,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/verisoul-email-asyncapi.yml
 common:
+- type: Overlay
+  url: overlays/verisoul-account-overlay.yaml
 - type: DomainSecurity
   url: security/verisoul-domain-security.yml
 - type: Website
