@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account Session API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Face Match Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/liveness/session",
+            "params": [
+              {
+                "name": "referring_session_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of a referring session, if applicable"
+              },
+              {
+                "name": "simulate",
+                "value": "",
+                "type": "query",
+                "description": "See [Simulate Face Match](/verifications/face-match/resources/simulate-face-match) for more information"
+              }
+            ]
+          },
+          "docs": "Get a new session for Face Match verification. This is the first step in the Face Match workflow."
+        },
+        {
+          "info": {
+            "name": "GET /session/{session_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/session/:session_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the session to retrieve"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific session"
+        },
+        {
+          "info": {
+            "name": "POST /session/authenticate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/session/authenticate",
+            "params": [
+              {
+                "name": "accounts_linked",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked accounts in the response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a session with an account"
+        },
+        {
+          "info": {
+            "name": "POST /session/unauthenticated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/session/unauthenticated",
+            "params": [
+              {
+                "name": "accounts_linked",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked accounts in the response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Evaluates a session without authentication"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

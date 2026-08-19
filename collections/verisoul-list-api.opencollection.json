@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account List API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/list"
+          },
+          "docs": "Returns all available lists"
+        },
+        {
+          "info": {
+            "name": "GET /list/{list_name}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/list/:list_name",
+            "params": [
+              {
+                "name": "list_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the list to retrieve accounts from"
+              }
+            ]
+          },
+          "docs": "Returns all accounts in a specific list"
+        },
+        {
+          "info": {
+            "name": "POST /list/{list_name}",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/list/:list_name",
+            "params": [
+              {
+                "name": "list_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the list to create"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new list with the specified name"
+        },
+        {
+          "info": {
+            "name": "DELETE /list/{list_name}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sandbox.verisoul.ai/list/:list_name",
+            "params": [
+              {
+                "name": "list_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the list to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a list with the specified name"
+        },
+        {
+          "info": {
+            "name": "POST /list/{list_name}/account/{account_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/list/:list_name/account/:account_id",
+            "params": [
+              {
+                "name": "list_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the list to add the account to"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to add to the list"
+              }
+            ]
+          },
+          "docs": "Adds an account to a specific list"
+        },
+        {
+          "info": {
+            "name": "DELETE /list/{list_name}/account/{account_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sandbox.verisoul.ai/list/:list_name/account/:account_id",
+            "params": [
+              {
+                "name": "list_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the list to remove the account from"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to remove from the list"
+              }
+            ]
+          },
+          "docs": "Removes an account from a specific list"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

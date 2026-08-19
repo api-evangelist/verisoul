@@ -1,0 +1,202 @@
+{
+  "item": [
+    {
+      "id": "d6f08186-edbd-4c3c-b828-5c678636a0c5",
+      "name": "Enrollment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c2bb6b4f-26cc-442b-a334-370ee5ab7932",
+          "name": "Enroll Account",
+          "request": {
+            "name": "Enroll Account",
+            "description": {
+              "content": "Enrolls an account in Face Match system using the provided session ID and account ID. Sessions must be enrolled within 30 days of creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "liveness",
+                "enroll"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"<uuid>\",\n  \"account_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58c75ac5-71f2-4b2e-a3f3-79fa782ae7db",
+              "name": "Enrollment successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "enroll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"0007b793-ae5d-45a2-8d9f-4a5b573c3271\",\n  \"account_id\": \"example-account-id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"8757569c-61e6-454b-afc9-59232e861496\",\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c938b860-833f-4d4d-bfca-a264d614f88a",
+              "name": "Bad request - session is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "enroll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"0007b793-ae5d-45a2-8d9f-4a5b573c3271\",\n  \"account_id\": \"example-account-id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5\",\n  \"success\": false,\n  \"error\": \"session_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sandbox.verisoul.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "52756d8d-36a2-4090-9542-91420b3021cd",
+    "name": "Verisoul Account Enrollment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Verisoul API is used to integrate Verisoul into your application.",
+      "type": "text/plain"
+    }
+  }
+}

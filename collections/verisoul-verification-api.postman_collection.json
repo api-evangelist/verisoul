@@ -1,0 +1,508 @@
+{
+  "item": [
+    {
+      "id": "acc923ed-5e94-4114-b6a1-89408b898dca",
+      "name": "Verification",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4ae148b-ba9a-4dcf-8fbb-e1868f5c16ce",
+          "name": "Verify Identity",
+          "request": {
+            "name": "Verify Identity",
+            "description": {
+              "content": "Performs a 1:1 match to verify if the face in the current session matches the previously enrolled face for the specified account ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "liveness",
+                "verify-identity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"<uuid>\",\n  \"account_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c1b84210-6b84-4093-abe7-18a597bec6f0",
+              "name": "Verification completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "verify-identity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"000fb9fc-3a12-4492-b825-6ec9916ffea7\",\n  \"account_id\": \"example-account-id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"43eb9f8e-769c-4380-a3df-94925671746b\",\n  \"success\": true,\n  \"match\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcaeb058-19f6-4b8f-bf21-75c84d53fbb0",
+              "name": "Bad request - session is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "verify-identity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"000fb9fc-3a12-4492-b825-6ec9916ffea7\",\n  \"account_id\": \"example-account-id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5\",\n  \"success\": false,\n  \"error\": \"session_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94ebcb32-8ec6-44a2-b64a-9b030f7f8df2",
+          "name": "Verify Face",
+          "request": {
+            "name": "Verify Face",
+            "description": {
+              "content": "Validates the Face Match session provided and returns detailed information, risk signals, and an overall decision.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "liveness",
+                "verify-face"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d6129bb-11a4-43db-961d-9ec75b3da625",
+              "name": "Face Match completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "verify-face"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"000fb9fc-3a12-4492-b825-6ec9916ffea7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"project_id\": \"00000000-0000-0000-0000-000000000001\",\n    \"session_id\": \"00022d22-0592-4c83-8f55-0ec8f277c668\",\n    \"account_id\": \"john-doe-1\",\n    \"referring_session_id\": \"623d80c5-5266-4787-a5b8-7cd578379de4\",\n    \"request_id\": \"d4b414e2-5c18-4e8e-9426-a3b83564d6f1\",\n    \"timestamp\": \"2025-05-04T22:11:51.645Z\"\n  },\n  \"decision\": \"Fake\",\n  \"risk_score\": 0.8,\n  \"risk_flags\": [\n    \"repeat_face\"\n  ],\n  \"device_network_signals\": {\n    \"device_risk\": 0.2429,\n    \"proxy\": 0,\n    \"vpn\": 0,\n    \"datacenter\": 0,\n    \"tor\": 0,\n    \"spoofed_ip\": 0,\n    \"recent_fraud_ip\": 0,\n    \"device_network_mismatch\": 0.0001,\n    \"location_spoofing\": 0.0001\n  },\n  \"referring_session_signals\": {\n    \"impossible_travel\": 0,\n    \"ip_mismatch\": 0,\n    \"user_agent_mismatch\": 0,\n    \"device_timezone_mismatch\": 0.2501,\n    \"ip_timezone_mismatch\": 0.0001\n  },\n  \"photo_urls\": {\n    \"face\": \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/face.jpg\"\n  },\n  \"video_urls\": [\n    \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500000000.webm?X-Goog-Signature=...\",\n    \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500042000.webm?X-Goog-Signature=...\"\n  ],\n  \"session_data\": {\n    \"true_country_code\": \"US\",\n    \"network\": {\n      \"ip_address\": \"107.209.253.92\",\n      \"service_provider\": \"AT&T Internet\",\n      \"connection_type\": \"isp\"\n    },\n    \"location\": {\n      \"continent\": \"NA\",\n      \"country_code\": \"US\",\n      \"state\": \"Texas\",\n      \"city\": \"Austin\",\n      \"zip_code\": \"78758\",\n      \"timezone\": \"America/Chicago\",\n      \"latitude\": 30.3773,\n      \"longitude\": -97.71\n    },\n    \"browser\": {\n      \"type\": \"Chrome\",\n      \"version\": \"135.0.0.0\",\n      \"language\": \"en-US\",\n      \"user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\",\n      \"timezone\": \"America/Chicago\"\n    },\n    \"device\": {\n      \"category\": \"desktop\",\n      \"type\": \"Mac\",\n      \"os\": \"macOS 10.15.7\",\n      \"cpu_cores\": 16,\n      \"memory\": 8,\n      \"gpu\": \"ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)\"\n    }\n  },\n  \"matches\": {\n    \"num_accounts_linked\": 1,\n    \"accounts_linked\": [\n      {\n        \"account_id\": \"john-doe-2\",\n        \"match_types\": [\n          \"face\",\n          \"ip_address\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43e9aa1d-7d90-439d-a474-5f7bc8f3d9d2",
+              "name": "Bad request - session is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "verify-face"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"000fb9fc-3a12-4492-b825-6ec9916ffea7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5\",\n  \"success\": false,\n  \"error\": \"session_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3209bbf3-d02e-4fe1-a530-7ffcfe25de9e",
+          "name": "Verify ID document",
+          "request": {
+            "name": "Verify ID document",
+            "description": {
+              "content": "Validates the identity document provided and returns detailed information, risk signals, and an overall decision.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "liveness",
+                "verify-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e7cce26a-5741-43be-a688-d9988b601073",
+              "name": "Document verification completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "verify-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"00022d22-0592-4c83-8f55-0ec8f277c668\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"project_id\": \"00000000-0000-0000-0000-000000000001\",\n    \"session_id\": \"00022d22-0592-4c83-8f55-0ec8f277c668\",\n    \"account_id\": \"john-doe-1\",\n    \"referring_session_id\": \"623d80c5-5266-4787-a5b8-7cd578379de4\",\n    \"request_id\": \"d4b414e2-5c18-4e8e-9426-a3b83564d6f1\",\n    \"timestamp\": \"2025-05-04T22:11:51.645Z\"\n  },\n  \"decision\": \"Fake\",\n  \"risk_score\": 1,\n  \"risk_flags\": [\n    \"repeat_face\",\n    \"repeat_id\"\n  ],\n  \"document_signals\": {\n    \"id_age\": 25,\n    \"face_age_estimate\": \"over21\",\n    \"id_face_match_score\": 0.9,\n    \"id_barcode_status\": \"barcode_requested_but_not_found\",\n    \"id_face_status\": \"likely_original_face\",\n    \"id_text_status\": \"likely_original_text\",\n    \"is_id_digital_spoof\": \"likely_physical_id\",\n    \"is_full_id_captured\": \"full_id_detected\",\n    \"id_validity\": \"likely_authentic_id\"\n  },\n  \"document_data\": {\n    \"template_info\": {\n      \"document_country_code\": \"US\",\n      \"document_state\": \"Texas\",\n      \"template_type\": \"driver_license\"\n    },\n    \"user_data\": {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"date_of_birth\": \"02/26/1997\",\n      \"date_of_expiration\": \"02/26/2034\",\n      \"date_of_issue\": \"03/19/2025\",\n      \"id_number\": \"1234567890\",\n      \"id_number2\": 987654321,\n      \"address\": {\n        \"city\": \"Austin\",\n        \"country\": \"US\",\n        \"postal_code\": \"78701\",\n        \"state\": \"TX\",\n        \"street\": \"123 Main St\"\n      }\n    }\n  },\n  \"device_network_signals\": {\n    \"device_risk\": 0.2429,\n    \"proxy\": 0,\n    \"vpn\": 0,\n    \"datacenter\": 0,\n    \"tor\": 0,\n    \"spoofed_ip\": 0,\n    \"recent_fraud_ip\": 0,\n    \"device_network_mismatch\": 0.0001,\n    \"location_spoofing\": 0.0001\n  },\n  \"referring_session_signals\": {\n    \"impossible_travel\": 0,\n    \"ip_mismatch\": 0,\n    \"user_agent_mismatch\": 0,\n    \"device_timezone_mismatch\": 0.2501,\n    \"ip_timezone_mismatch\": 0.0001\n  },\n  \"photo_urls\": {\n    \"face\": \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/face.jpg\",\n    \"id_scan_back\": \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/id_scan_back.jpg\",\n    \"id_scan_front\": \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/id_scan_front.jpg\"\n  },\n  \"video_urls\": [\n    \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500000000.webm?X-Goog-Signature=...\",\n    \"https://storage.googleapis.com/facematch-sandbox/00022d22-0592-4c83-8f55-0ec8f277c668/session_video_1716500042000.webm?X-Goog-Signature=...\"\n  ],\n  \"session_data\": {\n    \"true_country_code\": \"US\",\n    \"network\": {\n      \"ip_address\": \"107.209.253.92\",\n      \"service_provider\": \"AT&T Internet\",\n      \"connection_type\": \"isp\"\n    },\n    \"location\": {\n      \"continent\": \"NA\",\n      \"country_code\": \"US\",\n      \"state\": \"Texas\",\n      \"city\": \"Austin\",\n      \"zip_code\": \"78758\",\n      \"timezone\": \"America/Chicago\",\n      \"latitude\": 30.3773,\n      \"longitude\": -97.71\n    },\n    \"browser\": {\n      \"type\": \"Chrome\",\n      \"version\": \"135.0.0.0\",\n      \"language\": \"en-US\",\n      \"user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\",\n      \"timezone\": \"America/Chicago\"\n    },\n    \"device\": {\n      \"category\": \"desktop\",\n      \"type\": \"Mac\",\n      \"os\": \"macOS 10.15.7\",\n      \"cpu_cores\": 16,\n      \"memory\": 8,\n      \"gpu\": \"ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)\"\n    }\n  },\n  \"matches\": {\n    \"num_accounts_linked\": 1,\n    \"accounts_linked\": [\n      {\n        \"account_id\": \"john-doe-2\",\n        \"match_types\": [\n          \"face\",\n          \"ip_address\",\n          \"document_number\",\n          \"document_name\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efd7df2d-18c8-48e5-8bd8-1e71b543987b",
+              "name": "Bad request - session is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness",
+                    "verify-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session_id\": \"00022d22-0592-4c83-8f55-0ec8f277c668\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5\",\n  \"success\": false,\n  \"error\": \"session_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sandbox.verisoul.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "466197f5-ef43-4255-8a46-d50fa471c0f0",
+    "name": "Verisoul Account Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Verisoul API is used to integrate Verisoul into your application.",
+      "type": "text/plain"
+    }
+  }
+}

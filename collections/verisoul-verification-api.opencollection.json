@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account Verification API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Verify Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/liveness/verify-identity",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a 1:1 match to verify if the face in the current session matches the previously enrolled face for the specified account ID."
+        },
+        {
+          "info": {
+            "name": "Verify Face",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/liveness/verify-face",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates the Face Match session provided and returns detailed information, risk signals, and an overall decision."
+        },
+        {
+          "info": {
+            "name": "Verify ID document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/liveness/verify-id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates the identity document provided and returns detailed information, risk signals, and an overall decision."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

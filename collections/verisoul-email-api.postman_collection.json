@@ -1,0 +1,199 @@
+{
+  "item": [
+    {
+      "id": "5c52331f-1544-4fe1-ab98-c0f5354bede7",
+      "name": "Email",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "edb25320-6ed9-4e31-b944-8cdd378b331e",
+          "name": "Submit Email Batch",
+          "request": {
+            "name": "Submit Email Batch",
+            "description": {
+              "content": "Submit a batch of email addresses for asynchronous risk, deliverability, and identity analysis. [Results](/email-intelligence/webhook-reference) are delivered via webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"claims\": {\n        \"name\": {\n          \"first\": \"<string>\",\n          \"last\": \"<string>\"\n        },\n        \"phone\": \"<string>\",\n        \"country\": \"<string>\"\n      },\n      \"identity_intelligence\": false\n    },\n    {\n      \"email\": \"<string>\",\n      \"claims\": {\n        \"name\": {\n          \"first\": \"<string>\",\n          \"last\": \"<string>\"\n        },\n        \"phone\": \"<string>\",\n        \"country\": \"<string>\"\n      },\n      \"identity_intelligence\": false\n    }\n  ],\n  \"batch_name\": \"<string>\",\n  \"identity_intelligence\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b4dd2da-993a-46a4-89e7-e9c6f5043419",
+              "name": "Batch accepted for processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    {\n      \"email\": \"john.doe@example.com\",\n      \"claims\": {\n        \"name\": {\n          \"first\": \"John\",\n          \"last\": \"Doe\"\n        },\n        \"country\": \"US\"\n      }\n    },\n    {\n      \"email\": \"jane.doe@example.com\",\n      \"claims\": {\n        \"name\": {\n          \"first\": \"Jane\",\n          \"last\": \"Doe\"\n        },\n        \"phone\": \"+14155551234\"\n      }\n    },\n    {\n      \"email\": \"unknown@example.com\"\n    }\n  ],\n  \"batch_name\": \"onboarding-review-2026-03\",\n  \"identity_intelligence\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_id\": \"bbc73b22-bd47-48e4-b173-c9ca085efb2a\",\n  \"batch_name\": \"onboarding-review-2026-03\",\n  \"status\": \"pending\",\n  \"total_count\": 3,\n  \"webhook_configured\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bb7f266-6580-43cb-899e-b877d4575b09",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    {\n      \"email\": \"john.doe@example.com\",\n      \"claims\": {\n        \"name\": {\n          \"first\": \"John\",\n          \"last\": \"Doe\"\n        },\n        \"country\": \"US\"\n      }\n    },\n    {\n      \"email\": \"jane.doe@example.com\",\n      \"claims\": {\n        \"name\": {\n          \"first\": \"Jane\",\n          \"last\": \"Doe\"\n        },\n        \"phone\": \"+14155551234\"\n      }\n    },\n    {\n      \"email\": \"unknown@example.com\"\n    }\n  ],\n  \"batch_name\": \"onboarding-review-2026-03\",\n  \"identity_intelligence\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"each entry in emails must have an email field\",\n  \"error\": \"Bad Request\",\n  \"statusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sandbox.verisoul.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a0ef5400-89bc-4b03-9efc-6f31e2e01300",
+    "name": "Verisoul Account Email API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Verisoul API is used to integrate Verisoul into your application.",
+      "type": "text/plain"
+    }
+  }
+}

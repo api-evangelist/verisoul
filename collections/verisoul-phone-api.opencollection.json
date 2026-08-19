@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account Phone API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Phone",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /phone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/phone",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies a phone number and returns carrier and line type information"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

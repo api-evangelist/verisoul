@@ -2,74 +2,78 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: derived from openapi/*-openapi.json operations
-notes: >-
-  No official hosted/remote Verisoul MCP server was found (docs, npm
-  @modelcontextprotocol, MCP registry all negative as of this pass). The
-  following is a candidate tool surface derived one-tool-per-operation from the
-  published OpenAPI, for a future MCP server. All tools require the x-api-key
-  secret and should be exposed backend-side only.
+notes: No official hosted/remote Verisoul MCP server was found (docs, npm @modelcontextprotocol, MCP registry
+  all negative as of this pass). The following is a candidate tool surface derived one-tool-per-operation
+  from the published OpenAPI, for a future MCP server. All tools require the x-api-key secret and should
+  be exposed backend-side only.
 server:
   name: verisoul
   transport: http
   url: null
 tools:
-  - name: get_account
-    description: Retrieve an account and its risk decision/scores.
-    source_operation: openapi/verisoul-account-openapi.json#GET /account/{account_id}
-  - name: update_account
-    description: Update account metadata.
-    source_operation: openapi/verisoul-account-openapi.json#PUT /account/{account_id}
-  - name: delete_account
-    description: Delete an account and associated data.
-    source_operation: openapi/verisoul-account-openapi.json#DELETE /account/{account_id}
-  - name: get_account_sessions
-    description: List sessions for an account.
-    source_operation: openapi/verisoul-account-openapi.json#GET /account/{account_id}/sessions
-  - name: get_linked_accounts
-    description: List accounts linked to an account (multi-accounting).
-    source_operation: openapi/verisoul-account-openapi.json#GET /account/{account_id}/accounts-linked
-  - name: get_session
-    description: Retrieve a session and its signals/scores.
-    source_operation: openapi/verisoul-session-openapi.json#GET /session/{session_id}
-  - name: authenticate_session
-    description: Bind a session to an account and get an authenticated risk decision.
-    source_operation: openapi/verisoul-session-openapi.json#POST /session/authenticate
-  - name: unauthenticated_session
-    description: Get a risk decision for an unauthenticated session.
-    source_operation: openapi/verisoul-session-openapi.json#POST /session/unauthenticated
-  - name: list_lists
-    description: List all account lists.
-    source_operation: openapi/verisoul-list-openapi.json#GET /list
-  - name: create_list
-    description: Create a named account list.
-    source_operation: openapi/verisoul-list-openapi.json#POST /list/{list_name}
-  - name: add_account_to_list
-    description: Add an account to a list.
-    source_operation: openapi/verisoul-list-openapi.json#POST /list/{list_name}/account/{account_id}
-  - name: remove_account_from_list
-    description: Remove an account from a list.
-    source_operation: openapi/verisoul-list-openapi.json#DELETE /list/{list_name}/account/{account_id}
-  - name: verify_phone
-    description: Validate a phone number (validity, carrier, line type).
-    source_operation: openapi/verisoul-phone-openapi.json#POST /phone
-  - name: submit_email
-    description: Submit an email for async risk/deliverability/identity intelligence (webhook result).
-    source_operation: openapi/verisoul-email-openapi.json#POST /email
-  - name: submit_email_batch
-    description: Submit a batch of emails for async email intelligence.
-    source_operation: openapi/verisoul-email-batch-openapi.json#POST /email
-  - name: create_id_check_session
-    description: Create an ID Check verification session.
-    source_operation: openapi/verisoul-idcheck-openapi.json#createIDCheckSession
-  - name: verify_id
-    description: Verify a government ID document and match the face.
-    source_operation: openapi/verisoul-idcheck-openapi.json#verifyID
-  - name: create_face_match_session
-    description: Create a Face Match liveness session.
-    source_operation: openapi/verisoul-facematch-openapi.json#createFaceMatchSession
-  - name: verify_face
-    description: Verify liveness / match a face for dedup.
-    source_operation: openapi/verisoul-facematch-openapi.json#verifyFace
-  - name: verify_identity_face_match
-    description: Verify identity via Face Match.
-    source_operation: openapi/verisoul-facematch-openapi.json#verifyIdentityFaceMatch
+- name: get_account
+  description: Retrieve an account and its risk decision/scores.
+  source_operation: openapi/verisoul-account-openapi.json#GET /account/{account_id}
+- name: update_account
+  description: Update account metadata.
+  source_operation: openapi/verisoul-account-openapi.json#PUT /account/{account_id}
+- name: delete_account
+  description: Delete an account and associated data.
+  source_operation: openapi/verisoul-account-openapi.json#DELETE /account/{account_id}
+- name: get_account_sessions
+  description: List sessions for an account.
+  source_operation: openapi/verisoul-account-openapi.json#GET /account/{account_id}/sessions
+- name: get_linked_accounts
+  description: List accounts linked to an account (multi-accounting).
+  source_operation: openapi/verisoul-account-openapi.json#GET /account/{account_id}/accounts-linked
+- name: get_session
+  description: Retrieve a session and its signals/scores.
+  source_operation: openapi/verisoul-session-openapi.json#GET /session/{session_id}
+- name: authenticate_session
+  description: Bind a session to an account and get an authenticated risk decision.
+  source_operation: openapi/verisoul-session-openapi.json#POST /session/authenticate
+- name: unauthenticated_session
+  description: Get a risk decision for an unauthenticated session.
+  source_operation: openapi/verisoul-session-openapi.json#POST /session/unauthenticated
+- name: list_lists
+  description: List all account lists.
+  source_operation: openapi/verisoul-list-openapi.json#GET /list
+- name: create_list
+  description: Create a named account list.
+  source_operation: openapi/verisoul-list-openapi.json#POST /list/{list_name}
+- name: add_account_to_list
+  description: Add an account to a list.
+  source_operation: openapi/verisoul-list-openapi.json#POST /list/{list_name}/account/{account_id}
+- name: remove_account_from_list
+  description: Remove an account from a list.
+  source_operation: openapi/verisoul-list-openapi.json#DELETE /list/{list_name}/account/{account_id}
+- name: verify_phone
+  description: Validate a phone number (validity, carrier, line type).
+  source_operation: openapi/verisoul-phone-openapi.json#POST /phone
+- name: submit_email
+  description: Submit an email for async risk/deliverability/identity intelligence (webhook result).
+  source_operation: openapi/verisoul-email-openapi.json#POST /email
+- name: submit_email_batch
+  description: Submit a batch of emails for async email intelligence.
+  source_operation: openapi/verisoul-email-batch-openapi.json#POST /email
+- name: create_id_check_session
+  description: Create an ID Check verification session.
+  source_operation: openapi/verisoul-idcheck-openapi.json#createIDCheckSession
+- name: verify_id
+  description: Verify a government ID document and match the face.
+  source_operation: openapi/verisoul-idcheck-openapi.json#verifyID
+- name: create_face_match_session
+  description: Create a Face Match liveness session.
+  source_operation: openapi/verisoul-facematch-openapi.json#createFaceMatchSession
+- name: verify_face
+  description: Verify liveness / match a face for dedup.
+  source_operation: openapi/verisoul-facematch-openapi.json#verifyFace
+- name: verify_identity_face_match
+  description: Verify identity via Face Match.
+  source_operation: openapi/verisoul-facematch-openapi.json#verifyIdentityFaceMatch
+deployment:
+  mode: none
+  verified: derived
+  tools: 20
+  checked: '2026-08-12'
+  source: catalog MCP census

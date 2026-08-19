@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account Public API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Public redirect to Face Match",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/public/liveness-redirect",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID for the verification"
+              },
+              {
+                "name": "referring_session_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of a referring session, if applicable"
+              }
+            ]
+          },
+          "docs": "A public endpoint that redirects to the Face Match verification page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

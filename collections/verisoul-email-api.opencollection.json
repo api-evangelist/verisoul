@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account Email API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit Email Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.verisoul.ai/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a batch of email addresses for asynchronous risk, deliverability, and identity analysis. [Results](/email-intelligence/webhook-reference) are delivered via webhook."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Verisoul Account API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /account/{account_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/account/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to retrieve"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific account"
+        },
+        {
+          "info": {
+            "name": "PUT /account/{account_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sandbox.verisoul.ai/account/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing account with new information"
+        },
+        {
+          "info": {
+            "name": "DELETE /account/{account_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sandbox.verisoul.ai/account/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a specific account"
+        },
+        {
+          "info": {
+            "name": "GET /account/{account_id}/sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/account/:account_id/sessions",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to retrieve sessions for"
+              }
+            ]
+          },
+          "docs": "Returns all sessions associated with a specific account"
+        },
+        {
+          "info": {
+            "name": "GET /account/{account_id}/accounts-linked",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.verisoul.ai/account/:account_id/accounts-linked",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account to retrieve linked accounts for"
+              }
+            ]
+          },
+          "docs": "Returns all accounts linked to a specific account"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
