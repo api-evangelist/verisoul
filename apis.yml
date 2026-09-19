@@ -145,6 +145,8 @@ apis:
   humanURL: https://docs.verisoul.ai/api-reference/session/get
   baseURL: https://api.prod.verisoul.ai
   tags:
+  - Sessions
+  tags_raw:
   - Session
   properties:
   - type: OpenAPI
