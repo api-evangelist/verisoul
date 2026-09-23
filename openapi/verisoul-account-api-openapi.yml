@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Verisoul Account API
   description: The Verisoul API is used to integrate Verisoul into your application.
@@ -100,6 +100,10 @@ paths:
                 message: Account not found
       tags:
       - Account
+      summary: Get account by account id
+      x-summary-source: derived
+      operationId: getAccountByAccountId
+      x-operation-id-source: derived
     put:
       description: Updates an existing account with new information
       parameters:
@@ -194,6 +198,10 @@ paths:
                 message: Account not found
       tags:
       - Account
+      summary: Replace account by account id
+      x-summary-source: derived
+      operationId: putAccountByAccountId
+      x-operation-id-source: derived
     delete:
       description: Deletes a specific account
       parameters:
@@ -225,6 +233,10 @@ paths:
                 message: Account not found
       tags:
       - Account
+      summary: Delete account by account id
+      x-summary-source: derived
+      operationId: deleteAccountByAccountId
+      x-operation-id-source: derived
   /account/{account_id}/sessions:
     get:
       description: Returns all sessions associated with a specific account
@@ -258,6 +270,10 @@ paths:
                 message: Account not found
       tags:
       - Account
+      summary: Get account by account id sessions
+      x-summary-source: derived
+      operationId: getAccountByAccountIdSessions
+      x-operation-id-source: derived
   /account/{account_id}/accounts-linked:
     get:
       description: Returns all accounts linked to a specific account
@@ -328,6 +344,10 @@ paths:
                 message: Account not found
       tags:
       - Account
+      summary: Get account by account id accounts linked
+      x-summary-source: derived
+      operationId: getAccountByAccountIdAccountsLinked
+      x-operation-id-source: derived
 components:
   schemas:
     AccountResponse:
@@ -521,6 +541,26 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
+    AccountError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: Status code
+    LinkedAccountsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        accounts_linked:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedAccount'
+          description: List of accounts linked to the specified account
     DeleteAccountResponse:
       type: object
       properties:
@@ -577,28 +617,6 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata about the linked account
-    LinkedAccountsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        accounts_linked:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedAccount'
-          description: List of accounts linked to the specified account
-    SessionsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        sessions:
-          type: array
-          items:
-            type: string
-          description: List of session IDs associated with the account
     AccountUpdateRequest:
       type: object
       properties:
@@ -637,15 +655,17 @@ components:
           description: Additional metadata about the account
       required:
       - id
-    AccountError:
+    SessionsResponse:
       type: object
       properties:
-        message:
+        request_id:
           type: string
-          description: Error message
-        statusCode:
-          type: integer
-          description: Status code
+          description: The ID of the request
+        sessions:
+          type: array
+          items:
+            type: string
+          description: List of session IDs associated with the account
   securitySchemes:
     apiKeyAuth:
       type: apiKey

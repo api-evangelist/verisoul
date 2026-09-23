@@ -1,14 +1,17 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Verisoul Account Enrollment API
-  description: The Verisoul API is used to integrate Verisoul into your application.
-  license:
-    name: MIT
+  title: Verisoul Enrollment API
   version: 1.0.0
+  contact:
+    name: Verisoul Support
+    url: https://verisoul.ai
+    email: support@verisoul.ai
+  description: 'Operations tagged Enrollment across 2 of this provider''s published API definitions: verisoul-facematch-openapi.json, verisoul-idcheck-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.sandbox.verisoul.ai
+  description: Sandbox server
 security:
-- apiKeyAuth: []
+- ApiKeyAuth: []
 tags:
 - name: Enrollment
 paths:
@@ -69,21 +72,11 @@ paths:
                 request_id: 8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5
                 success: false
                 error: session_not_found
+    servers:
+    - url: https://api.sandbox.verisoul.ai
+      description: Sandbox server
 components:
   schemas:
-    EnrollResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          format: uuid
-          description: Unique identifier for the request
-        success:
-          type: boolean
-          description: Indicates whether the enrollment was successful
-      required:
-      - request_id
-      - success
     EnrollRequest:
       type: object
       properties:
@@ -97,8 +90,38 @@ components:
       required:
       - session_id
       - account_id
+    EnrollResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the request
+        success:
+          type: boolean
+          description: Indicates whether the enrollment was successful
+      required:
+      - request_id
+      - success
+    EnrollRequest_2:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session ID obtained from the /liveness/session endpoint
+        account_id:
+          type: string
+          description: Unique identifier for the user account
+      required:
+      - session_id
+      - account_id
   securitySchemes:
-    apiKeyAuth:
+    ApiKeyAuth:
       type: apiKey
       in: header
       name: x-api-key
+      description: API key authentication
+x-refined-from:
+- verisoul-facematch-openapi.json
+- verisoul-idcheck-openapi.json

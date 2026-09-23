@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Verisoul Account Phone API
+  title: Verisoul Phone API
   description: The Verisoul API is used to integrate Verisoul into your application.
   license:
     name: MIT
@@ -50,6 +50,10 @@ paths:
                 statusCode: 400
       tags:
       - Phone
+      summary: Create phone
+      x-summary-source: derived
+      operationId: postPhone
+      x-operation-id-source: derived
 components:
   schemas:
     PhoneVerificationError:
@@ -61,6 +65,14 @@ components:
         statusCode:
           type: integer
           description: HTTP status code
+    PhoneVerificationRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+          description: The phone number to verify
     PhoneVerificationResponse:
       type: object
       properties:
@@ -88,14 +100,6 @@ components:
             line_type:
               type: string
               description: The type of phone line (mobile, landline, etc.)
-    PhoneVerificationRequest:
-      type: object
-      required:
-      - phone_number
-      properties:
-        phone_number:
-          type: string
-          description: The phone number to verify
   securitySchemes:
     apiKeyAuth:
       type: apiKey

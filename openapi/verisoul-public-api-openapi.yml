@@ -1,14 +1,17 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Verisoul Account Public API
-  description: The Verisoul API is used to integrate Verisoul into your application.
-  license:
-    name: MIT
+  title: Verisoul Public API
   version: 1.0.0
+  contact:
+    name: Verisoul Support
+    url: https://verisoul.ai
+    email: support@verisoul.ai
+  description: 'Operations tagged Public across 2 of this provider''s published API definitions: verisoul-facematch-openapi.json, verisoul-idcheck-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.sandbox.verisoul.ai
+  description: Sandbox server
 security:
-- apiKeyAuth: []
+- ApiKeyAuth: []
 tags:
 - name: Public
 paths:
@@ -67,9 +70,16 @@ paths:
                   summary: Groups enabled on project
                   value:
                     error: groups_enabled
+    servers:
+    - url: https://api.sandbox.verisoul.ai
+      description: Sandbox server
 components:
   securitySchemes:
-    apiKeyAuth:
+    ApiKeyAuth:
       type: apiKey
       in: header
       name: x-api-key
+      description: API key authentication
+x-refined-from:
+- verisoul-facematch-openapi.json
+- verisoul-idcheck-openapi.json

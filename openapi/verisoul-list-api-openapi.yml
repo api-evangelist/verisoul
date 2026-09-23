@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Verisoul Account List API
+  title: Verisoul List API
   description: The Verisoul API is used to integrate Verisoul into your application.
   license:
     name: MIT
@@ -41,6 +41,10 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
       - List
+      summary: Get list
+      x-summary-source: derived
+      operationId: getList
+      x-operation-id-source: derived
   /list/{list_name}:
     get:
       description: Returns all accounts in a specific list
@@ -78,6 +82,10 @@ paths:
                 statusCode: 400
       tags:
       - List
+      summary: Get list by list name
+      x-summary-source: derived
+      operationId: getListByListName
+      x-operation-id-source: derived
     post:
       description: Creates a new list with the specified name
       parameters:
@@ -116,6 +124,10 @@ paths:
                 statusCode: 400
       tags:
       - List
+      summary: Create list by list name
+      x-summary-source: derived
+      operationId: postListByListName
+      x-operation-id-source: derived
     delete:
       description: Deletes a list with the specified name
       parameters:
@@ -147,6 +159,10 @@ paths:
                 statusCode: 400
       tags:
       - List
+      summary: Delete list by list name
+      x-summary-source: derived
+      operationId: deleteListByListName
+      x-operation-id-source: derived
   /list/{list_name}/account/{account_id}:
     post:
       description: Adds an account to a specific list
@@ -185,6 +201,10 @@ paths:
                 statusCode: 400
       tags:
       - List
+      summary: Create list by list name account by account id
+      x-summary-source: derived
+      operationId: postListByListNameAccountByAccountId
+      x-operation-id-source: derived
     delete:
       description: Removes an account from a specific list
       parameters:
@@ -222,31 +242,12 @@ paths:
                 statusCode: 400
       tags:
       - List
+      summary: Delete list by list name account by account id
+      x-summary-source: derived
+      operationId: deleteListByListNameAccountByAccountId
+      x-operation-id-source: derived
 components:
   schemas:
-    DeleteListResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        message:
-          type: string
-          description: Success message
-        success:
-          type: boolean
-          description: Whether the operation was successful
-    ListsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/List'
-          description: Array of available lists
     AddAccountToListResponse:
       type: object
       properties:
@@ -259,32 +260,15 @@ components:
         success:
           type: boolean
           description: Whether the operation was successful
-    ListAccountsResponse:
+    List:
       type: object
       properties:
-        request_id:
+        name:
           type: string
-          description: The ID of the request
+          description: The name of the list
         description:
           type: string
           description: Description of the list's purpose
-        accounts:
-          type: array
-          items:
-            type: string
-          description: Array of account IDs in the list
-    CreateListResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        message:
-          type: string
-          description: Success message
-        success:
-          type: boolean
-          description: Whether the operation was successful
     RemoveAccountFromListResponse:
       type: object
       properties:
@@ -306,12 +290,6 @@ components:
         statusCode:
           type: integer
           description: HTTP status code
-    CreateListRequest:
-      type: object
-      properties:
-        list_description:
-          type: string
-          description: Description of the list's purpose
     Error:
       required:
       - error
@@ -323,15 +301,61 @@ components:
           format: int32
         message:
           type: string
-    List:
+    DeleteListResponse:
       type: object
       properties:
-        name:
+        request_id:
           type: string
-          description: The name of the list
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    CreateListRequest:
+      type: object
+      properties:
+        list_description:
+          type: string
+          description: Description of the list's purpose
+    ListAccountsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
         description:
           type: string
           description: Description of the list's purpose
+        accounts:
+          type: array
+          items:
+            type: string
+          description: Array of account IDs in the list
+    ListsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+          description: Array of available lists
+    CreateListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
   securitySchemes:
     apiKeyAuth:
       type: apiKey

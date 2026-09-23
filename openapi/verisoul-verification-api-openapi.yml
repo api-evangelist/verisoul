@@ -1,14 +1,17 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Verisoul Account Verification API
-  description: The Verisoul API is used to integrate Verisoul into your application.
-  license:
-    name: MIT
+  title: Verisoul Verification API
   version: 1.0.0
+  contact:
+    name: Verisoul Support
+    url: https://verisoul.ai
+    email: support@verisoul.ai
+  description: 'Operations tagged Verification across 2 of this provider''s published API definitions: verisoul-facematch-openapi.json, verisoul-idcheck-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.sandbox.verisoul.ai
+  description: Sandbox server
 security:
-- apiKeyAuth: []
+- ApiKeyAuth: []
 tags:
 - name: Verification
 paths:
@@ -69,6 +72,9 @@ paths:
                 request_id: 8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5
                 success: false
                 error: session_not_found
+    servers:
+    - url: https://api.sandbox.verisoul.ai
+      description: Sandbox server
   /liveness/verify-face:
     post:
       summary: Verify Face
@@ -188,6 +194,9 @@ paths:
                 request_id: 8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5
                 success: false
                 error: session_not_found
+    servers:
+    - url: https://api.sandbox.verisoul.ai
+      description: Sandbox server
   /liveness/verify-id:
     post:
       summary: Verify ID document
@@ -341,6 +350,9 @@ paths:
                 request_id: 8e3c7dd6-73e3-4e46-bbd2-a10c322f59d5
                 success: false
                 error: session_not_found
+    servers:
+    - url: https://api.sandbox.verisoul.ai
+      description: Production server
 components:
   schemas:
     VerifyFaceResponse:
@@ -356,12 +368,14 @@ components:
               type: string
               format: uuid
             account_id:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             referring_session_id:
-              type: string
+              type:
+              - string
+              - 'null'
               format: uuid
-              nullable: true
             request_id:
               type: string
               format: uuid
@@ -587,15 +601,19 @@ components:
                       - document_name
                     description: Types of matches found
               description: List of linked accounts
-    VerifyIDRequest:
+    VerifyIdentityRequest:
       type: object
       properties:
         session_id:
           type: string
           format: uuid
-          description: The session ID obtained from the /liveness/session endpoint
+          description: The session ID of a completed Face Match session
+        account_id:
+          type: string
+          description: Unique identifier for the user account to verify against
       required:
       - session_id
+      - account_id
     VerifyIdentityResponse:
       type: object
       properties:
@@ -609,6 +627,15 @@ components:
         match:
           type: boolean
           description: Indicates whether the face in the current session matches the previously enrolled face for the account
+    VerifyFaceRequest:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session ID of a completed Face Match session
+      required:
+      - session_id
     VerifyIDResponse:
       type: object
       properties:
@@ -622,12 +649,14 @@ components:
               type: string
               format: uuid
             account_id:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             referring_session_id:
-              type: string
+              type:
+              - string
+              - 'null'
               format: uuid
-              nullable: true
             request_id:
               type: string
               format: uuid
@@ -659,8 +688,9 @@ components:
               type: integer
               description: Age of the person on the identity document, calculated from the date of birth on the ID
             face_age_estimate:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               enum:
               - under8
               - over8
@@ -989,30 +1019,21 @@ components:
                       - document_name
                     description: Types of matches found
               description: List of linked accounts
-    VerifyIdentityRequest:
+    VerifyIDRequest:
       type: object
       properties:
         session_id:
           type: string
           format: uuid
-          description: The session ID of a completed Face Match session
-        account_id:
-          type: string
-          description: Unique identifier for the user account to verify against
-      required:
-      - session_id
-      - account_id
-    VerifyFaceRequest:
-      type: object
-      properties:
-        session_id:
-          type: string
-          format: uuid
-          description: The session ID of a completed Face Match session
+          description: The session ID obtained from the /liveness/session endpoint
       required:
       - session_id
   securitySchemes:
-    apiKeyAuth:
+    ApiKeyAuth:
       type: apiKey
       in: header
       name: x-api-key
+      description: API key authentication
+x-refined-from:
+- verisoul-facematch-openapi.json
+- verisoul-idcheck-openapi.json
