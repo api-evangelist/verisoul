@@ -77,19 +77,6 @@ paths:
       description: Sandbox server
 components:
   schemas:
-    EnrollRequest:
-      type: object
-      properties:
-        session_id:
-          type: string
-          format: uuid
-          description: The session ID of a completed Face Match session
-        account_id:
-          type: string
-          description: Unique identifier for the user account
-      required:
-      - session_id
-      - account_id
     EnrollResponse:
       type: object
       properties:
@@ -103,6 +90,19 @@ components:
       required:
       - request_id
       - success
+    EnrollRequest:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session ID of a completed Face Match session
+        account_id:
+          type: string
+          description: Unique identifier for the user account
+      required:
+      - session_id
+      - account_id
     EnrollRequest_2:
       type: object
       properties:

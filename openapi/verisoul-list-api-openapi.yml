@@ -248,28 +248,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AddAccountToListResponse:
+    ListAccountsResponse:
       type: object
       properties:
         request_id:
           type: string
           description: The ID of the request
-        message:
-          type: string
-          description: Success message
-        success:
-          type: boolean
-          description: Whether the operation was successful
-    List:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the list
         description:
           type: string
           description: Description of the list's purpose
-    RemoveAccountFromListResponse:
+        accounts:
+          type: array
+          items:
+            type: string
+          description: Array of account IDs in the list
+    CreateListResponse:
       type: object
       properties:
         request_id:
@@ -290,17 +283,44 @@ components:
         statusCode:
           type: integer
           description: HTTP status code
-    Error:
-      required:
-      - error
-      - message
+    ListsResponse:
       type: object
       properties:
-        error:
-          type: integer
-          format: int32
+        request_id:
+          type: string
+          description: The ID of the request
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+          description: Array of available lists
+    RemoveAccountFromListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
         message:
           type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    List:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the list
+        description:
+          type: string
+          description: Description of the list's purpose
+    CreateListRequest:
+      type: object
+      properties:
+        list_description:
+          type: string
+          description: Description of the list's purpose
     DeleteListResponse:
       type: object
       properties:
@@ -313,38 +333,18 @@ components:
         success:
           type: boolean
           description: Whether the operation was successful
-    CreateListRequest:
+    Error:
+      required:
+      - error
+      - message
       type: object
       properties:
-        list_description:
+        error:
+          type: integer
+          format: int32
+        message:
           type: string
-          description: Description of the list's purpose
-    ListAccountsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        description:
-          type: string
-          description: Description of the list's purpose
-        accounts:
-          type: array
-          items:
-            type: string
-          description: Array of account IDs in the list
-    ListsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/List'
-          description: Array of available lists
-    CreateListResponse:
+    AddAccountToListResponse:
       type: object
       properties:
         request_id:

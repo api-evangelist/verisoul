@@ -350,6 +350,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    LinkedAccountsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        accounts_linked:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedAccount'
+          description: List of accounts linked to the specified account
     AccountResponse:
       type: object
       properties:
@@ -541,38 +552,6 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
-    AccountError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        statusCode:
-          type: integer
-          description: Status code
-    LinkedAccountsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        accounts_linked:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedAccount'
-          description: List of accounts linked to the specified account
-    DeleteAccountResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        success:
-          type: boolean
-          description: Whether the deletion was successful
-        account_id:
-          type: string
-          description: The ID of the deleted account
     LinkedAccount:
       type: object
       properties:
@@ -617,6 +596,15 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata about the linked account
+    AccountError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: Status code
     AccountUpdateRequest:
       type: object
       properties:
@@ -655,6 +643,18 @@ components:
           description: Additional metadata about the account
       required:
       - id
+    DeleteAccountResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+        account_id:
+          type: string
+          description: The ID of the deleted account
     SessionsResponse:
       type: object
       properties:
