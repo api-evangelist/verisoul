@@ -77,19 +77,6 @@ paths:
       description: Sandbox server
 components:
   schemas:
-    EnrollResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          format: uuid
-          description: Unique identifier for the request
-        success:
-          type: boolean
-          description: Indicates whether the enrollment was successful
-      required:
-      - request_id
-      - success
     EnrollRequest:
       type: object
       properties:
@@ -103,6 +90,19 @@ components:
       required:
       - session_id
       - account_id
+    EnrollResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the request
+        success:
+          type: boolean
+          description: Indicates whether the enrollment was successful
+      required:
+      - request_id
+      - success
     EnrollRequest_2:
       type: object
       properties:

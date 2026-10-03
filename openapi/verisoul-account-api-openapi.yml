@@ -552,6 +552,15 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
+    AccountError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: Status code
     LinkedAccount:
       type: object
       properties:
@@ -596,15 +605,6 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata about the linked account
-    AccountError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        statusCode:
-          type: integer
-          description: Status code
     AccountUpdateRequest:
       type: object
       properties:
@@ -643,6 +643,17 @@ components:
           description: Additional metadata about the account
       required:
       - id
+    SessionsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        sessions:
+          type: array
+          items:
+            type: string
+          description: List of session IDs associated with the account
     DeleteAccountResponse:
       type: object
       properties:
@@ -655,17 +666,6 @@ components:
         account_id:
           type: string
           description: The ID of the deleted account
-    SessionsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        sessions:
-          type: array
-          items:
-            type: string
-          description: List of session IDs associated with the account
   securitySchemes:
     apiKeyAuth:
       type: apiKey

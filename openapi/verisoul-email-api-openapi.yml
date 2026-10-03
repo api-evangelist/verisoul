@@ -97,21 +97,6 @@ components:
         country:
           type: string
           description: Two-letter ISO 3166-1 alpha-2 country code (e.g., "US", "GB", "CA").
-    EmailEntry:
-      type: object
-      required:
-      - email
-      description: ''
-      properties:
-        email:
-          type: string
-          description: Email address to analyze
-        claims:
-          $ref: '#/components/schemas/Claims'
-        identity_intelligence:
-          type: boolean
-          default: false
-          description: Enable deeper identity analysis for this email. Will override the `identity_intelligence` setting at the root level if set.
     BatchEmailRequest:
       type: object
       required:
@@ -128,6 +113,18 @@ components:
         identity_intelligence:
           type: boolean
           description: Enable deeper identity analysis for all emails in the batch. See [Identity Intelligence](/email-intelligence/identity-intelligence).
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        error:
+          type: string
+          description: Error type
+        statusCode:
+          type: integer
+          description: HTTP status code
     BatchEmailResponse:
       type: object
       properties:
@@ -146,18 +143,21 @@ components:
         webhook_configured:
           type: boolean
           description: Whether the project has an active webhook subscription for email intelligence results. If `false`, results are still processed but no webhook will be delivered.
-    ErrorResponse:
+    EmailEntry:
       type: object
+      required:
+      - email
+      description: ''
       properties:
-        message:
+        email:
           type: string
-          description: Error message
-        error:
-          type: string
-          description: Error type
-        statusCode:
-          type: integer
-          description: HTTP status code
+          description: Email address to analyze
+        claims:
+          $ref: '#/components/schemas/Claims'
+        identity_intelligence:
+          type: boolean
+          default: false
+          description: Enable deeper identity analysis for this email. Will override the `identity_intelligence` setting at the root level if set.
   securitySchemes:
     apiKeyAuth:
       type: apiKey

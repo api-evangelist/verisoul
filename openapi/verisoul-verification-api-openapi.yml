@@ -355,41 +355,6 @@ paths:
       description: Production server
 components:
   schemas:
-    VerifyFaceRequest:
-      type: object
-      properties:
-        session_id:
-          type: string
-          format: uuid
-          description: The session ID of a completed Face Match session
-      required:
-      - session_id
-    VerifyIdentityRequest:
-      type: object
-      properties:
-        session_id:
-          type: string
-          format: uuid
-          description: The session ID of a completed Face Match session
-        account_id:
-          type: string
-          description: Unique identifier for the user account to verify against
-      required:
-      - session_id
-      - account_id
-    VerifyIdentityResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          format: uuid
-          description: Unique identifier for the request
-        success:
-          type: boolean
-          description: Indicates whether the verification process was successful
-        match:
-          type: boolean
-          description: Indicates whether the face in the current session matches the previously enrolled face for the account
     VerifyFaceResponse:
       type: object
       properties:
@@ -636,13 +601,39 @@ components:
                       - document_name
                     description: Types of matches found
               description: List of linked accounts
-    VerifyIDRequest:
+    VerifyIdentityRequest:
       type: object
       properties:
         session_id:
           type: string
           format: uuid
-          description: The session ID obtained from the /liveness/session endpoint
+          description: The session ID of a completed Face Match session
+        account_id:
+          type: string
+          description: Unique identifier for the user account to verify against
+      required:
+      - session_id
+      - account_id
+    VerifyIdentityResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the request
+        success:
+          type: boolean
+          description: Indicates whether the verification process was successful
+        match:
+          type: boolean
+          description: Indicates whether the face in the current session matches the previously enrolled face for the account
+    VerifyFaceRequest:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session ID of a completed Face Match session
       required:
       - session_id
     VerifyIDResponse:
@@ -1028,6 +1019,15 @@ components:
                       - document_name
                     description: Types of matches found
               description: List of linked accounts
+    VerifyIDRequest:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session ID obtained from the /liveness/session endpoint
+      required:
+      - session_id
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

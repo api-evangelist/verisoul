@@ -56,6 +56,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PhoneVerificationError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: HTTP status code
+    PhoneVerificationRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+          description: The phone number to verify
     PhoneVerificationResponse:
       type: object
       properties:
@@ -83,23 +100,6 @@ components:
             line_type:
               type: string
               description: The type of phone line (mobile, landline, etc.)
-    PhoneVerificationError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        statusCode:
-          type: integer
-          description: HTTP status code
-    PhoneVerificationRequest:
-      type: object
-      required:
-      - phone_number
-      properties:
-        phone_number:
-          type: string
-          description: The phone number to verify
   securitySchemes:
     apiKeyAuth:
       type: apiKey

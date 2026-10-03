@@ -248,80 +248,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ListAccountsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        description:
-          type: string
-          description: Description of the list's purpose
-        accounts:
-          type: array
-          items:
-            type: string
-          description: Array of account IDs in the list
     CreateListResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        message:
-          type: string
-          description: Success message
-        success:
-          type: boolean
-          description: Whether the operation was successful
-    CreateListError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        statusCode:
-          type: integer
-          description: HTTP status code
-    ListsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/List'
-          description: Array of available lists
-    RemoveAccountFromListResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        message:
-          type: string
-          description: Success message
-        success:
-          type: boolean
-          description: Whether the operation was successful
-    List:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the list
-        description:
-          type: string
-          description: Description of the list's purpose
-    CreateListRequest:
-      type: object
-      properties:
-        list_description:
-          type: string
-          description: Description of the list's purpose
-    DeleteListResponse:
       type: object
       properties:
         request_id:
@@ -344,6 +271,26 @@ components:
           format: int32
         message:
           type: string
+    ListsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+          description: Array of available lists
+    CreateListError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: HTTP status code
     AddAccountToListResponse:
       type: object
       properties:
@@ -356,6 +303,59 @@ components:
         success:
           type: boolean
           description: Whether the operation was successful
+    DeleteListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    CreateListRequest:
+      type: object
+      properties:
+        list_description:
+          type: string
+          description: Description of the list's purpose
+    RemoveAccountFromListResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        message:
+          type: string
+          description: Success message
+        success:
+          type: boolean
+          description: Whether the operation was successful
+    List:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the list
+        description:
+          type: string
+          description: Description of the list's purpose
+    ListAccountsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        description:
+          type: string
+          description: Description of the list's purpose
+        accounts:
+          type: array
+          items:
+            type: string
+          description: Array of account IDs in the list
   securitySchemes:
     apiKeyAuth:
       type: apiKey
