@@ -77,6 +77,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    BatchEmailResponse:
+      type: object
+      properties:
+        batch_id:
+          type: string
+          description: Unique identifier for this batch
+        batch_name:
+          type: string
+          description: Name of the batch (provided or auto-generated)
+        status:
+          type: string
+          description: Always `pending` on creation
+        total_count:
+          type: integer
+          description: Number of emails in the batch
+        webhook_configured:
+          type: boolean
+          description: Whether the project has an active webhook subscription for email intelligence results. If `false`, results are still processed but no webhook will be delivered.
     Claims:
       type: object
       description: Identity claims to verify against data linked to the email. Useful when `identity_intelligence` is enabled.
@@ -113,36 +131,6 @@ components:
         identity_intelligence:
           type: boolean
           description: Enable deeper identity analysis for all emails in the batch. See [Identity Intelligence](/email-intelligence/identity-intelligence).
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        error:
-          type: string
-          description: Error type
-        statusCode:
-          type: integer
-          description: HTTP status code
-    BatchEmailResponse:
-      type: object
-      properties:
-        batch_id:
-          type: string
-          description: Unique identifier for this batch
-        batch_name:
-          type: string
-          description: Name of the batch (provided or auto-generated)
-        status:
-          type: string
-          description: Always `pending` on creation
-        total_count:
-          type: integer
-          description: Number of emails in the batch
-        webhook_configured:
-          type: boolean
-          description: Whether the project has an active webhook subscription for email intelligence results. If `false`, results are still processed but no webhook will be delivered.
     EmailEntry:
       type: object
       required:
@@ -158,6 +146,18 @@ components:
           type: boolean
           default: false
           description: Enable deeper identity analysis for this email. Will override the `identity_intelligence` setting at the root level if set.
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        error:
+          type: string
+          description: Error type
+        statusCode:
+          type: integer
+          description: HTTP status code
   securitySchemes:
     apiKeyAuth:
       type: apiKey

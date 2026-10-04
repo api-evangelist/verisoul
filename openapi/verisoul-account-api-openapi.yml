@@ -350,6 +350,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    AccountUpdateRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The account identifier
+        email:
+          type: string
+          description: The email associated with the account
+        phone:
+          type: string
+          maxLength: 32
+          description: The phone number on file for the account in E.164 format (e.g. +14155550123)
+        first_name:
+          type: string
+          maxLength: 256
+          description: The account holder's first name
+        last_name:
+          type: string
+          maxLength: 256
+          description: The account holder's last name
+        username:
+          type: string
+          maxLength: 256
+          description: The username associated with the account
+        expected_countries:
+          type: array
+          items:
+            type: string
+            minLength: 2
+            maxLength: 2
+          description: Countries the account is expected to legitimately operate from, as ISO 3166-1 alpha-2 codes. A non-empty list replaces the stored list; an empty or omitted list leaves the stored list unchanged.
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional metadata about the account
+      required:
+      - id
     LinkedAccountsResponse:
       type: object
       properties:
@@ -361,6 +399,82 @@ components:
           items:
             $ref: '#/components/schemas/LinkedAccount'
           description: List of accounts linked to the specified account
+    SessionsResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        sessions:
+          type: array
+          items:
+            type: string
+          description: List of session IDs associated with the account
+    AccountError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: Status code
+    LinkedAccount:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The ID of the linked account
+        score:
+          type: number
+          format: float
+          description: Confidence score of the link between accounts
+        email:
+          type: string
+          description: Email associated with the linked account
+        phone:
+          type: string
+          description: Phone number associated with the linked account
+        first_name:
+          type: string
+          description: First name associated with the linked account
+        last_name:
+          type: string
+          description: Last name associated with the linked account
+        username:
+          type: string
+          description: Username associated with the linked account
+        expected_countries:
+          type: array
+          items:
+            type: string
+          description: Expected countries declared for the linked account (ISO 3166-1 alpha-2 codes)
+        match_type:
+          type: array
+          items:
+            type: string
+          description: 'Types of matches that linked these accounts. Possible values: browser, device, network, email, phone, username, name, mobile_id, apple_device_check.'
+        lists:
+          type: array
+          items:
+            type: string
+          description: Lists the linked account belongs to
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional metadata about the linked account
+    DeleteAccountResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The ID of the request
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+        account_id:
+          type: string
+          description: The ID of the deleted account
     AccountResponse:
       type: object
       properties:
@@ -552,120 +666,6 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
-    AccountError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        statusCode:
-          type: integer
-          description: Status code
-    LinkedAccount:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The ID of the linked account
-        score:
-          type: number
-          format: float
-          description: Confidence score of the link between accounts
-        email:
-          type: string
-          description: Email associated with the linked account
-        phone:
-          type: string
-          description: Phone number associated with the linked account
-        first_name:
-          type: string
-          description: First name associated with the linked account
-        last_name:
-          type: string
-          description: Last name associated with the linked account
-        username:
-          type: string
-          description: Username associated with the linked account
-        expected_countries:
-          type: array
-          items:
-            type: string
-          description: Expected countries declared for the linked account (ISO 3166-1 alpha-2 codes)
-        match_type:
-          type: array
-          items:
-            type: string
-          description: 'Types of matches that linked these accounts. Possible values: browser, device, network, email, phone, username, name, mobile_id, apple_device_check.'
-        lists:
-          type: array
-          items:
-            type: string
-          description: Lists the linked account belongs to
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Additional metadata about the linked account
-    AccountUpdateRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The account identifier
-        email:
-          type: string
-          description: The email associated with the account
-        phone:
-          type: string
-          maxLength: 32
-          description: The phone number on file for the account in E.164 format (e.g. +14155550123)
-        first_name:
-          type: string
-          maxLength: 256
-          description: The account holder's first name
-        last_name:
-          type: string
-          maxLength: 256
-          description: The account holder's last name
-        username:
-          type: string
-          maxLength: 256
-          description: The username associated with the account
-        expected_countries:
-          type: array
-          items:
-            type: string
-            minLength: 2
-            maxLength: 2
-          description: Countries the account is expected to legitimately operate from, as ISO 3166-1 alpha-2 codes. A non-empty list replaces the stored list; an empty or omitted list leaves the stored list unchanged.
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Additional metadata about the account
-      required:
-      - id
-    SessionsResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        sessions:
-          type: array
-          items:
-            type: string
-          description: List of session IDs associated with the account
-    DeleteAccountResponse:
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The ID of the request
-        success:
-          type: boolean
-          description: Whether the deletion was successful
-        account_id:
-          type: string
-          description: The ID of the deleted account
   securitySchemes:
     apiKeyAuth:
       type: apiKey
