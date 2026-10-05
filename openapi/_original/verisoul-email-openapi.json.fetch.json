@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.verisoul.ai/api-reference/email-openapi.json",
+ "requested_url": "https://docs.verisoul.ai/api-reference/email-openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 5091,
+ "sha256": "e046064e1ebf26d6118d751300458189592ebbbb5328a3940432112d9a38bb25",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.verisoul.ai/api-reference/session-openapi.json",
+ "requested_url": "https://docs.verisoul.ai/api-reference/session-openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 79017,
+ "sha256": "c0341439c55a764983f866a40424f1e075dc7dd2bf27e50d593d59a5511773ce",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.verisoul.ai/api-reference/idcheck-openapi.json",
+ "requested_url": "https://docs.verisoul.ai/api-reference/idcheck-openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 40123,
+ "sha256": "9b8dd3aeaf6c1549af46b99d4fabb24e60493db074ef9d83379bcae2696c2e9e",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

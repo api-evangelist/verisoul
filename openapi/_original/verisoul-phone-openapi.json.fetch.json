@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.verisoul.ai/api-reference/phone-openapi.json",
+ "requested_url": "https://docs.verisoul.ai/api-reference/phone-openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 4125,
+ "sha256": "da29cd4262c546c315726a6966c6c6f1dbaf93a8d79fca7e341ded3a345e5870",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
