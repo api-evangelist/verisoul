@@ -920,52 +920,6 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
-    SessionUnauthenticatedResponse:
-      type: object
-      properties:
-        project_id:
-          type: string
-          description: The ID of the project
-        session_id:
-          type: string
-          description: The ID of the session
-        request_id:
-          type: string
-          description: The ID of the request
-        decision:
-          type: string
-          description: Decision about the authenticity (Real/Fake)
-        account_score:
-          type: number
-          format: float
-          description: Overall account risk score
-        bot:
-          type: number
-          format: float
-          description: Bot detection score
-        multiple_accounts:
-          type: number
-          format: float
-          description: Multiple accounts detection score
-        risk_signals:
-          type: number
-          format: float
-          description: Risk signals score
-        accounts_linked:
-          type: integer
-          description: Number of accounts linked to this session
-        lists:
-          type: array
-          items:
-            type: string
-          description: Lists the session belongs to
-        session:
-          $ref: '#/components/schemas/SessionDetails'
-        linked_accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedAccount'
-          description: List of accounts linked to this session (only included when accounts_linked=true)
     AccountDetails:
       type: object
       properties:
@@ -1129,58 +1083,52 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
-    LinkedAccount:
+    SessionUnauthenticatedResponse:
       type: object
       properties:
-        account_id:
+        project_id:
           type: string
-          description: The ID of the linked account
-        score:
+          description: The ID of the project
+        session_id:
+          type: string
+          description: The ID of the session
+        request_id:
+          type: string
+          description: The ID of the request
+        decision:
+          type: string
+          description: Decision about the authenticity (Real/Fake)
+        account_score:
           type: number
           format: float
-          description: Confidence score of the link between accounts
-        email:
-          type: string
-          description: Email associated with the linked account
-        phone:
-          type: string
-          description: Phone number associated with the linked account
-        first_name:
-          type: string
-          description: First name associated with the linked account
-        last_name:
-          type: string
-          description: Last name associated with the linked account
-        username:
-          type: string
-          description: Username associated with the linked account
-        expected_countries:
-          type: array
-          items:
-            type: string
-          description: Expected countries declared for the linked account (ISO 3166-1 alpha-2 codes)
-        match_type:
-          type: array
-          items:
-            type: string
-          description: 'Types of matches that linked these accounts. Possible values: browser, device, network, email, phone, username, name, mobile_id, apple_device_check.'
+          description: Overall account risk score
+        bot:
+          type: number
+          format: float
+          description: Bot detection score
+        multiple_accounts:
+          type: number
+          format: float
+          description: Multiple accounts detection score
+        risk_signals:
+          type: number
+          format: float
+          description: Risk signals score
+        accounts_linked:
+          type: integer
+          description: Number of accounts linked to this session
         lists:
           type: array
           items:
             type: string
-          description: Lists the linked account belongs to
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Additional metadata about the linked account
-    SessionUnauthenticatedRequest:
-      type: object
-      required:
-      - session_id
-      properties:
-        session_id:
-          type: string
-          description: The ID of the session to evaluate
+          description: Lists the session belongs to
+        session:
+          $ref: '#/components/schemas/SessionDetails'
+        linked_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedAccount'
+          description: List of accounts linked to this session (only included when accounts_linked=true)
     SessionResponse_2:
       type: object
       properties:
@@ -1393,6 +1341,116 @@ components:
               type: number
               format: float
               description: Location spoofing detection score
+    SessionError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+    SessionAuthenticateResponse:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: The ID of the project
+        session_id:
+          type: string
+          description: The ID of the session
+        account_id:
+          type: string
+          description: The ID of the account
+        request_id:
+          type: string
+          description: The ID of the request
+        decision:
+          type: string
+          description: Decision about the authenticity (Real/Fake)
+        account_score:
+          type: number
+          format: float
+          description: Overall account risk score
+        bot:
+          type: number
+          format: float
+          description: Bot detection score
+        multiple_accounts:
+          type: number
+          format: float
+          description: Multiple accounts detection score
+        risk_signals:
+          type: number
+          format: float
+          description: Risk signals score
+        accounts_linked:
+          type: integer
+          description: Number of accounts linked to this account
+        lists:
+          type: array
+          items:
+            type: string
+          description: Lists the account belongs to
+        session:
+          $ref: '#/components/schemas/SessionDetails'
+        account:
+          $ref: '#/components/schemas/AccountDetails'
+        linked_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedAccount'
+          description: List of accounts linked to the authenticated account (only included when accounts_linked=true)
+    SessionAuthenticateError:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message
+    LinkedAccount:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The ID of the linked account
+        score:
+          type: number
+          format: float
+          description: Confidence score of the link between accounts
+        email:
+          type: string
+          description: Email associated with the linked account
+        phone:
+          type: string
+          description: Phone number associated with the linked account
+        first_name:
+          type: string
+          description: First name associated with the linked account
+        last_name:
+          type: string
+          description: Last name associated with the linked account
+        username:
+          type: string
+          description: Username associated with the linked account
+        expected_countries:
+          type: array
+          items:
+            type: string
+          description: Expected countries declared for the linked account (ISO 3166-1 alpha-2 codes)
+        match_type:
+          type: array
+          items:
+            type: string
+          description: 'Types of matches that linked these accounts. Possible values: browser, device, network, email, phone, username, name, mobile_id, apple_device_check.'
+        lists:
+          type: array
+          items:
+            type: string
+          description: Lists the linked account belongs to
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional metadata about the linked account
     SessionAuthenticateRequest:
       type: object
       required:
@@ -1449,72 +1507,14 @@ components:
         session_id:
           type: string
           description: The ID of the session to authenticate
-    SessionAuthenticateResponse:
+    SessionUnauthenticatedRequest:
       type: object
+      required:
+      - session_id
       properties:
-        project_id:
-          type: string
-          description: The ID of the project
         session_id:
           type: string
-          description: The ID of the session
-        account_id:
-          type: string
-          description: The ID of the account
-        request_id:
-          type: string
-          description: The ID of the request
-        decision:
-          type: string
-          description: Decision about the authenticity (Real/Fake)
-        account_score:
-          type: number
-          format: float
-          description: Overall account risk score
-        bot:
-          type: number
-          format: float
-          description: Bot detection score
-        multiple_accounts:
-          type: number
-          format: float
-          description: Multiple accounts detection score
-        risk_signals:
-          type: number
-          format: float
-          description: Risk signals score
-        accounts_linked:
-          type: integer
-          description: Number of accounts linked to this account
-        lists:
-          type: array
-          items:
-            type: string
-          description: Lists the account belongs to
-        session:
-          $ref: '#/components/schemas/SessionDetails'
-        account:
-          $ref: '#/components/schemas/AccountDetails'
-        linked_accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedAccount'
-          description: List of accounts linked to the authenticated account (only included when accounts_linked=true)
-    SessionError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-    SessionAuthenticateError:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Error message
+          description: The ID of the session to evaluate
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

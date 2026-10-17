@@ -77,6 +77,49 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        error:
+          type: string
+          description: Error type
+        statusCode:
+          type: integer
+          description: HTTP status code
+    BatchEmailRequest:
+      type: object
+      required:
+      - emails
+      properties:
+        emails:
+          type: array
+          description: Array of [Email Objects](/api-reference/types/email) to analyze
+          items:
+            $ref: '#/components/schemas/EmailEntry'
+        batch_name:
+          type: string
+          description: Optional name for the batch. If not provided, one is auto-generated.
+        identity_intelligence:
+          type: boolean
+          description: Enable deeper identity analysis for all emails in the batch. See [Identity Intelligence](/email-intelligence/identity-intelligence).
+    EmailEntry:
+      type: object
+      required:
+      - email
+      description: ''
+      properties:
+        email:
+          type: string
+          description: Email address to analyze
+        claims:
+          $ref: '#/components/schemas/Claims'
+        identity_intelligence:
+          type: boolean
+          default: false
+          description: Enable deeper identity analysis for this email. Will override the `identity_intelligence` setting at the root level if set.
     BatchEmailResponse:
       type: object
       properties:
@@ -115,49 +158,6 @@ components:
         country:
           type: string
           description: Two-letter ISO 3166-1 alpha-2 country code (e.g., "US", "GB", "CA").
-    BatchEmailRequest:
-      type: object
-      required:
-      - emails
-      properties:
-        emails:
-          type: array
-          description: Array of [Email Objects](/api-reference/types/email) to analyze
-          items:
-            $ref: '#/components/schemas/EmailEntry'
-        batch_name:
-          type: string
-          description: Optional name for the batch. If not provided, one is auto-generated.
-        identity_intelligence:
-          type: boolean
-          description: Enable deeper identity analysis for all emails in the batch. See [Identity Intelligence](/email-intelligence/identity-intelligence).
-    EmailEntry:
-      type: object
-      required:
-      - email
-      description: ''
-      properties:
-        email:
-          type: string
-          description: Email address to analyze
-        claims:
-          $ref: '#/components/schemas/Claims'
-        identity_intelligence:
-          type: boolean
-          default: false
-          description: Enable deeper identity analysis for this email. Will override the `identity_intelligence` setting at the root level if set.
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        error:
-          type: string
-          description: Error type
-        statusCode:
-          type: integer
-          description: HTTP status code
   securitySchemes:
     apiKeyAuth:
       type: apiKey
