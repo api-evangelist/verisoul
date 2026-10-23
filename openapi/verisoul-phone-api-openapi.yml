@@ -105,3 +105,9 @@ components:
       type: apiKey
       in: header
       name: x-api-key
+x-provenance:
+  method: harvested
+  publisher: Verisoul
+  source: https://docs.verisoul.ai/api-reference/phone-openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
