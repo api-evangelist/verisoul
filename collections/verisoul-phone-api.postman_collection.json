@@ -1,32 +1,26 @@
 {
+  "info": {
+    "_postman_id": "eb8d5940-6a12-4c4b-9849-19136d38ab2b",
+    "name": "Verisoul Phone API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:04:27.000Z",
+    "updatedAt": "2026-10-22T02:04:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eb8d5940-6a12-4c4b-9849-19136d38ab2b"
+  },
   "item": [
     {
-      "id": "8e1effb3-96eb-4e2b-932c-58219df9b7e9",
-      "name": "Phone",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "phone",
       "item": [
         {
-          "id": "8c00de21-af25-4961-9dc3-dbfdefd9f401",
-          "name": "Verifies a phone number and returns carrier and line type information",
+          "name": "Create phone",
+          "id": "8f3ff84c-aeba-4533-ace5-b83bdf5c9284",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Verifies a phone number and returns carrier and line type information",
-            "description": {
-              "content": "Verifies a phone number and returns carrier and line type information",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "phone"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,137 +31,150 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"phone_number\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/phone",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "phone"
+              ]
+            },
+            "description": "Verifies a phone number and returns carrier and line type information"
           },
           "response": [
             {
-              "id": "d0a68812-ba5d-408f-9dc8-c934f18bd955",
+              "id": "1b3b4a66-b06a-48ae-aa83-8a93b0275529",
               "name": "Phone verification response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "phone"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"phone_number\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/phone",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "phone"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"project_id\": \"00000000-0000-0000-0000-000000000001\",\n  \"request_id\": \"d6c61d42-9f02-49a5-9773-7413788ea50e\",\n  \"phone\": {\n    \"valid\": true,\n    \"phone_number\": \"+1234567890\",\n    \"calling_country_code\": \"1\",\n    \"country_code\": \"US\",\n    \"carrier_name\": \"Verizon Wireless\",\n    \"line_type\": \"mobile\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"project_id\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"phone\": {\n    \"phone_number\": \"<string>\",\n    \"calling_country_code\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"carrier_name\": \"<string>\",\n    \"line_type\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:04:28.000Z",
+              "updatedAt": "2026-10-22T02:04:28.000Z",
+              "uid": "35240-1b3b4a66-b06a-48ae-aa83-8a93b0275529"
             },
             {
-              "id": "c4223b13-1ab4-427d-ab96-018d2097bfca",
+              "id": "543080b9-76b7-497a-8753-0d89241b1039",
               "name": "Invalid phone number",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "phone"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"phone_number\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/phone",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "phone"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"Invalid phone number\",\n  \"statusCode\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:04:28.000Z",
+              "updatedAt": "2026-10-22T02:04:28.000Z",
+              "uid": "35240-543080b9-76b7-497a-8753-0d89241b1039"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:04:28.000Z",
+          "updatedAt": "2026-10-22T02:04:28.000Z",
+          "uid": "35240-8f3ff84c-aeba-4533-ace5-b83bdf5c9284"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.sandbox.verisoul.ai",
-      "key": "baseUrl"
+      "id": "2a3d011f-a308-4c21-a63c-8f1d3c3142e2",
+      "createdAt": "2026-10-22T02:04:28.000Z",
+      "updatedAt": "2026-10-22T02:04:28.000Z",
+      "uid": "35240-2a3d011f-a308-4c21-a63c-8f1d3c3142e2"
     }
   ],
   "auth": {
@@ -175,25 +182,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "68453c8f-c9b8-4521-94cc-e083515cee36",
-    "name": "Verisoul Account Phone API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Verisoul API is used to integrate Verisoul into your application.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sandbox.verisoul.ai"
     }
-  }
+  ]
 }

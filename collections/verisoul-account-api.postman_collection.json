@@ -1,798 +1,778 @@
 {
+  "info": {
+    "_postman_id": "29c030f6-30a4-459e-acf8-f110481da1ee",
+    "name": "Verisoul Account API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:04:05.000Z",
+    "updatedAt": "2026-10-22T02:04:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-29c030f6-30a4-459e-acf8-f110481da1ee"
+  },
   "item": [
     {
-      "id": "fa9f99f3-45dd-45e5-8df7-409ded04ea4d",
-      "name": "Account",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "account",
       "item": [
         {
-          "id": "7eebb7bd-b2a5-4cfa-9aac-b52c6d03e2b9",
-          "name": "Returns detailed information about a specific account",
-          "request": {
-            "name": "Returns detailed information about a specific account",
-            "description": {
-              "content": "Returns detailed information about a specific account",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "account",
-                ":account_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to retrieve"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{account_id}",
+          "item": [
             {
-              "id": "01f36fd4-1c03-491b-8387-8cf41ba665c4",
-              "name": "Account information response",
-              "originalRequest": {
+              "name": "sessions",
+              "item": [
+                {
+                  "name": "Get account by account id sessions",
+                  "id": "25e0f066-59c1-43eb-bacd-d499e01caa16",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id/sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id",
+                        "sessions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f101cb81-a0af-4026-b49d-a635ba9723ff",
+                          "key": "account_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the account to retrieve sessions for"
+                        }
+                      ]
+                    },
+                    "description": "Returns all sessions associated with a specific account"
+                  },
+                  "response": [
+                    {
+                      "id": "00793ad9-a770-48b1-a1bd-0abf096ad0fc",
+                      "name": "Account sessions response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/account/:account_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "account",
+                            ":account_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"request_id\": \"<string>\",\n  \"sessions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-22T02:04:06.000Z",
+                      "updatedAt": "2026-10-22T02:04:06.000Z",
+                      "uid": "35240-00793ad9-a770-48b1-a1bd-0abf096ad0fc"
+                    },
+                    {
+                      "id": "175bdb6e-ad57-4801-83c1-879e7624e7b3",
+                      "name": "Account not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/account/:account_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "account",
+                            ":account_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:04:06.000Z",
+                      "updatedAt": "2026-10-22T02:04:06.000Z",
+                      "uid": "35240-175bdb6e-ad57-4801-83c1-879e7624e7b3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-25e0f066-59c1-43eb-bacd-d499e01caa16"
+                }
+              ],
+              "id": "9afe562d-10c6-4e8b-97fc-7992b894cf87",
+              "createdAt": "2026-10-22T02:04:06.000Z",
+              "updatedAt": "2026-10-22T02:04:06.000Z",
+              "uid": "35240-9afe562d-10c6-4e8b-97fc-7992b894cf87"
+            },
+            {
+              "name": "accounts-linked",
+              "item": [
+                {
+                  "name": "Get account by account id accounts linked",
+                  "id": "677c103c-54ad-4e4c-a99a-d230fb2211d2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id/accounts-linked",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id",
+                        "accounts-linked"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4cc961c4-413b-4b86-85d8-3f53ca9b4654",
+                          "key": "account_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the account to retrieve linked accounts for"
+                        }
+                      ]
+                    },
+                    "description": "Returns all accounts linked to a specific account"
+                  },
+                  "response": [
+                    {
+                      "id": "b40d1c21-218d-475c-9daa-2584fbdb39c5",
+                      "name": "Linked accounts response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/account/:account_id/accounts-linked",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "account",
+                            ":account_id",
+                            "accounts-linked"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"request_id\": \"<string>\",\n  \"accounts_linked\": [\n    {\n      \"account_id\": \"<string>\",\n      \"score\": \"<float>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"username\": \"<string>\",\n      \"expected_countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"match_type\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"lists\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metadata\": {\n        \"proident_3\": \"ut sint occaecat cupidatat\",\n        \"consectetur_d04\": \"sunt elit exercitation in\"\n      }\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"score\": \"<float>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"username\": \"<string>\",\n      \"expected_countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"match_type\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"lists\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metadata\": {\n        \"fugiatd0\": \"deserunt cupidatat Excepteur qui commodo\",\n        \"ut_ef\": true\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:04:06.000Z",
+                      "updatedAt": "2026-10-22T02:04:06.000Z",
+                      "uid": "35240-b40d1c21-218d-475c-9daa-2584fbdb39c5"
+                    },
+                    {
+                      "id": "1a0c4fd0-a6ce-4b4c-9b01-0dcfbffd02ce",
+                      "name": "Account not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/account/:account_id/accounts-linked",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "account",
+                            ":account_id",
+                            "accounts-linked"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:04:06.000Z",
+                      "updatedAt": "2026-10-22T02:04:06.000Z",
+                      "uid": "35240-1a0c4fd0-a6ce-4b4c-9b01-0dcfbffd02ce"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-677c103c-54ad-4e4c-a99a-d230fb2211d2"
+                }
+              ],
+              "id": "4f8d5a48-03d1-4ff9-af9a-1809e7e47875",
+              "createdAt": "2026-10-22T02:04:06.000Z",
+              "updatedAt": "2026-10-22T02:04:06.000Z",
+              "uid": "35240-4f8d5a48-03d1-4ff9-af9a-1809e7e47875"
+            },
+            {
+              "name": "Get account by account id",
+              "id": "df0b0388-d6f9-4dce-b830-6f73f1042e74",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/account/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "account",
                     ":account_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "ae845bcd-d9e4-4040-9880-5b61dca8df96",
                       "key": "account_id",
+                      "value": "<string>",
                       "description": "(Required) ID of the account to retrieve"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Returns detailed information about a specific account"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"project_id\": \"00000000-0000-0000-0000-000000000001\",\n  \"request_id\": \"81fca4e3-0111-45b8-a8eb-0c2b638e1d29\",\n  \"account\": {\n    \"id\": \"john-doe\",\n    \"email\": \"johndoe.example@gmail.com\",\n    \"phone\": \"+14155550123\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"username\": \"john.doe\",\n    \"expected_countries\": [\n      \"US\",\n      \"CA\"\n    ],\n    \"metadata\": {},\n    \"group\": \"\"\n  },\n  \"num_sessions\": 1,\n  \"first_seen\": \"2025-06-10T16:47:29.661Z\",\n  \"last_seen\": \"2025-06-10T16:47:29.661Z\",\n  \"last_session\": \"56f9a065-1583-48af-a5c4-cd5921b21a12\",\n  \"country\": \"US\",\n  \"countries\": [\n    \"US\"\n  ],\n  \"decision\": \"Real\",\n  \"account_score\": 0.2191,\n  \"bot\": 0,\n  \"multiple_accounts\": 0.2053,\n  \"risk_signals\": 0.2979,\n  \"accounts_linked\": 2,\n  \"lists\": [\n    \"us_users\"\n  ],\n  \"unique_devices\": {\n    \"1_day\": 1,\n    \"7_day\": 1\n  },\n  \"unique_networks\": {\n    \"1_day\": 1,\n    \"7_day\": 1\n  },\n  \"email\": {\n    \"email\": \"johndoe.example@gmail.com\",\n    \"disposable\": false,\n    \"personal\": true,\n    \"valid\": true,\n    \"domain_type\": \"personal\",\n    \"email_score\": 0,\n    \"trust_signals\": [\n      \"email_age_greater_than_5_years\",\n      \"email_known_online_history\"\n    ],\n    \"risk_signals\": [\n      \"email_alias\"\n    ],\n    \"num_account_from_domain\": 156\n  },\n  \"risk_signal_average\": {\n    \"device_risk\": 0.3971,\n    \"proxy\": 0,\n    \"vpn\": 0,\n    \"tor\": 0,\n    \"spoofed_ip\": 0,\n    \"datacenter\": 0,\n    \"recent_fraud_ip\": 0,\n    \"impossible_travel\": 0,\n    \"device_network_mismatch\": 0.0001,\n    \"location_spoofing\": 0\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cc42da1c-2d68-4824-8268-7b0c41cd1c82",
-              "name": "Account not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to retrieve"
+                  "id": "576f75fb-9d04-47a0-b1c4-c921c096e4a2",
+                  "name": "Account information response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"project_id\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"account\": {\n    \"id\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"username\": \"<string>\",\n    \"expected_countries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"metadata\": {\n      \"dolor_5a\": true\n    },\n    \"group\": \"<string>\"\n  },\n  \"num_sessions\": \"<integer>\",\n  \"first_seen\": \"<dateTime>\",\n  \"last_seen\": \"<dateTime>\",\n  \"last_session\": \"<string>\",\n  \"decision\": \"<string>\",\n  \"account_score\": \"<float>\",\n  \"bot\": \"<float>\",\n  \"multiple_accounts\": \"<float>\",\n  \"risk_signals\": \"<float>\",\n  \"accounts_linked\": \"<integer>\",\n  \"country\": \"<string>\",\n  \"lists\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unique_devices\": {\n    \"1_day\": \"<integer>\",\n    \"7_day\": \"<integer>\"\n  },\n  \"unique_networks\": {\n    \"1_day\": \"<integer>\",\n    \"7_day\": \"<integer>\"\n  },\n  \"email\": {\n    \"email\": \"<string>\",\n    \"disposable\": \"<boolean>\",\n    \"personal\": \"<boolean>\",\n    \"valid\": \"<boolean>\",\n    \"domain_type\": \"business\",\n    \"email_score\": \"<float>\",\n    \"trust_signals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"risk_signals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"num_account_from_domain\": \"<integer>\"\n  },\n  \"risk_signal_average\": {\n    \"device_risk\": \"<float>\",\n    \"proxy\": \"<float>\",\n    \"vpn\": \"<float>\",\n    \"datacenter\": \"<float>\",\n    \"tor\": \"<float>\",\n    \"spoofed_ip\": \"<float>\",\n    \"recent_fraud_ip\": \"<float>\",\n    \"impossible_travel\": \"<float>\",\n    \"device_network_mismatch\": \"<float>\",\n    \"location_spoofing\": \"<float>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-576f75fb-9d04-47a0-b1c4-c921c096e4a2"
                 },
+                {
+                  "id": "5b7cbe8b-3ead-44be-80dc-262ff49df77b",
+                  "name": "Account not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-5b7cbe8b-3ead-44be-80dc-262ff49df77b"
+                }
+              ],
+              "createdAt": "2026-10-22T02:04:06.000Z",
+              "updatedAt": "2026-10-22T02:04:06.000Z",
+              "uid": "35240-df0b0388-d6f9-4dce-b830-6f73f1042e74"
+            },
+            {
+              "name": "Replace account by account id",
+              "id": "6eabf5a9-0a10-4815-a39d-ac2f10330ffa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Account not found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5851581b-567e-4a9d-a553-b56b2cce1b5a",
-          "name": "Updates an existing account with new information",
-          "request": {
-            "name": "Updates an existing account with new information",
-            "description": {
-              "content": "Updates an existing account with new information",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "account",
-                ":account_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to update"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"expected_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": 9798.97366077937\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "b34d95ba-fb63-4be2-bbe2-6e52c5a65ed9",
-              "name": "Updated account information",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"expected_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"veniamf2\": true,\n    \"ina\": 84196055\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/account/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "account",
                     ":account_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "dd76d855-68c2-4476-a85b-660306cc64b9",
                       "key": "account_id",
+                      "value": "<string>",
                       "description": "(Required) ID of the account to update"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"expected_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Updates an existing account with new information"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"project_id\": \"00000000-0000-0000-0000-000000000001\",\n  \"request_id\": \"e23cf3bd-7d33-440e-af9f-6d1d3182e2f9\",\n  \"account\": {\n    \"id\": \"john-doe\",\n    \"email\": \"johndoe.example@gmail.com\",\n    \"phone\": \"+14155550123\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"username\": \"john.doe\",\n    \"expected_countries\": [\n      \"US\",\n      \"CA\"\n    ],\n    \"metadata\": {},\n    \"group\": \"\"\n  },\n  \"num_sessions\": 1,\n  \"first_seen\": \"2025-06-10T16:47:29.661079410Z\",\n  \"last_seen\": \"2025-06-10T16:47:29.661079410Z\",\n  \"last_session\": \"56f9a065-1583-48af-a5c4-cd5921b21a12\",\n  \"country\": \"US\",\n  \"countries\": [\n    \"US\"\n  ],\n  \"decision\": \"Real\",\n  \"account_score\": 0.9392,\n  \"bot\": 0,\n  \"multiple_accounts\": 0.2053,\n  \"risk_signals\": 1,\n  \"accounts_linked\": 2,\n  \"lists\": [\n    \"us_users\"\n  ],\n  \"unique_devices\": {\n    \"1_day\": 1,\n    \"7_day\": 1\n  },\n  \"unique_networks\": {\n    \"1_day\": 1,\n    \"7_day\": 1\n  },\n  \"email\": {\n    \"email\": \"johndoe.example@gmail.com\",\n    \"disposable\": false,\n    \"personal\": true,\n    \"valid\": true,\n    \"domain_type\": \"personal\",\n    \"email_score\": 0,\n    \"trust_signals\": [\n      \"email_age_greater_than_5_years\",\n      \"email_known_online_history\"\n    ],\n    \"risk_signals\": [\n      \"email_alias\"\n    ],\n    \"num_account_from_domain\": 156\n  },\n  \"risk_signal_average\": {\n    \"device_risk\": 0.3971,\n    \"proxy\": 0,\n    \"vpn\": 0,\n    \"tor\": 0,\n    \"spoofed_ip\": 0,\n    \"datacenter\": 0,\n    \"recent_fraud_ip\": 0,\n    \"impossible_travel\": 0,\n    \"device_network_mismatch\": 0.0001,\n    \"location_spoofing\": 0\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c363b9e8-0446-4bbc-96f8-bdc65434ffee",
-              "name": "Account not found or invalid request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to update"
+                  "id": "d47a7f6b-454a-43d6-a92d-04e687bf8168",
+                  "name": "Updated account information",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"expected_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"veniamf2\": true,\n    \"ina\": 84196055\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"project_id\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"account\": {\n    \"id\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"username\": \"<string>\",\n    \"expected_countries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"metadata\": {\n      \"dolor_5a\": true\n    },\n    \"group\": \"<string>\"\n  },\n  \"num_sessions\": \"<integer>\",\n  \"first_seen\": \"<dateTime>\",\n  \"last_seen\": \"<dateTime>\",\n  \"last_session\": \"<string>\",\n  \"decision\": \"<string>\",\n  \"account_score\": \"<float>\",\n  \"bot\": \"<float>\",\n  \"multiple_accounts\": \"<float>\",\n  \"risk_signals\": \"<float>\",\n  \"accounts_linked\": \"<integer>\",\n  \"country\": \"<string>\",\n  \"lists\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unique_devices\": {\n    \"1_day\": \"<integer>\",\n    \"7_day\": \"<integer>\"\n  },\n  \"unique_networks\": {\n    \"1_day\": \"<integer>\",\n    \"7_day\": \"<integer>\"\n  },\n  \"email\": {\n    \"email\": \"<string>\",\n    \"disposable\": \"<boolean>\",\n    \"personal\": \"<boolean>\",\n    \"valid\": \"<boolean>\",\n    \"domain_type\": \"business\",\n    \"email_score\": \"<float>\",\n    \"trust_signals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"risk_signals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"num_account_from_domain\": \"<integer>\"\n  },\n  \"risk_signal_average\": {\n    \"device_risk\": \"<float>\",\n    \"proxy\": \"<float>\",\n    \"vpn\": \"<float>\",\n    \"datacenter\": \"<float>\",\n    \"tor\": \"<float>\",\n    \"spoofed_ip\": \"<float>\",\n    \"recent_fraud_ip\": \"<float>\",\n    \"impossible_travel\": \"<float>\",\n    \"device_network_mismatch\": \"<float>\",\n    \"location_spoofing\": \"<float>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-d47a7f6b-454a-43d6-a92d-04e687bf8168"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
+                {
+                  "id": "fb751f18-59ab-40fe-82e4-f677dd0350a6",
+                  "name": "Account not found or invalid request",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"expected_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"veniamf2\": true,\n    \"ina\": 84196055\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
                   },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-fb751f18-59ab-40fe-82e4-f677dd0350a6"
+                }
+              ],
+              "createdAt": "2026-10-22T02:04:06.000Z",
+              "updatedAt": "2026-10-22T02:04:06.000Z",
+              "uid": "35240-6eabf5a9-0a10-4815-a39d-ac2f10330ffa"
+            },
+            {
+              "name": "Delete account by account id",
+              "id": "6b1b275a-53c6-4c50-babf-9a84b6b40105",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"username\": \"<string>\",\n  \"expected_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Account not found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e69e9459-a323-4b42-b615-a230f079c237",
-          "name": "Deletes a specific account",
-          "request": {
-            "name": "Deletes a specific account",
-            "description": {
-              "content": "Deletes a specific account",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "account",
-                ":account_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to delete"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "fbc224bd-a6f8-4506-89f3-ceeeff003176",
-              "name": "Account deletion confirmation",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/account/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "account",
                     ":account_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "b29ca170-30b6-48b4-8922-0907441830b1",
                       "key": "account_id",
+                      "value": "<string>",
                       "description": "(Required) ID of the account to delete"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
+                "description": "Deletes a specific account"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"b733c6eb-d22e-406d-a0aa-2b2cfda2cd44\",\n  \"account_id\": \"john-doe\",\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3110b663-0c3e-4699-9dde-6661390189d9",
-              "name": "Account not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to delete"
+                  "id": "e9f42476-8a58-45b5-811c-90422b54ab9c",
+                  "name": "Account deletion confirmation",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"request_id\": \"<string>\",\n  \"success\": \"<boolean>\",\n  \"account_id\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-e9f42476-8a58-45b5-811c-90422b54ab9c"
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "28a17568-d6ab-47cf-b46c-4c2c087e8ec1",
+                  "name": "Account not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/account/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:04:06.000Z",
+                  "updatedAt": "2026-10-22T02:04:06.000Z",
+                  "uid": "35240-28a17568-d6ab-47cf-b46c-4c2c087e8ec1"
                 }
               ],
-              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Account not found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:04:06.000Z",
+              "updatedAt": "2026-10-22T02:04:06.000Z",
+              "uid": "35240-6b1b275a-53c6-4c50-babf-9a84b6b40105"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b92bb95d-c9b3-4532-9ec8-d33ab63fc4a2",
-          "name": "Returns all sessions associated with a specific account",
-          "request": {
-            "name": "Returns all sessions associated with a specific account",
-            "description": {
-              "content": "Returns all sessions associated with a specific account",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "account",
-                ":account_id",
-                "sessions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to retrieve sessions for"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "109697ae-d547-4a15-bb52-6dbf0e36d42f",
-              "name": "Account sessions response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to retrieve sessions for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"e57b7c0f-34bc-4770-8ec7-71aacc72e5a4\",\n  \"sessions\": [\n    \"56f9a065-1583-48af-a5c4-cd5921b21a12\",\n    \"2ddd11ed-2a46-4e21-9dc2-c2dbe7f7ef69\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ea80e30a-8623-4395-ac3d-bfbe195ee154",
-              "name": "Account not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to retrieve sessions for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Account not found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "813376ad-22fd-4daa-93ec-9386a24cedca",
-          "name": "Returns all accounts linked to a specific account",
-          "request": {
-            "name": "Returns all accounts linked to a specific account",
-            "description": {
-              "content": "Returns all accounts linked to a specific account",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "account",
-                ":account_id",
-                "accounts-linked"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to retrieve linked accounts for"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "85d60d50-ca7a-4dd0-b2f8-94493b76c4fa",
-              "name": "Linked accounts response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id",
-                    "accounts-linked"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to retrieve linked accounts for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"9b3f35c7-a4e6-4762-91db-b026bfe46e9c\",\n  \"accounts_linked\": [\n    {\n      \"account_id\": \"john-doe-1\",\n      \"score\": 0.1085,\n      \"match_type\": [\n        \"network\",\n        \"email\",\n        \"browser\",\n        \"device\",\n        \"phone\",\n        \"username\"\n      ],\n      \"email\": \"john.doe@example.com\",\n      \"phone\": \"+14155550123\",\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"username\": \"jane.doe\",\n      \"expected_countries\": [\n        \"US\",\n        \"CA\"\n      ],\n      \"lists\": [\n        \"us_users\"\n      ],\n      \"metadata\": {}\n    },\n    {\n      \"account_id\": \"john-doe-2\",\n      \"score\": 0.1085,\n      \"match_type\": [\n        \"network\",\n        \"email\",\n        \"browser\",\n        \"phone\",\n        \"username\"\n      ],\n      \"email\": \"john.doe2@example.com\",\n      \"phone\": \"+14155550123\",\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"username\": \"jane.doe\",\n      \"expected_countries\": [\n        \"US\",\n        \"CA\"\n      ],\n      \"lists\": [\n        \"us_users\"\n      ],\n      \"metadata\": {}\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "885848eb-60b9-4dc5-923d-5f04800087c4",
-              "name": "Account not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "account",
-                    ":account_id",
-                    "accounts-linked"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to retrieve linked accounts for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Account not found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "47df09fa-8c49-437d-975d-ee2b051514ab",
+          "createdAt": "2026-10-22T02:04:06.000Z",
+          "updatedAt": "2026-10-22T02:04:06.000Z",
+          "uid": "35240-47df09fa-8c49-437d-975d-ee2b051514ab"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.sandbox.verisoul.ai",
-      "key": "baseUrl"
+      "id": "7866c6b7-0824-4fe5-93b6-d807d5702c3d",
+      "createdAt": "2026-10-22T02:04:06.000Z",
+      "updatedAt": "2026-10-22T02:04:06.000Z",
+      "uid": "35240-7866c6b7-0824-4fe5-93b6-d807d5702c3d"
     }
   ],
   "auth": {
@@ -800,25 +780,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e4908b6c-4a19-4752-b2fc-c2e63e3e1aa7",
-    "name": "Verisoul Account API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Verisoul API is used to integrate Verisoul into your application.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sandbox.verisoul.ai"
     }
-  }
+  ]
 }

@@ -1,180 +1,187 @@
 {
+  "info": {
+    "_postman_id": "ec8bcf8d-05cb-45e7-86c9-4bc6bd229d8a",
+    "name": "Verisoul Public API",
+    "description": "Operations tagged Public across 2 of this provider's published API definitions: verisoul-facematch-openapi.json, verisoul-idcheck-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Verisoul Support\n Email: support@verisoul.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:04:34.000Z",
+    "updatedAt": "2026-10-22T02:04:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ec8bcf8d-05cb-45e7-86c9-4bc6bd229d8a"
+  },
   "item": [
     {
-      "id": "3a3f1678-935c-44a2-b9e2-949959ba01c3",
-      "name": "Public",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "public",
       "item": [
         {
-          "id": "a4cc01bb-32a6-4d7e-bc05-680f95614da6",
-          "name": "Public redirect to Face Match",
-          "request": {
-            "name": "Public redirect to Face Match",
-            "description": {
-              "content": "A public endpoint that redirects to the Face Match verification page.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "public",
-                "liveness-redirect"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "project_id",
-                  "value": "<uuid>",
-                  "description": "(Required) Project ID for the verification"
-                },
-                {
-                  "disabled": false,
-                  "key": "referring_session_id",
-                  "value": "<uuid>",
-                  "description": "ID of a referring session, if applicable"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "liveness-redirect",
+          "item": [
             {
-              "id": "0bd48f06-07a2-42ce-a5af-b416884933ae",
-              "name": "Redirect to verification page",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "public",
-                    "liveness-redirect"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "project_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "referring_session_id",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+              "name": "Public redirect to Face Match",
+              "id": "054c33ba-28d0-4055-a0f4-2bb95549990c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
               },
-              "status": "Found",
-              "code": 302,
-              "header": [
-                {
-                  "disabled": false,
-                  "description": "URL to redirect to",
-                  "key": "Location",
-                  "value": "https://IilxUdMTmTPsLHLInaJGufLiETNCX.twVXg2+zVnpwzVng-VfD1sRpS"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7d6152f2-8504-4e68-b95c-2e589572b725",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "public",
-                    "liveness-redirect"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "project_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "referring_session_id",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/public/liveness-redirect?project_id=<uuid>&referring_session_id=<uuid>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "public",
+                    "liveness-redirect"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Project ID for the verification",
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "ID of a referring session, if applicable",
+                      "key": "referring_session_id",
+                      "value": "<uuid>"
+                    }
+                  ]
+                },
+                "description": "A public endpoint that redirects to the Face Match verification page."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "b6759aa1-3b13-47d8-ae13-439b8d66e3e3",
+                  "name": "Redirect to verification page",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/public/liveness-redirect?project_id=<uuid>&referring_session_id=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "public",
+                        "liveness-redirect"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID for the verification",
+                          "key": "project_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "ID of a referring session, if applicable",
+                          "key": "referring_session_id",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Found",
+                  "code": 302,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL to redirect to",
+                        "type": "text/plain"
+                      },
+                      "key": "Location",
+                      "value": "<uri>"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:04:35.000Z",
+                  "updatedAt": "2026-10-22T02:04:35.000Z",
+                  "uid": "35240-b6759aa1-3b13-47d8-ae13-439b8d66e3e3"
+                },
+                {
+                  "id": "a5adc9d3-b319-4013-9bb5-b856e2c5adae",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/public/liveness-redirect?project_id=<uuid>&referring_session_id=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "public",
+                        "liveness-redirect"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID for the verification",
+                          "key": "project_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "ID of a referring session, if applicable",
+                          "key": "referring_session_id",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"groups_enabled\"\n}",
+                  "createdAt": "2026-10-22T02:04:35.000Z",
+                  "updatedAt": "2026-10-22T02:04:35.000Z",
+                  "uid": "35240-a5adc9d3-b319-4013-9bb5-b856e2c5adae"
                 }
               ],
-              "body": "{\n  \"error\": \"missing_project_id\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:04:35.000Z",
+              "updatedAt": "2026-10-22T02:04:35.000Z",
+              "uid": "35240-054c33ba-28d0-4055-a0f4-2bb95549990c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7e1a3967-6669-4628-8eee-f51fe2004a40",
+          "createdAt": "2026-10-22T02:04:35.000Z",
+          "updatedAt": "2026-10-22T02:04:35.000Z",
+          "uid": "35240-7e1a3967-6669-4628-8eee-f51fe2004a40"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.sandbox.verisoul.ai",
-      "key": "baseUrl"
+      "id": "6b52b0a0-404b-4d89-9802-996742246377",
+      "createdAt": "2026-10-22T02:04:35.000Z",
+      "updatedAt": "2026-10-22T02:04:35.000Z",
+      "uid": "35240-6b52b0a0-404b-4d89-9802-996742246377"
     }
   ],
   "auth": {
@@ -182,25 +189,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "d3f935de-4536-441e-800d-e02fb207637b",
-    "name": "Verisoul Account Public API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Verisoul API is used to integrate Verisoul into your application.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sandbox.verisoul.ai"
     }
-  }
+  ]
 }

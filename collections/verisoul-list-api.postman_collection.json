@@ -1,967 +1,923 @@
 {
+  "info": {
+    "_postman_id": "ec598bd8-dde2-40b0-b608-5003d9f6f32f",
+    "name": "Verisoul List API",
+    "description": "The Verisoul API is used to integrate Verisoul into your application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:04:22.000Z",
+    "updatedAt": "2026-10-22T02:04:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ec598bd8-dde2-40b0-b608-5003d9f6f32f"
+  },
   "item": [
     {
-      "id": "08ff7438-d272-4747-9b6e-efc60903b90f",
-      "name": "List",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "list",
       "item": [
         {
-          "id": "a8d08902-8e75-47f2-85b6-4d083bad5336",
-          "name": "Returns all available lists",
-          "request": {
-            "name": "Returns all available lists",
-            "description": {
-              "content": "Returns all available lists",
-              "type": "text/plain"
+          "name": "{list_name}",
+          "item": [
+            {
+              "name": "account",
+              "item": [
+                {
+                  "name": "{account_id}",
+                  "item": [
+                    {
+                      "name": "Create list by list name account by account id",
+                      "id": "a427cb20-0378-47f7-816c-956b6a5b7216",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/list/:list_name/account/:account_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "list",
+                            ":list_name",
+                            "account",
+                            ":account_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "712225d2-4199-43bc-bc84-9c511abd8021",
+                              "key": "list_name",
+                              "value": "<string>",
+                              "description": "(Required) Name of the list to add the account to"
+                            },
+                            {
+                              "id": "40227255-b834-496b-b2ee-d7ab5f8d07f7",
+                              "key": "account_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the account to add to the list"
+                            }
+                          ]
+                        },
+                        "description": "Adds an account to a specific list"
+                      },
+                      "response": [
+                        {
+                          "id": "f3c86add-5530-4c77-9da2-a34e4012d57f",
+                          "name": "Account added to list response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/list/:list_name/account/:account_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "list",
+                                ":list_name",
+                                "account",
+                                ":account_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "list_name"
+                                },
+                                {
+                                  "key": "account_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"request_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-22T02:04:23.000Z",
+                          "updatedAt": "2026-10-22T02:04:23.000Z",
+                          "uid": "35240-f3c86add-5530-4c77-9da2-a34e4012d57f"
+                        },
+                        {
+                          "id": "bcb4dbf2-8ff3-46a8-8625-4d058dbf30ae",
+                          "name": "Account or list not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/list/:list_name/account/:account_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "list",
+                                ":list_name",
+                                "account",
+                                ":account_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "list_name"
+                                },
+                                {
+                                  "key": "account_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-22T02:04:23.000Z",
+                          "updatedAt": "2026-10-22T02:04:23.000Z",
+                          "uid": "35240-bcb4dbf2-8ff3-46a8-8625-4d058dbf30ae"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:04:22.000Z",
+                      "updatedAt": "2026-10-22T02:04:22.000Z",
+                      "uid": "35240-a427cb20-0378-47f7-816c-956b6a5b7216"
+                    },
+                    {
+                      "name": "Delete list by list name account by account id",
+                      "id": "ed34514b-7039-4d3b-ad3f-494bb6df76c9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/list/:list_name/account/:account_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "list",
+                            ":list_name",
+                            "account",
+                            ":account_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7c0412d1-6518-4c6e-96bf-9d9e7e5b7a0b",
+                              "key": "list_name",
+                              "value": "<string>",
+                              "description": "(Required) Name of the list to remove the account from"
+                            },
+                            {
+                              "id": "180be81b-1d7d-4e6f-9ff0-773ded0bc051",
+                              "key": "account_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the account to remove from the list"
+                            }
+                          ]
+                        },
+                        "description": "Removes an account from a specific list"
+                      },
+                      "response": [
+                        {
+                          "id": "ed67a391-f728-44c6-af28-5a43c9306426",
+                          "name": "Account removed from list response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/list/:list_name/account/:account_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "list",
+                                ":list_name",
+                                "account",
+                                ":account_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "list_name"
+                                },
+                                {
+                                  "key": "account_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"request_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-22T02:04:23.000Z",
+                          "updatedAt": "2026-10-22T02:04:23.000Z",
+                          "uid": "35240-ed67a391-f728-44c6-af28-5a43c9306426"
+                        },
+                        {
+                          "id": "a4f8d31b-b4e7-46c4-b8d8-ce73d3ce045b",
+                          "name": "Account or list not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/list/:list_name/account/:account_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "list",
+                                ":list_name",
+                                "account",
+                                ":account_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "list_name"
+                                },
+                                {
+                                  "key": "account_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-22T02:04:23.000Z",
+                          "updatedAt": "2026-10-22T02:04:23.000Z",
+                          "uid": "35240-a4f8d31b-b4e7-46c4-b8d8-ce73d3ce045b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:04:22.000Z",
+                      "updatedAt": "2026-10-22T02:04:22.000Z",
+                      "uid": "35240-ed34514b-7039-4d3b-ad3f-494bb6df76c9"
+                    }
+                  ],
+                  "id": "2a69ae57-b17b-46f7-97ff-ef1354356744",
+                  "createdAt": "2026-10-22T02:04:22.000Z",
+                  "updatedAt": "2026-10-22T02:04:22.000Z",
+                  "uid": "35240-2a69ae57-b17b-46f7-97ff-ef1354356744"
+                }
+              ],
+              "id": "a7e90009-65a6-47fe-ba71-3f4f9b286993",
+              "createdAt": "2026-10-22T02:04:22.000Z",
+              "updatedAt": "2026-10-22T02:04:22.000Z",
+              "uid": "35240-a7e90009-65a6-47fe-ba71-3f4f9b286993"
             },
+            {
+              "name": "Get list by list name",
+              "id": "1d211ac7-b769-4f27-9fe4-6879e2d9486b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/list/:list_name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list",
+                    ":list_name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "dc1cdcdf-f1c0-4836-b0b0-fc0c469b59a2",
+                      "key": "list_name",
+                      "value": "<string>",
+                      "description": "(Required) Name of the list to retrieve accounts from"
+                    }
+                  ]
+                },
+                "description": "Returns all accounts in a specific list"
+              },
+              "response": [
+                {
+                  "id": "e375aa4c-1b92-406f-b1a5-86c715aa41af",
+                  "name": "List accounts response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/list/:list_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "list",
+                        ":list_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "list_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"request_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"accounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-22T02:04:23.000Z",
+                  "updatedAt": "2026-10-22T02:04:23.000Z",
+                  "uid": "35240-e375aa4c-1b92-406f-b1a5-86c715aa41af"
+                },
+                {
+                  "id": "863a7098-046a-4721-831c-a29c9bb99192",
+                  "name": "List not found or invalid request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/list/:list_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "list",
+                        ":list_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "list_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:04:23.000Z",
+                  "updatedAt": "2026-10-22T02:04:23.000Z",
+                  "uid": "35240-863a7098-046a-4721-831c-a29c9bb99192"
+                }
+              ],
+              "createdAt": "2026-10-22T02:04:22.000Z",
+              "updatedAt": "2026-10-22T02:04:22.000Z",
+              "uid": "35240-1d211ac7-b769-4f27-9fe4-6879e2d9486b"
+            },
+            {
+              "name": "Create list by list name",
+              "id": "a6cc29d8-1b12-44d5-88c6-3d104890c595",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/list/:list_name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list",
+                    ":list_name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5b530dfd-962c-4d59-abd7-5e42150c45ab",
+                      "key": "list_name",
+                      "value": "<string>",
+                      "description": "(Required) Name of the list to create"
+                    }
+                  ]
+                },
+                "description": "Creates a new list with the specified name"
+              },
+              "response": [
+                {
+                  "id": "a192e7c0-3fea-49b7-9298-cba7de9e2fcb",
+                  "name": "List creation response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"list_description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/list/:list_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "list",
+                        ":list_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "list_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"request_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-22T02:04:23.000Z",
+                  "updatedAt": "2026-10-22T02:04:23.000Z",
+                  "uid": "35240-a192e7c0-3fea-49b7-9298-cba7de9e2fcb"
+                },
+                {
+                  "id": "dd0e76c0-0f94-4035-8a54-08d918a28cfb",
+                  "name": "List already exists or invalid request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"list_description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/list/:list_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "list",
+                        ":list_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "list_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:04:23.000Z",
+                  "updatedAt": "2026-10-22T02:04:23.000Z",
+                  "uid": "35240-dd0e76c0-0f94-4035-8a54-08d918a28cfb"
+                }
+              ],
+              "createdAt": "2026-10-22T02:04:22.000Z",
+              "updatedAt": "2026-10-22T02:04:22.000Z",
+              "uid": "35240-a6cc29d8-1b12-44d5-88c6-3d104890c595"
+            },
+            {
+              "name": "Delete list by list name",
+              "id": "9acbce9f-2f1f-41e5-a212-d898c3579586",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/list/:list_name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list",
+                    ":list_name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7029b226-90ef-4297-8f86-02dd632a2231",
+                      "key": "list_name",
+                      "value": "<string>",
+                      "description": "(Required) Name of the list to delete"
+                    }
+                  ]
+                },
+                "description": "Deletes a list with the specified name"
+              },
+              "response": [
+                {
+                  "id": "19d578af-6ec4-49ee-8061-4fd1e87f44cc",
+                  "name": "List deletion response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/list/:list_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "list",
+                        ":list_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "list_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"request_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-22T02:04:23.000Z",
+                  "updatedAt": "2026-10-22T02:04:23.000Z",
+                  "uid": "35240-19d578af-6ec4-49ee-8061-4fd1e87f44cc"
+                },
+                {
+                  "id": "f1fa8092-f27c-4b45-aa3b-c7681c4718a2",
+                  "name": "List not found or invalid request",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/list/:list_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "list",
+                        ":list_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "list_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:04:23.000Z",
+                  "updatedAt": "2026-10-22T02:04:23.000Z",
+                  "uid": "35240-f1fa8092-f27c-4b45-aa3b-c7681c4718a2"
+                }
+              ],
+              "createdAt": "2026-10-22T02:04:22.000Z",
+              "updatedAt": "2026-10-22T02:04:22.000Z",
+              "uid": "35240-9acbce9f-2f1f-41e5-a212-d898c3579586"
+            }
+          ],
+          "id": "d8c979ec-a634-44a0-9c62-822589db4d99",
+          "createdAt": "2026-10-22T02:04:22.000Z",
+          "updatedAt": "2026-10-22T02:04:22.000Z",
+          "uid": "35240-d8c979ec-a634-44a0-9c62-822589db4d99"
+        },
+        {
+          "name": "Get list",
+          "id": "3fbb5986-03aa-48a3-b9a0-c0befbb3dc6f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/list",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "list"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Returns all available lists"
           },
           "response": [
             {
-              "id": "5110e2e4-cd3e-4dfd-a63b-40dc3b4041a6",
+              "id": "731f762f-61e9-450d-b59e-30e3127b5d49",
               "name": "Lists response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"request_id\": \"abb42d71-f4d4-440f-b1c7-a250ec0eddd7\",\n  \"lists\": [\n    {\n      \"name\": \"allow\",\n      \"description\": \"Marks every account in the list as Real.\"\n    },\n    {\n      \"name\": \"block\",\n      \"description\": \"Marks every account in the list as Fake.\"\n    },\n    {\n      \"name\": \"main_account\",\n      \"description\": \"Sets the multiple_accounts score to 0 for every account in the list.\"\n    },\n    {\n      \"name\": \"us_users\",\n      \"description\": \"List of US based users\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"request_id\": \"<string>\",\n  \"lists\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:04:23.000Z",
+              "updatedAt": "2026-10-22T02:04:23.000Z",
+              "uid": "35240-731f762f-61e9-450d-b59e-30e3127b5d49"
             },
             {
-              "id": "994817bb-94bd-4222-bd11-27779726fe5d",
+              "id": "ba22ec68-28b5-4f81-91a4-e9f8de1a17e0",
               "name": "Unexpected error",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "list"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": 2859,\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f5215124-61ca-4067-955f-8ebfe9421de8",
-          "name": "Returns all accounts in a specific list",
-          "request": {
-            "name": "Returns all accounts in a specific list",
-            "description": {
-              "content": "Returns all accounts in a specific list",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "list",
-                ":list_name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "list_name",
-                  "description": "(Required) Name of the list to retrieve accounts from"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "462af7f8-6f60-4d36-8af9-69770612f537",
-              "name": "List accounts response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to retrieve accounts from"
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"bb152ba5-8311-4192-846f-1670a581becb\",\n  \"description\": \"List of US based users\",\n  \"accounts\": [\n    \"john-doe\",\n    \"john-doe-2\",\n    \"amy-williams\",\n    \"frank-smith\",\n    \"mark-johnson\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "636b87c9-4efe-44a3-ae6c-53938e1b5cf1",
-              "name": "List not found or invalid request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to retrieve accounts from"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"List not found\",\n  \"statusCode\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "85d62ed2-43ea-42c7-b0d1-cfc501e4a43f",
-          "name": "Creates a new list with the specified name",
-          "request": {
-            "name": "Creates a new list with the specified name",
-            "description": {
-              "content": "Creates a new list with the specified name",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "list",
-                ":list_name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "list_name",
-                  "description": "(Required) Name of the list to create"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"list_description\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "e6a35972-ca92-4620-833b-1293fd314781",
-              "name": "List creation response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to create"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"list_description\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"83310a37-aec5-4aa5-8e1b-edf4916128ae\",\n  \"message\": \"List us_users created\",\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a2345aa6-1b47-453b-ba78-00508d037a82",
-              "name": "List already exists or invalid request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to create"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"list_description\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"List already exists.\",\n  \"statusCode\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:04:23.000Z",
+              "updatedAt": "2026-10-22T02:04:23.000Z",
+              "uid": "35240-ba22ec68-28b5-4f81-91a4-e9f8de1a17e0"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "efb8a94c-d462-48c9-95d5-48efb9e05152",
-          "name": "Deletes a list with the specified name",
-          "request": {
-            "name": "Deletes a list with the specified name",
-            "description": {
-              "content": "Deletes a list with the specified name",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "list",
-                ":list_name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "list_name",
-                  "description": "(Required) Name of the list to delete"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8b4a54e2-db3b-4a26-b19d-efaaa39ab962",
-              "name": "List deletion response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to delete"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"2346a2b9-7954-480a-9966-612246e05a20\",\n  \"message\": \"List us_users deleted\",\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7de0f0c5-9d98-4e39-bc49-c37e5c824bce",
-              "name": "List not found or invalid request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to delete"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"List not found.\",\n  \"statusCode\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "26f550aa-77c4-4006-ad9c-2d17d555e160",
-          "name": "Adds an account to a specific list",
-          "request": {
-            "name": "Adds an account to a specific list",
-            "description": {
-              "content": "Adds an account to a specific list",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "list",
-                ":list_name",
-                "account",
-                ":account_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "list_name",
-                  "description": "(Required) Name of the list to add the account to"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to add to the list"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "efbec7e1-0e04-4695-9b6c-69acc49e873c",
-              "name": "Account added to list response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name",
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to add the account to"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to add to the list"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"d4b6b99f-f2ad-458e-bfc4-7b4c81e3ac36\",\n  \"message\": \"Account added to us_users\",\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "367a11d0-ddd9-42c8-acfd-80bb071cfad2",
-              "name": "Account or list not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name",
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to add the account to"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to add to the list"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Account not found.\",\n  \"statusCode\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5827081d-9855-47b6-b2a2-4b11832d485e",
-          "name": "Removes an account from a specific list",
-          "request": {
-            "name": "Removes an account from a specific list",
-            "description": {
-              "content": "Removes an account from a specific list",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "list",
-                ":list_name",
-                "account",
-                ":account_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "list_name",
-                  "description": "(Required) Name of the list to remove the account from"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "account_id",
-                  "description": "(Required) ID of the account to remove from the list"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "01711819-13bf-4735-87dc-061589be659f",
-              "name": "Account removed from list response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name",
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to remove the account from"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to remove from the list"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"request_id\": \"2346a2b9-7954-480a-9966-612246e05a20\",\n  \"message\": \"Account removed from us_users\",\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b413ead5-4ec2-43d5-8f90-0d41f9407130",
-              "name": "Account or list not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "list",
-                    ":list_name",
-                    "account",
-                    ":account_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "list_name",
-                      "description": "(Required) Name of the list to remove the account from"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "account_id",
-                      "description": "(Required) ID of the account to remove from the list"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Account not found.\",\n  \"statusCode\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:04:22.000Z",
+          "updatedAt": "2026-10-22T02:04:22.000Z",
+          "uid": "35240-3fbb5986-03aa-48a3-b9a0-c0befbb3dc6f"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.sandbox.verisoul.ai",
-      "key": "baseUrl"
+      "id": "201e6a57-94c0-4371-9fa7-caffed2bc8b6",
+      "createdAt": "2026-10-22T02:04:22.000Z",
+      "updatedAt": "2026-10-22T02:04:22.000Z",
+      "uid": "35240-201e6a57-94c0-4371-9fa7-caffed2bc8b6"
     }
   ],
   "auth": {
@@ -969,25 +925,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-key"
+        "value": "x-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "dc9344af-88ec-4f7d-bffa-aa237c2ddc5b",
-    "name": "Verisoul Account List API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Verisoul API is used to integrate Verisoul into your application.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sandbox.verisoul.ai"
     }
-  }
+  ]
 }
